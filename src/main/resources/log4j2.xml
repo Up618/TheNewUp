@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.opensymphony.xwork2" level="info" />
+		<Logger name="org.apache.struts2" level="debug" />
+		<Logger name="org.up" level="debug" />
+		<Logger name="org.hibernate" level="debug" />
+		<Logger name="org.hibernate.SQL" level="debug" />
+		<Root level="warn">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>
