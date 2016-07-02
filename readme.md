@@ -5,5 +5,16 @@
 
 ## 配置文件
 * src/main/resources/jdbc.properties是配置jdbc连接的文件，请根据你的实际情况修改
-* src/main/webapp/WEB-INF/applicationContext.xml是spring的配置文件，请仔细阅读并根据你的需要修改
+* src/main/webapp/WEB-INF/applicationContext.xml是spring的配置文件，请修改以下内容
+```xml
+    <property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQLDialect
+				hibernate.hbm2ddl.auto=create-drop
+				hibernate.show_sql=true
+				hibernate.hbm2ddl.import_files=import.sql
+			</value>
+		</property>
+```
+将``hibernate.hbm2ddl.auto``的值改成create-drop（创建删除）或者update（更新）
 * src/main/resouces/import.sql是默认导入的sql脚本，你可以在里面添加测试数据
