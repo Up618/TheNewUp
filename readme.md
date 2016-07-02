@@ -5,6 +5,12 @@
 
 ## 配置文件
 * src/main/resources/jdbc.properties是配置jdbc连接的文件，请根据你的实际情况修改
+```
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost/up2
+jdbc.username=root
+jdbc.password=root
+```
 * src/main/webapp/WEB-INF/applicationContext.xml是spring的配置文件，请修改以下内容
 ```xml
     <property name="hibernateProperties">
