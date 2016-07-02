@@ -34,9 +34,8 @@ public class User {
 	private Boolean phoneNumberConfirm = false;
 	private Boolean emailConfirm = false;
 	private Boolean isPublic = true;
-	@Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+	@Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT NOW()")
 	private Timestamp createTime;
-	@Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp lastLogin;
 	@OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Follow> followings;
