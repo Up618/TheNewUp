@@ -21,6 +21,8 @@
 	<security:http>
 	    <security:intercept-url pattern="/login*"
 			access="permitAll" />
+	    <security:intercept-url pattern="/register*"
+			access="permitAll" />
 	    <security:intercept-url pattern="/**"
 			access="hasRole('USER')" />
 		<security:form-login login-page='/login'/>
