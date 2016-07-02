@@ -62,12 +62,31 @@
             		<li><a href="#">Separated link</a></li>
           		</ul>
         	</li>
-        	<li><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
+        	<li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
       	  </ul>
         </div>
       </div>
     </nav>
     <#nested>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  		<div class="modal-dialog modal-lg">
+    	<div class="modal-content">
+    		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title">Up a new Up!</h4>
+      		</div>
+      		<div class="modal-body">
+        		<form>
+        			<textarea class="form-control" rows="20" style="resize:none;"></textarea>
+        		</form>
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        		<button type="button" class="btn btn-primary">UP!</button>
+      		</div>
+    	</div>
+  		</div>
+	</div>
     <footer style="height:60px;position:absolute;bottom:0;width:100%;background-color:#2a2730">
       <div class="container" style="padding-right:15px;padding-left:15px;margin-top:10px">
         <p style="color:Ivory;text-align:center">Copyright &copy; 2016.UP All rights reserved.</p>
