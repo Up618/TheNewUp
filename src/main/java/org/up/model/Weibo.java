@@ -28,7 +28,7 @@ public class Weibo {
 	@OneToMany(mappedBy = "weibo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments;
 	@OneToMany(mappedBy = "weibo", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Like> likes;
+	private List<Agree> agrees;
 
 	public Long getId() {
 		return id;
@@ -78,11 +78,11 @@ public class Weibo {
 		this.comments = comments;
 	}
 
-	public List<Like> getLikes() {
-		return likes;
+	public List<Agree> getAgrees() {
+		return agrees;
 	}
 
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
+	public void setLikes(List<Agree> agrees) {
+		this.agrees = agrees;
 	}
 }

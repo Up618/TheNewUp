@@ -51,7 +51,7 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Like> likes;
+	private List<Agree> agrees;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CommentLike> commentLikes;
 
@@ -215,12 +215,12 @@ public class User {
 		this.comments = comments;
 	}
 
-	public List<Like> getLikes() {
-		return likes;
+	public List<Agree> getagrees() {
+		return agrees;
 	}
 
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
+	public void setagrees(List<Agree> agrees) {
+		this.agrees = agrees;
 	}
 
 	public List<CommentLike> getCommentLikes() {
