@@ -9,8 +9,8 @@ import org.up.role.service.IRoleService;
 import org.up.user.service.IUserService;
 import com.opensymphony.xwork2.ActionSupport;
 
-@Results({ @Result(name = "success", type = "redirectAction", location = "Index"),
-		@Result(name = "input", type = "redirectAction", location = "Login") })
+@Results({ @Result(name = "success", type = "redirectAction", location = "index"),
+		@Result(name = "input", type = "redirectAction", location = "login") })
 public class RegisterAction extends ActionSupport {
 
 	/**
@@ -37,12 +37,11 @@ public class RegisterAction extends ActionSupport {
 		user.setRole(role);
 		user.setUsername(username);
 		user.setPasswordHash(password);
-		userService.addUser(user);
-		// try {
-		// userService.addUser(user);
-		// } catch (Exception e) {
-		// return INPUT;
-		// }
+		try {
+			userService.addUser(user);
+		} catch (Exception e) {
+			return INPUT;
+		}
 		return SUCCESS;
 	}
 
@@ -85,5 +84,12 @@ public class RegisterAction extends ActionSupport {
 	public void set_csrf(String _csrf) {
 		this._csrf = _csrf;
 	}
+//
+//	@Override
+//	public void validate() {
+//		if (password != passwordAgain) {
+//			addFieldError("password", "The two passwords are not the same!");
+//		}
+//	}
 
 }

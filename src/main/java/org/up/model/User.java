@@ -29,13 +29,13 @@ public class User {
 	@Column(unique = true, nullable = false, length = 20)
 	private String nickname;
 	@Column(columnDefinition = "VARCHAR(255) NOT NULL DEFAULT \'http://o8m79d0cw.bkt.clouddn.com/my-java.jpg\'")
-	private String avatar;
+	private String avatar = "http://o8m79d0cw.bkt.clouddn.com/my-java.jpg";
 	private Boolean gender; // Female if true
 	private Boolean phoneNumberConfirm = false;
 	private Boolean emailConfirm = false;
 	private Boolean isPublic = true;
 	@Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT NOW()")
-	private Timestamp createTime;
+	private Timestamp createTime = new Timestamp(System.currentTimeMillis());
 	private Timestamp lastLogin;
 	@OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Follow> followings;
