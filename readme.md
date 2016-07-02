@@ -6,3 +6,4 @@
 ## 配置文件
 * src/main/resources/jdbc.properties是配置jdbc连接的文件，请根据你的实际情况修改
 * src/main/webapp/WEB-INF/applicationContext.xml是spring的配置文件，请仔细阅读并根据你的需要修改
+* src/main/resouces/import.sql是默认导入的sql脚本，你可以在里面添加测试数据
