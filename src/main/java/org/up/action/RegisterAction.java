@@ -3,10 +3,10 @@ package org.up.action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.up.model.Role;
 import org.up.model.User;
 import org.up.role.service.IRoleService;
 import org.up.user.service.IUserService;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 @Results({ @Result(name = "success", type = "redirectAction", location = "Index"),
@@ -21,25 +21,28 @@ public class RegisterAction extends ActionSupport {
 	private String password;
 	private String passwordAgain;
 	private String nickname;
+	private String _csrf;
 
 	@Autowired
-	IUserService userService;
+	private IUserService userService;
 
 	@Autowired
-	IRoleService roleService;
+	private IRoleService roleService;
 
 	@Override
 	public String execute() throws Exception {
 		User user = new User();
 		user.setNickname(nickname);
-		user.setRole(roleService.loadRoleById((long) 1));
+		Role role = roleService.loadRoleByName("ROLE_USER");
+		user.setRole(role);
 		user.setUsername(username);
 		user.setPasswordHash(password);
-		try {
-			userService.addUser(user);
-		} catch (Exception e) {
-			return INPUT;
-		}
+		userService.addUser(user);
+		// try {
+		// userService.addUser(user);
+		// } catch (Exception e) {
+		// return INPUT;
+		// }
 		return SUCCESS;
 	}
 
@@ -75,11 +78,12 @@ public class RegisterAction extends ActionSupport {
 		this.nickname = nickname;
 	}
 
-	@Override
-	public void validate() {
-		if (password != passwordAgain) {
-			addFieldError("passwordAgain", "The two passwords are not the same.");
-		}
+	public String get_csrf() {
+		return _csrf;
+	}
+
+	public void set_csrf(String _csrf) {
+		this._csrf = _csrf;
 	}
 
 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.up.dao.IBaseDao;
 import org.up.model.User;
 
-@Service("myUserDetailsService")
+@Service
 public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired

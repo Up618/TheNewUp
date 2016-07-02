@@ -10,7 +10,8 @@ import org.up.dao.IBaseDao;
 import org.up.model.User;
 import org.up.user.service.IUserService;
 
-@Service("userService")
+
+@Service
 @Transactional
 public class UserService implements IUserService {
 	@Autowired

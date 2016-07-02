@@ -10,7 +10,7 @@ import org.up.dao.IBaseDao;
 import org.up.model.Role;
 import org.up.role.service.IRoleService;
 
-@Service("roleService")
+@Service
 @Transactional
 public class RoleService implements IRoleService {
 	@Autowired
