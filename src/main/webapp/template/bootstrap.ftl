@@ -38,10 +38,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index">UP</a>
+          <a class="navbar-brand" href="<@s.url namespace="/" action="index" />">UP</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <form id="search" class="navbar-form navbar-left" role="search" action="./search/user">
+          <form id="search" class="navbar-form navbar-left" role="search" action="<@s.url namespace="/search" action="user" />">
         	<div class="form-group">
           		<input type="text" class="form-control" placeholder="Search" name="keyword">
         	</div>
@@ -75,7 +75,7 @@
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         		<h4 class="modal-title">Up a new Up!</h4>
       		</div>
-      		<form action="../weibo/new" method="POST">
+      		<form action="<@s.url namespace="/weibo" action="new" />" method="POST">
       			<div class="modal-body">
         			<textarea name="content" class="form-control" rows="20" style="resize:none;" required></textarea>
         		</div>
@@ -128,7 +128,7 @@
   <div class="panel-heading">
     <div class="media">
   		<div class="media-left">
-    		<a href="../user/${weibo.getUser().getId()}">
+    		<a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
       			<img class="media-object" src="${weibo.getUser().getAvatar()}" alt="头像" height="64" width="64">
     		</a>
   		</div>
@@ -156,9 +156,21 @@
 </#macro>
 
 <#macro user_card user>
-<li class="list-group-item">
-	
-</li>
+<div class="list-group-item">
+	<div class="col-md-2 col-sm-2 col-xs-2">
+		<a href="<@s.url namespace="/user" action="${user.getId()}" />" class="thumbnail">
+      		<img src="${user.getAvatar()}" alt="头像">
+    	</a>
+	</div>
+	<div class="col-md-8 col-sm-8 col-xs-8">
+		<h3>${user.getNickname()}</h3>
+		<p>关注数 粉丝数 微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
+		<p>${user.getSignature()!" "}</p>
+	</div>
+	<div class="col-md-2 col-sm-2 col-xs-2">
+		<button>关注</button>
+	</div>
+</div>
 </#macro>
 
 <#macro user_card_lg user>

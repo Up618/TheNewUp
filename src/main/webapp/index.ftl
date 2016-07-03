@@ -5,9 +5,9 @@
 <div class="container" style="padding-top:60px">
 	<div class="col-lg-3 col-md-3 col-sm-3">
 		<div class="thumbnail">
-			<a href="./user/${user.getId()}"><img src="${user.getAvatar()}" alt="头像"></a>
+			<a href="<@s.url namespace="/user" action="${user.getId()}" />"><img src="${user.getAvatar()}" alt="头像"></a>
       		<div class="caption">
-      			<a href="./user/${user.getId()}">
+      			<a href="<@s.url namespace="/user" action="${user.getId()}" />">
       				<li class="list-group-item">
     					<span class="badge">${user.getWeiboAmount()}</span>
     					Weibos

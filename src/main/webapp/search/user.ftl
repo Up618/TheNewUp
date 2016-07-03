@@ -12,6 +12,7 @@
 		<div class="col-sm-9 col-md-9 col-lg-9">
 			<div class="list-group">
 				<#list users as user>
+					<@bootstrap.user_card user=user/>
 				</#list>
 			</div>
 		</div>
