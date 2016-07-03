@@ -18,7 +18,7 @@ public class Weibo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp time;
+	private Timestamp time = new Timestamp(System.currentTimeMillis());
 	@Column(nullable = false)
 	private String content;
 	@ManyToOne

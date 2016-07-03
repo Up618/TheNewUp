@@ -41,4 +41,14 @@ public class UserService implements IUserService {
 		return userDao.get("from User where nickname = ?", params);
 	}
 
+	@Override
+	public User loadUserById(Long id) {
+		return userDao.get(User.class, id);
+	}
+
+	@Override
+	public List<User> searchUserByNickname(String nickname) {
+		return userDao.find("from User where nickname like \'%"+nickname+"%\'");
+	}
+
 }
