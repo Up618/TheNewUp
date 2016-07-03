@@ -10,7 +10,7 @@
   			<li role="presentation" class="active"><a href="javascript:showIn()">Sign in</a></li>
   			<li role="presentation"><a href="javascript:showUp()">Sign up</a></li>
 		</ul>
-		<form id="in" action="<@s.url namespace="/" action="login" />" method="post">
+		<form id="in" action="./login" method="post">
     		<label class="sr-only" for="Username">Username</label>
     		<input type="text" class="form-control" name="username" placeholder="Username" required>
     		<label class="sr-only" for="Password">Password</label>
