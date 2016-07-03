@@ -75,15 +75,16 @@
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         		<h4 class="modal-title">Up a new Up!</h4>
       		</div>
-      		<div class="modal-body">
-        		<form>
-        			<textarea class="form-control" rows="20" style="resize:none;"></textarea>
-        		</form>
-      		</div>
-      		<div class="modal-footer">
-        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        		<button type="button" class="btn btn-primary">UP!</button>
-      		</div>
+      		<form action="./weibo/new" method="POST">
+      			<div class="modal-body">
+        			<textarea name="content" class="form-control" rows="20" style="resize:none;" required></textarea>
+        		</div>
+      			<div class="modal-footer">
+        			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        			<button type="submit" class="btn btn-primary">UP!</button>
+      			</div>
+      			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+      		</form>
     	</div>
   		</div>
 	</div>
