@@ -75,7 +75,7 @@
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         		<h4 class="modal-title">Up a new Up!</h4>
       		</div>
-      		<form action="./weibo/new" method="POST">
+      		<form action="../weibo/new" method="POST">
       			<div class="modal-body">
         			<textarea name="content" class="form-control" rows="20" style="resize:none;" required></textarea>
         		</div>
@@ -128,28 +128,28 @@
   <div class="panel-heading">
     <div class="media">
   		<div class="media-left">
-    		<a href="#">
-      		<img class="media-object" src="${weibo.getUser().getAvatar()}" alt="头像">
+    		<a href="../user/${weibo.getUser().getId()}">
+      			<img class="media-object" src="${weibo.getUser().getAvatar()}" alt="头像" height="64" width="64">
     		</a>
   		</div>
   		<div class="media-body">
-    		<h4 class="media-heading">${weibo.getUser().getNickname()}</h4>
-    		${weibo.getUser().getTime()}
+    		<h3 class="media-heading">${weibo.getUser().getNickname()}</h3>
+    		<p>${weibo.getTime()}</p>
   		</div>
 	</div>
   </div>
   <div class="panel-body">
-    ${weibo.getContent()}
+    <#nested>
   </div>
   <div class="panel-footer">
   	<div class="col-md-4">
-  	转发
+  		<p>转发</p>
   	</div>
   	<div class="col-md-4">
-  	评论
+  		<p>评论</p>
   	</div>
   	<div class="col-md-4">
-  	点赞
+  		<p>点赞</p>
   	</div>
   </div>
 </div>
@@ -162,4 +162,12 @@
 </#macro>
 
 <#macro user_card_lg user>
+<div class="jumbotron" style="text-align:center;">
+	<div class="thumbnail">
+      	<img src="${user.getAvatar()}" alt="头像" height="80" width="80">
+    </div>
+    <h4>${user.getNickname()}</h4>
+    <p>${user.getSignature()!" "}</p>
+    <button>关注</button>
+</div>
 </#macro>

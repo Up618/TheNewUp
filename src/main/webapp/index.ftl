@@ -5,19 +5,21 @@
 <div class="container" style="padding-top:60px">
 	<div class="col-lg-3 col-md-3 col-sm-3">
 		<div class="thumbnail">
-			<img src="http://o8m79d0cw.bkt.clouddn.com/my-java.jpg" alt="头像">
+			<a href="./user/${user.getId()}"><img src="${user.getAvatar()}" alt="头像"></a>
       		<div class="caption">
-      			<li class="list-group-item">
+      			<a href="./user/${user.getId()}">
+      				<li class="list-group-item">
+    					<span class="badge">${weiboAmount}</span>
+    					Weibos
+    				</li>
+    			</a>
+  				<li class="list-group-item">
     				<span class="badge">14</span>
-    				Cras justo odio
+    				Following
   				</li>
   				<li class="list-group-item">
     				<span class="badge">14</span>
-    				Cras justo odio
-  				</li>
-  				<li class="list-group-item">
-    				<span class="badge">14</span>
-    				Cras justo odio
+    				Followers
   				</li>
       		</div>
 		</div>

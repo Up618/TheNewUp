@@ -28,11 +28,15 @@ jdbc.password=root
 
 
 ## 已完成部分
-登陆和注册
-发简单文本微博
+* 登陆和注册  
+* 发简单文本微博
+* 查看自己的微博
 
 ## 未完成部分
+* 个人主页部分的前端待完善
+* 没有点赞和评论的前端
+* 日志
 
 ## License
-The MIT License (MIT)
+The MIT License (MIT)  
 Copyright (c) 2016 Up618
