@@ -12,10 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 public class User {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(unique = true, nullable = false, length = 20)
 	private String username;
@@ -53,6 +55,10 @@ public class User {
 	private List<Agree> agrees;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CommentLike> commentLikes;
+	
+	@Formula("(select count(*) from weibo as w where w.user_id = id)")
+	private Long weiboAmount;
+	
 
 	public Long getId() {
 		return id;
@@ -214,11 +220,11 @@ public class User {
 		this.comments = comments;
 	}
 
-	public List<Agree> getagrees() {
+	public List<Agree> getAgrees() {
 		return agrees;
 	}
 
-	public void setagrees(List<Agree> agrees) {
+	public void setAgrees(List<Agree> agrees) {
 		this.agrees = agrees;
 	}
 
@@ -228,5 +234,13 @@ public class User {
 
 	public void setCommentLikes(List<CommentLike> commentLikes) {
 		this.commentLikes = commentLikes;
+	}
+
+	public Long getWeiboAmount() {
+		return weiboAmount;
+	}
+
+	public void setWeiboAmount(Long weiboAmount) {
+		this.weiboAmount = weiboAmount;
 	}
 }

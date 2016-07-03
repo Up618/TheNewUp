@@ -41,9 +41,9 @@
           <a class="navbar-brand" href="../index">UP</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <form id="search" class="navbar-form navbar-left" role="search">
+          <form id="search" class="navbar-form navbar-left" role="search" action="./search/user">
         	<div class="form-group">
-          		<input type="text" class="form-control" placeholder="Search">
+          		<input type="text" class="form-control" placeholder="Search" name="keyword">
         	</div>
         	<button type="submit" class="btn btn-default">Submit</button>
       	  </form>

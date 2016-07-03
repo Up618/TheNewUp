@@ -9,7 +9,7 @@
       		<div class="caption">
       			<a href="./user/${user.getId()}">
       				<li class="list-group-item">
-    					<span class="badge">${weiboAmount}</span>
+    					<span class="badge">${user.getWeiboAmount()}</span>
     					Weibos
     				</li>
     			</a>
