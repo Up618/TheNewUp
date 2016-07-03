@@ -1,58 +1,153 @@
 <#import "/template/bootstrap.ftl" as bootstrap>
 <html style="position:relative;min-height:100%;">
-<@bootstrap.head title="登陆">
-	<link href="http://v3.bootcss.com/examples/signin/signin.css" rel="stylesheet">
+
+<@bootstrap.head title="登录">
+<link href="http://139.129.48.155:8081/signin&up.css" rel="stylesheet">
 </@bootstrap.head>
-<body style="background-color:#eee">
-	<div class="container" style="padding-top:40px">
-		<div class="form-signin">
-		<ul class="nav nav-tabs">
-  			<li role="presentation" class="active"><a href="javascript:showIn()">Sign in</a></li>
-  			<li role="presentation"><a href="javascript:showUp()">Sign up</a></li>
-		</ul>
-		<form id="in" action="./login" method="post">
-    		<label class="sr-only" for="Username">Username</label>
-    		<input type="text" class="form-control" name="username" placeholder="Username" required>
-    		<label class="sr-only" for="Password">Password</label>
-    		<input type="password" class="form-control" name="password" placeholder="Password" required>
-  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-  			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-		</form>
-		<form id="up" action="./register" method="post" style="display:none;">
-    		<label class="sr-only" for="Username">Username</label>
-    		<input type="text" class="form-control" name="username" placeholder="Username" required>
-    		<label class="sr-only" for="Username">Username</label>
-    		<input type="text" class="form-control" name="nickname" placeholder="Nickname" required>
-    		<label class="sr-only" for="Password">Password</label>
-    		<input type="password" class="form-control" name="password" placeholder="Password" required>
-    		<label class="sr-only" for="Password">Password</label>
-    		<input type="password" class="form-control" name="passwordAgain" placeholder="PasswordAgain" required>
-    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-  			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-		</form>
-		</div>
-	</div>
+
+<body>
+<div class="container" style="padding-top:40px">
+    <div class="form-sign">
+        <div style="height: 40px">
+        <ul class="sign-inup">  <!--nav nav-tabs -->
+            <li role="presentation" class="active sign-in"><a href="javascript:showIn()">登录</a></li>
+            <li role="presentation" class="sign-up"><a href="javascript:showUp()">注册</a></li>
+        </ul></div>
+        <div class="form-sign-body">
+        <form id="in" action="./login" method="post">
+            <label class="sr-only" for="Username">Username</label>
+            <input type="text" class="form-control" id="signin-username" name="username" placeholder="用户名" required>
+            <label class="sr-only" for="Password">Password</label>
+            <input type="password" class="form-control" id="signin-password" name="password" placeholder="密码" required>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+            <p class="warning-span" id="signin-warning"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="float: left"></span></p>
+            <p class="warning-p" id="signin-text"></p>
+
+            <button class="btn btn-lg btn-primary btn-block sign-inup-button" onclick="signincheck()">登录</button>
+
+            <script>
+                function signincheck()
+                {
+                    $("#signin-warning").hide();
+                    $("#signin-text").hide();
+
+                    if ($("#signin-username").val() == "") {
+                        $("#signin-warning").show();
+                        $("#signin-text").text("请输入用户名").show();
+                        $("#signup-password").val("");
+                    }
+                    else if ($("#signin-password").val() == "") {
+                        $("#signin-warning").show();
+                        $("#signin-text").text("请输入密码").show();
+                    }
+                    else if (0) {
+                        $("#signin-warning").show();
+                        $("#signin-text").text("账号或密码错误").show();
+                    }<!--提示错误替换“0”即可-->
+
+                    else $("#in").submit();
+                }
+            </script>
+        </form>
+        <form id="up" action="./register" method="post" style="display:none;">
+            <label class="sr-only" for="Username">Username</label>
+            <input type="text" class="form-control" id="signup-username" name="username" placeholder="用户名" required>
+            <label class="sr-only" for="Username">Username</label>
+            <input type="text" class="form-control" id="signup-nickname" name="nickname" placeholder="昵称" required>
+            <label class="sr-only" for="Password">Password</label>
+            <input type="password" class="form-control" id="signup-password" name="password" placeholder="密码" required>
+            <label class="sr-only" for="Password">Password</label>
+            <input type="password" class="form-control" id="signup-passwordagain" name="passwordAgain" placeholder="请再次输入密码" required>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+            <p class="warning-span" id="signup-warning"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="float: left"></span></p>
+            <p class="warning-p" id="signup-text"></p>
+
+            <button class="btn btn-lg btn-primary btn-block sign-inup-button" onclick="signupcheck()">注册</button>
+
+            <script>
+                function signupcheck()
+                {
+                    var memberPass = /^(?=.*[0-9].*)(?=.*[a-zA-Z].*).{6,20}$/;
+                    var numPass = /^[0-9]+$/;
+
+                    $("#signup-warning").hide();
+                    $("#signup-text").hide();
+
+                    if ($("#signup-username").val() == "") {
+                        $("#signup-warning").show();
+                        $("#signup-text").text("请输入用户名").show();
+                        $("#signup-password").val("");
+                        $("#signup-passwordagain").val("");
+                    }
+                    else if ($("#signup-nickname").val() == "") {
+                        $("#signup-warning").show();
+                        $("#signup-text").text("请输入昵称").show();
+                    }
+                    else if ($("#signup-password").val() == "") {
+                        $("#signup-warning").show();
+                        $("#signup-text").text("请输入密码").show();
+                        $("#signup-passwordagain").val("");
+                    }
+                    else if(numPass.test($("#signup-password").val())){
+                        $("#signup-warning").show();
+                        $("#signup-text").text("请不要用纯数字做密码").show();
+                        $("#signup-password").val("");
+                        $("#signup-passwordagain").val("");
+                    }
+                   else if (!(memberPass.test($("#signup-password").val()))) {
+                        $("#signup-warning").show();
+                        $("#signup-text").text("密码必须为6-20字符的字母数字组合").show();
+                        $("#signup-password").val("");
+                        $("#signup-passwordagain").val("");
+                    }
+                    else if ($("#signup-passwordagain").val() == "") {
+                        $("#signup-warning").show();
+                        $("#signup-text").text("请再次输入密码").show();
+                    }
+                    else if ($("#signup-password").val() != $("#signup-passwordagain").val()) {
+                        $("#signup-warning").show();
+                        $("#signup-text").text("两次密码输入不一致").show();
+                        $("#signup-password").val("");
+                        $("#signup-passwordagain").val("");
+                    }
+
+                    else $("#up").submit();
+                }
+            </script>
+
+
+        </form>
+            </div>
+    </div>
+</div>
 </body>
 <script>
-	$(document).ready(function(){
-  		
-	});
-		function showIn(){
-  			$("#up").hide();
-  			$("#in").show();
-  			$(".form-signin ul li:eq(1)").removeClass("active");
-  			$(".form-signin ul li:eq(0)").addClass("active");
-  		};
-  		function showUp(){
-  			$("#up").show();
-  			$("#in").hide();
-  			$(".form-signin ul li:eq(0)").removeClass("active");
-  			$(".form-signin ul li:eq(1)").addClass("active");
-  		};
+
+
+
+    $(document).ready(function () {
+
+    });
+
+    function showIn() {
+        $("#up").hide();
+        $("#in").show();
+        $(".form-sign ul li:eq(1)").removeClass("active");
+        $(".form-sign ul li:eq(0)").addClass("active");
+    }
+    ;
+    function showUp() {
+        $("#up").show();
+        $("#in").hide();
+        $(".form-sign ul li:eq(0)").removeClass("active");
+        $(".form-sign ul li:eq(1)").addClass("active");
+    }
+    ;
 </script>
 <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </html>
