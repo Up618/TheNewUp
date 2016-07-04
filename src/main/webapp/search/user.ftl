@@ -7,9 +7,7 @@
 	
 	</div>
 	<div class="row">
-		<div class="col-sm-3 col-md-3 col-lg-3">
-		</div>
-		<div class="col-sm-9 col-md-9 col-lg-9">
+		<div class="col-sm-9 col-sm-offset-2 col-md-8 col-md-offset-3 col-lg-7 col-lg-offset-4">
 			<div class="list-group">
 				<#list users as user>
 					<@bootstrap.user_card user=user/>

@@ -156,20 +156,21 @@
 </#macro>
 
 <#macro user_card user>
-<div class="list-group-item">
-	<div class="col-md-2 col-sm-2 col-xs-2">
-		<a href="<@s.url namespace="/user" action="${user.getId()}" />" class="thumbnail">
-      		<img src="${user.getAvatar()}" alt="头像">
-    	</a>
-	</div>
-	<div class="col-md-8 col-sm-8 col-xs-8">
-		<h3>${user.getNickname()}</h3>
-		<p>关注数 粉丝数 微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
-		<p>${user.getSignature()!" "}</p>
-	</div>
-	<div class="col-md-2 col-sm-2 col-xs-2">
-		<button>关注</button>
-	</div>
+<div class="list-group-item row">
+   <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+       <a href="<@s.url namespace="/user" action="${user.getId()}" />" class="thumbnail">
+          <img class="img-responsive" src="${user.getAvatar()}" alt="头像">
+       </a>
+   </div>
+   <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
+       <h3>${user.getNickname()}</h3>
+       <p>关注数 粉丝数 微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
+       <p>${user.getSignature()!" "}</p>
+   </div>
+   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+       <button class="btn btn-default btn-sm" style="font-weight: 600; display: none"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 已关注</button>
+       <button class="btn btn-default btn-sm" style="font-weight: 600;"><span style="color: #ff9900" class="glyphicon glyphicon-plus" aria-hidden="true"></span> 关注</button>
+   </div>
 </div>
 </#macro>
 
