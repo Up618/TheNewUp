@@ -59,7 +59,7 @@
           <li><a href="#">Another action</a></li>
           <li><a href="#">Something else here</a></li>
           <li role="separator" class="divider"></li>
-          <li><a href="<@s.url namespace="/" action="logout"/>">Sign out</a></li>
+          <li><a href="#" data-bind="click: sign_out">Sign out</a></li>
         </ul>
       </li>
       <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
@@ -68,6 +68,10 @@
 </div>
 </nav>
 <#nested>
+<form id="sign-out" method="post" action="<@s.url namespace="/" action="logout"/>" style="display: none;">
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+  <input type="submit" value="Sign out"/>
+</form>
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -110,6 +114,9 @@ function ViewModel(){
     self.avatar(data.avatar);
     self.nickname(data.nickname);
   });
+  self.sign_out = function(){
+    $("#sign-out").submit();
+  }
 }
 $(function() {
   // Handler for .ready() called.
