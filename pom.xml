@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.2.0.Final</version>
+			<version>5.2.1.Final</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
@@ -72,7 +72,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-java8</artifactId>
-			<version>5.1.0.Final</version>
+			<version>5.2.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.struts</groupId>
@@ -118,6 +118,19 @@
 			<artifactId>qiniu-java-sdk</artifactId>
 			<version>7.1.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>5.2.1.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>up</finalName>
