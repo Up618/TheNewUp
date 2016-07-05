@@ -24,8 +24,21 @@ jdbc.password=root
 		</property>
 ```
 将``hibernate.hbm2ddl.auto``的值改成create-drop（创建删除）或者update（更新）
-* src/main/resouces/import.sql是默认导入的sql脚本，你可以在里面添加测试数据
-
+* src/main/resources/import.sql是默认导入的sql脚本，你可以在里面添加测试数据
+* src/main/resources/log4j2.xml是log4j2的配置文件，你可以修改不同包的日志级别如下
+```xml
+<Loggers>
+		<Logger name="com.opensymphony.xwork2" level="info" />
+		<Logger name="org.apache.struts2" level="debug" />
+		<Logger name="org.up" level="debug" />
+		<Logger name="org.hibernate" level="debug" />
+		<Logger name="org.hibernate.SQL" level="debug" />
+		<Root level="warn">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+```
+关于log4j2的内容，可以参考http://www.journaldev.com/7128/log4j2-example-tutorial-configuration-levels-appenders
 
 ## 已完成部分
 * 登陆和注册  

@@ -15,7 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class UserAction extends ActionSupport {
 
 	@Action(value = "user", results = {
-			@Result(name = "success", type = "json", params = { "excludeProperties", "passwordHash" }) })
+			@Result(name = "success", type = "json", params = { "excludeProperties", "passwordHash", "encoding", "UTF-8" }) })
 	@Override
 	public String execute() throws Exception {
 		String currentUsername;

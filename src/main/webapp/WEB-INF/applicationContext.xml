@@ -17,7 +17,7 @@
 
 	<context:component-scan base-package="org.up" />
 	<tx:annotation-driven />
-	<aop:aspectj-autoproxy/>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
 
 	<security:http>
 		<security:intercept-url pattern="/login*"
@@ -48,6 +48,8 @@
 				hibernate.hbm2ddl.auto=create-drop
 				hibernate.show_sql=true
 				hibernate.hbm2ddl.import_files=import.sql
+				hibernate.connection.useUnicode=true
+				hibernate.connection.useUnicode=UTF-8
 			</value>
 		</property>
 	</bean>

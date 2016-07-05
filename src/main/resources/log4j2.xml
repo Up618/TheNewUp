@@ -7,9 +7,11 @@
 	</Appenders>
 	<Loggers>
 		<Logger name="com.opensymphony.xwork2" level="info" />
-		<Logger name="org.apache.struts2" level="debug" />
-		<Logger name="org.up" level="debug" />
-		<Logger name="org.hibernate" level="debug" />
+		<Logger name="org.apache.struts2" level="info" />
+		<Logger name="org.aspectj.lang" level="info" />
+		<Logger name="org.springframework" level="info" />
+		<Logger name="org.up" level="info" />
+		<Logger name="org.hibernate" level="warn" />
 		<Logger name="org.hibernate.SQL" level="debug" />
 		<Root level="warn">
 			<AppenderRef ref="Console" />
