@@ -13,14 +13,20 @@
 					Weibos
 				</li>
 			</a>
-			<li class="list-group-item">
-				<span class="badge">14</span>
-				Following
-			</li>
-			<li class="list-group-item">
-				<span class="badge">14</span>
-				Followers
-			</li>
+			
+			<a href="<@s.url action="get-follow" />">
+				<li class="list-group-item">
+					<span class="badge">${user.getFollowAmount()}</span>
+					关注
+				</li>
+			</a>
+			
+			<a href="<@s.url action="get-fans" />">
+				<li class="list-group-item">
+					<span class="badge">${user.getFansAmount()}</span>
+					粉丝
+				</li>
+			</a>
 		</div>
 	</div>
 </div>

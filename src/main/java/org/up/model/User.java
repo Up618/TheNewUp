@@ -58,8 +58,28 @@ public class User {
 	
 	@Formula("(select count(*) from weibo as w where w.user_id = id)")
 	private Long weiboAmount;
+
+	@Formula("(select count(*) from follow as w where w.following_id = id)")
+	private Long followAmount;
 	
 
+	@Formula("(select count(*) from follow as w where w.followed_id = id)")
+	private Long fansAmount;
+	
+	
+	public Long getFansAmount(){
+		return this.fansAmount;
+	}
+	public void setFansAmount(Long fansAmount){
+		this.fansAmount = fansAmount;
+	}
+	public Long getFollowAmount(){
+		return this.followAmount;
+	}
+	
+	public void setFollowAmount(Long followAmount){
+		this.followAmount = followAmount;
+	}
 	public Long getId() {
 		return id;
 	}
