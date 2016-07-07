@@ -87,8 +87,6 @@ public class InputCommentAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		comment = new Comment();
-		//HttpServletRequest request = ServletActionContext.getRequest();
-    	//weibo_id = Long.valueOf(request.getParameter("weibo_id"));
     	System.out.println("weibo_id: "+weibo_id);
     	
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -103,7 +101,6 @@ public class InputCommentAction extends ActionSupport {
 		System.out.println("执行方法");
 		System.out.println("user: "+user.getNickname());
 
-		//Long weibo_id = 1L;//先赋值，????????如何获取浏览评论的weibo_id???
 		Weibo weibo = weiboService.loadWeiboById(weibo_id);
 		if(content!=null){
 			System.out.println("填写评论！！");
