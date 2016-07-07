@@ -346,13 +346,14 @@ $(function() {
             </div>
             <div class="modal-body">
                 <div class="row" style="margin-left: 0px; margin-right: 0px;">
-                        <p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-                        <form action="" method="POST">
+                        <p>${weibo.getContent()}</p>
+                        <form id="in" action="../comment/inputComment" method="post">
                             <textarea name="content" class="form-control" rows="2" style="resize:none;"
                                   placeholder="评论......" required></textarea>
                             <div style="text-align: right">
                                 <button type="submit" class="btn btn-primary" style="margin-top: 10px">UP!</button>
                             </div>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
 
                         <hr style="margin-bottom: 10px"/>
@@ -365,7 +366,7 @@ $(function() {
                                     </a>
                                 </div>
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-                                <p>get评论人的昵称：你个sohai你个sohai你个sohai你个sohai你个sohai你个sohai</p><!--评论人名称-->
+                                <p>：你个sohai你个sohai你个sohai你个sohai你个sohai你个sohai</p><!--评论人名称-->
                                 <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">get评论时间</p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
                                     <a id="${weibo.getId()}comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
