@@ -11,7 +11,7 @@ import org.up.weibo.service.IWeiboService;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Action(value = "/user/*/weibo", params = { "id", "{1}" }, results = {
-		@Result(name = "success", type = "json", params = { "encoding", "UTF-8" }) })
+		@Result(name = "success", type = "json", params = { "excludeProperties","weibos.*.user","encoding", "UTF-8" }) })
 public class UserWeiboAction extends ActionSupport {
 
 	/**
