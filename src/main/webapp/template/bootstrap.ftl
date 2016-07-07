@@ -453,12 +453,58 @@ $(function() {
 </#macro>
 
 <#macro user_card_lg user>
-<div class="jumbotron" style="text-align:center;">
-  <div class="thumbnail">
-    <img src="${user.getAvatar()}" alt="头像" height="80" width="80">
-  </div>
-  <h4>${user.getNickname()}</h4>
-  <p>${user.getSignature()!" "}</p>
-  <button>关注</button>
-</div>
+<div style="text-align:center;">
+            <div class="thumbnail userCard">
+                <img class="img-thumbnail" src="http://o8m79d0cw.bkt.clouddn.com/my-java.jpg" alt="头像" height="120" width="120">
+                <h2>yjh</h2>
+                <p>cjj最牛逼</p>
+                <button id="followButton" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
+            </div>
+
+            <script type="text/javascript">
+                var follow = true;                        //这地方写是否关注
+                $(document).ready(function () {
+
+                    if (follow) {
+                        $("#followButton").removeClass().addClass("btn btn-default");
+                        $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                        $("#followButton b").text("已关注");
+                        $("#followButton span").css("color","black");
+                        $("#followButton b").css("color","black");
+                    }
+                    else {
+                        $("#followButton").removeClass().addClass("btn btn-info");
+                        $("#followButton span").removeClass().addClass("glyphicon glyphicon-plus");
+                        $("#followButton b").text("关注");
+                        $("#followButton span").css("color","white");
+                        $("#followButton b").css("color","white");
+                    }
+
+                    $("#followButton").click(function () {
+                        if (follow) {
+                            follow = false;
+                            $("#followButton").removeClass().addClass("btn btn-info");
+                            $("#followButton span").removeClass().addClass("glyphicon glyphicon-plus");
+                            $("#followButton b").text("关注");
+                            $("#followButton span").css("color","white");
+                            $("#followButton b").css("color","white");
+
+
+                            //发送取消关注请求
+                        }
+                        else {
+                            follow = true;
+                            $("#followButton").removeClass().addClass("btn btn-default");
+                            $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                            $("#followButton b").text("已关注");
+                            $("#followButton span").css("color","black");
+                            $("#followButton b").css("color","black");
+
+
+                            //发送关注请求
+                        }
+                    });
+                });
+            </script>
+        </div>
 </#macro>
