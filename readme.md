@@ -24,7 +24,10 @@ jdbc.password=root
 		</property>
 ```
 将``hibernate.hbm2ddl.auto``的值改成create-drop（创建删除）或者update（更新）
-* src/main/resources/import.sql是默认导入的sql脚本，你可以在里面添加测试数据
+* src/main/resources/import.sql是默认导入的sql脚本，你可以在里面添加测试数据，但无论如何都要记住加上以下这句
+```SQL
+INSERT INTO Role (name) VALUES ("ROLE_USER");
+```
 * src/main/resources/log4j2.xml是log4j2的配置文件，你可以修改不同包的日志级别如下
 ```xml
 <Loggers>
