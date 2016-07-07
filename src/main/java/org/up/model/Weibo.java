@@ -36,16 +36,6 @@ public class Weibo {
 	
 	@Formula("(select count(*) from picture as p where p.weibo_id = id)")
 	private Long pictureAmount;
-	@Formula("(select count(*) from agree as a where a.weibo_id = id)")
-	private Long agreeAmount;
-	
-	public Long getAgreeAmount() {
-		return agreeAmount;
-	}
-
-	public void setAgreeAmount(Long agreeAmount) {
-		this.agreeAmount = agreeAmount;
-	}
 
 	public Long getPictureAmount() {
 		return pictureAmount;
