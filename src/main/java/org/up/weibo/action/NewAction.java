@@ -58,6 +58,7 @@ public class NewAction extends ActionSupport {
 		weibo.setUser(user);
 		weibo.setContent(content);
 		weiboService.addWeibo(weibo);
+		if(urls==null)return SUCCESS;
 		for(String url:urls){
 			Picture pic = new Picture();
 			pic.setPath(url);

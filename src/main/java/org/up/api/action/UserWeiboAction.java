@@ -10,6 +10,8 @@ import org.up.weibo.service.IWeiboService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+@Action(value = "/user/*/weibo", params = { "id", "{1}" }, results = {
+		@Result(name = "success", type = "json", params = { "encoding", "UTF-8" }) })
 public class UserWeiboAction extends ActionSupport {
 
 	/**
@@ -22,11 +24,9 @@ public class UserWeiboAction extends ActionSupport {
 	@Autowired
 	private IWeiboService weiboService;
 
-	@Action(value = "user/*/weibo", params = { "id", "{1}" }, results = {
-			@Result(name = "success", type = "json", params = { "encoding", "UTF-8" }) })
 	@Override
 	public String execute() throws Exception {
-		weiboService.getWeiboByUserId(id, page, null);
+		weibos = weiboService.getWeiboByUserId(id, page, 10);
 		return SUCCESS;
 	}
 
