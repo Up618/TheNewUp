@@ -1,4 +1,4 @@
-<#macro head title>
+﻿<#macro head title>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +16,48 @@
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
   <!-- Latest compiled and minified CSS -->
-  <link href="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet">
   <link href="http://o9x8azwl1.bkt.clouddn.com/newnewup.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet">
+  <style type="text/css">
+
+  .fa-weibo-pic > li{
+    float: left;
+  }
+  .fa-weibo-pic > li.no-pic-li > a{
+    padding:3;
+  }
+  .fa-weibo-pic > li.has-pic-li > a{
+    position: absolute;
+    padding: 3;
+    height: 86;
+    width: 86;
+  }
+  li.has-pic-li > a:hover{
+    background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(221,221,221,0.75)),to(rgba(221,221,221,0.75)));
+    background-color: rgba(232, 232, 232, 0);
+  }
+  li.has-pic-li > a > span{
+    display: none;
+    padding: 33 32 33 34;
+  }
+  .fa-weibo-pic > li > a > img{
+    height: 80;
+    width: 80;
+  }
+  li.no-pic-li > a > span{
+    padding:30 29 30 31;
+    border-style: dashed;
+    border-color: darkgray;
+    color: darkgray;
+  }
+  .fa-weibo-pic > li > img{
+    padding: 3;
+    height: 86;
+    width: 86;
+  }
+  </style>
+  <link href="http://o9x8azwl1.bkt.clouddn.com/newup.css" rel="stylesheet">
+>>>>>>> branch 'master' of https://github.com/Up618/TheNewUp.git
   <#nested>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,6 +65,11 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/js/jasny-bootstrap.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/knockout/3.4.0/knockout-min.js"></script>
 </head>
 </#macro>
 
@@ -60,7 +105,7 @@
           <li><a href="#">Another action</a></li>
           <li><a href="#">Something else here</a></li>
           <li role="separator" class="divider"></li>
-          <li><a href="#" data-bind="click: sign_out">Sign out</a></li>
+          <li><a href="#" data-bind="click: signOut">Sign out</a></li>
         </ul>
       </li>
       <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
@@ -70,8 +115,8 @@
 </nav>
 <#nested>
 <form id="sign-out" method="post" action="<@s.url namespace="/" action="logout"/>" style="display: none;">
-  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-  <input type="submit" value="Sign out"/>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<input type="submit" value="Sign out"/>
 </form>
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg">
@@ -84,25 +129,34 @@
       <div class="modal-body">
         <textarea name="content" class="form-control" rows="20" style="resize:none;" required></textarea>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="row" style="padding-left:15;padding-right:15;">
+        <div class="col-md-8 col-sm-8 col-xs-8">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">图片  <span class="caret"></span></button>
+          <ul class="dropdown-menu fa-weibo-pic" style="margin-left:15;padding-left:12;padding-right:12;">
+            <h5 style="padding-left:3;">上传图片</h5>
+            <li class="no-pic-li"><a href="#">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </a></li>
+          </ul>
+        </ul>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-4" style="text-align:right;">
         <button type="submit" class="btn btn-primary">UP!</button>
       </div>
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
-  </div>
+    </div>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+  </form>
 </div>
 </div>
+</div>
+<form id="pic-upload" method="post" enctype="multipart/form-data" style="display: none;">
+  <input type="file" name="upload" />
+</form>
 <footer style="height:60px;position:absolute;bottom:0;width:100%;background-color:#2a2730">
   <div class="container" style="padding-right:15px;padding-left:15px;margin-top:10px">
     <p style="color:Ivory;text-align:center">Copyright &copy; 2016.UP All rights reserved.</p>
   </div>
 </footer>
-<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/js/jasny-bootstrap.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/knockout/3.4.0/knockout-min.js"></script>
 <script type="text/javascript">
 function ViewModel(){
   var self = this;
@@ -115,14 +169,59 @@ function ViewModel(){
     self.avatar(data.avatar);
     self.nickname(data.nickname);
   });
-  self.sign_out = function(){
+  self.signOut = function(){
     $("#sign-out").submit();
-  }
+  };
+
 }
 $(function() {
   // Handler for .ready() called.
   var app = new ViewModel();
   ko.applyBindings(app);
+
+  var token = $("meta[name='_csrf']").attr("content");
+  var header = $("meta[name='_csrf_header']").attr("content");
+  var headers = {};
+  headers[header] = token;
+  $("input[name='upload']").change(function(){
+    var fd = new FormData();
+    fd.append("upload",$("input[name='upload']")[0].files[0]);
+    $.ajax({
+      url: "<@s.url namespace="/api" action="pic-upload"/>",
+      headers: headers,
+      type: 'POST',
+      data: fd,
+      contentType:false,
+      processData:false
+    }).done(function(result){
+      $("li.has-pic-li:last img").attr("src",result.url);
+      $("li.has-pic-li").click(function(e){
+        $("input[value=\""+$(this).children("img").attr("src")+"\"]").remove();
+        $(this).remove();
+        e.stopPropagation();
+      });
+      $("li.has-pic-li").hover(
+        function() {
+          $( this ).find("span").css("display","inherit");
+        }, function() {
+          $( this ).find( "span" ).hide();
+        }
+      );
+      $("form[action='<@s.url namespace="/weibo" action="new" />']").append(
+        "<input type=\"hidden\" name=\"urls\" value=\""+result.url+"\" />"
+      )
+    }).fail(function(err){
+      console.log(err);
+    });
+  });
+  $("input[name='upload']").click(function(e){
+    $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
+    e.stopPropagation();
+  });
+  $("li.no-pic-li").click(function(e){
+    $("input[name='upload']").click();
+    e.stopPropagation();
+  });
 });
 </script>
 </body>

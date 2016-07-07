@@ -48,38 +48,37 @@ public class User {
 	@ManyToOne
 	private Role role;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Picture> pictures;
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Agree> agrees;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CommentLike> commentLikes;
-	
+
 	@Formula("(select count(*) from weibo as w where w.user_id = id)")
 	private Long weiboAmount;
 
 	@Formula("(select count(*) from follow as w where w.following_id = id)")
 	private Long followAmount;
-	
 
 	@Formula("(select count(*) from follow as w where w.followed_id = id)")
 	private Long fansAmount;
-	
-	
-	public Long getFansAmount(){
+
+	public Long getFansAmount() {
 		return this.fansAmount;
 	}
-	public void setFansAmount(Long fansAmount){
+
+	public void setFansAmount(Long fansAmount) {
 		this.fansAmount = fansAmount;
 	}
-	public Long getFollowAmount(){
+
+	public Long getFollowAmount() {
 		return this.followAmount;
 	}
-	
-	public void setFollowAmount(Long followAmount){
+
+	public void setFollowAmount(Long followAmount) {
 		this.followAmount = followAmount;
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -222,14 +221,6 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
-	}
-
-	public List<Picture> getPictures() {
-		return pictures;
-	}
-
-	public void setPictures(List<Picture> pictures) {
-		this.pictures = pictures;
 	}
 
 	public List<Comment> getComments() {
