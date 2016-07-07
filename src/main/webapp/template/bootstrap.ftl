@@ -180,22 +180,100 @@ $(function() {
 </#macro>
 
 <#macro user_card user>
-<div class="list-group-item row">
-  <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-    <a href="<@s.url namespace="/user" action="${user.getId()}" />" class="thumbnail">
-    <img class="img-responsive" src="${user.getAvatar()}" alt="头像">
-  </a>
-</div>
-<div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
-  <h3>${user.getNickname()}</h3>
-  <p>关注数 粉丝数 微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
-  <p>${user.getSignature()!" "}</p>
-</div>
-<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-  <button class="btn btn-default btn-sm" style="font-weight: 600; display: none"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 已关注</button>
-  <button class="btn btn-default btn-sm" style="font-weight: 600;"><span style="color: #ff9900" class="glyphicon glyphicon-plus" aria-hidden="true"></span> 关注</button>
-</div>
-</div>
+<div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                            <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
+                            <img class="media-object" src="${weibo.getUser().getAvatar()}" alt="头像" height="80" width="80">
+                            
+                            </a>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <div class="up-content" style="height: auto">
+                                <p class="up-sign-nickname">
+                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
+                                    ${weibo.getUser().getNickname()}：
+                                    </a>
+                                </p>
+                                <p class="up-time">${weibo.getTime()}</p>
+                                <s>
+                                    <i></i>
+                                </s>
+
+                                <p class="up-body">
+                                    <#nested>
+                                </p>
+
+
+                                <hr style="margin-bottom: 10px"/>
+
+                                <div class="row up-operat">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <p align="center" class="up-operate"><a><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <p align="center" class="up-operate"><a data-toggle="modal" data-target="#up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <p id="" align="center" class="up-operate"><a id="agree" href="javascript:agreeit()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>点赞<b>1</b></a></p>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    var agree = true;                 <!--把true改作是否点赞的布尔值-->
+
+                                    $(document).ready(function () {
+                                        if (!agree) {
+                                            $("#agree").css("color", "black");
+                                            $("#agree").mouseover(function () {
+                                                $("#agree").css("color", "red");
+                                            });
+                                            $("#agree").mouseout(function () {
+                                                $("#agree").css("color", "black");
+                                            })
+                                        }
+                                        else {
+                                            $("#agree").css("color", "red");
+                                            $("#agree").mouseover(function () {
+                                                $("#agree").css("color", "black");
+                                            });
+                                            $("#agree").mouseout(function () {
+                                                $("#agree").css("color", "red");
+                                            })
+                                        }
+                                    });
+                                    function agreeit()
+                                    {
+                                        if (!agree) {
+                                            $("#agree b").text(parseInt($("#agree b").text()) + 1);
+                                            agree = true;
+                                            $("#agree").css("color", "red");
+                                            $("#agree").mouseover(function () {
+                                                $("#agree").css("color", "black");
+                                            });
+                                            $("#agree").mouseout(function () {
+                                                $("#agree").css("color", "red");
+                                            });
+
+                                            //这个地方发点赞请求
+                                        }
+                                        else {
+                                            $("#agree b").text(parseInt($("#agree b").text()) - 1);
+                                            agree = false;
+                                            $("#agree").css("color", "black");
+                                            $("#agree").mouseover(function () {
+                                                $("#agree").css("color", "red");
+                                            });
+                                            $("#agree").mouseout(function () {
+                                                $("#agree").css("color", "black");
+                                            });
+
+                                            //这个地方发取消点赞请求
+                                        }
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
 </#macro>
 
 <#macro user_card_lg user>
