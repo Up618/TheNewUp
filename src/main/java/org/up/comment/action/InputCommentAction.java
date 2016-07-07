@@ -2,6 +2,9 @@ package org.up.comment.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Result;
@@ -30,6 +33,7 @@ public class InputCommentAction extends ActionSupport {
 	private Weibo weibo;
 	private Comment comment;
 	private List<Comment> comments;
+	private Long weibo_id;
 	
 	@Autowired
 	private ICommentService commentService;
@@ -46,6 +50,14 @@ public class InputCommentAction extends ActionSupport {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public Long getWeibo_id() {
+		return weibo_id;
+	}
+
+	public void setWeibo_id(Long weibo_id) {
+		this.weibo_id = weibo_id;
 	}
 	
 	public Weibo getWeibo() {
@@ -75,6 +87,10 @@ public class InputCommentAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		comment = new Comment();
+		//HttpServletRequest request = ServletActionContext.getRequest();
+    	//weibo_id = Long.valueOf(request.getParameter("weibo_id"));
+    	System.out.println("weibo_id: "+weibo_id);
+    	
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String myname=null;
 		if (principal instanceof UserDetails) {
@@ -87,7 +103,7 @@ public class InputCommentAction extends ActionSupport {
 		System.out.println("执行方法");
 		System.out.println("user: "+user.getNickname());
 
-		Long weibo_id = 1L;//先赋值，????????如何获取浏览评论的weibo_id???
+		//Long weibo_id = 1L;//先赋值，????????如何获取浏览评论的weibo_id???
 		Weibo weibo = weiboService.loadWeiboById(weibo_id);
 		if(content!=null){
 			System.out.println("填写评论！！");

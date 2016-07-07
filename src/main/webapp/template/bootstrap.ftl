@@ -222,6 +222,27 @@ $(function() {
     e.stopPropagation();
   });
 });
+
+
+<!--更改！！！！-->
+function CommentViewModel(){
+  var self = this;
+  self.c = ko.observable();
+  $.ajax({
+    type: 'GET',
+    url: "<@s.url namespace="/comment" action="comment" />",
+  }).done(function (datac) {
+    self.comments(datac.c);
+  });
+}
+$(function() {
+  // Handler for .ready() called.
+  var appc = new CommentViewModel();
+  ko.applyBindings(appc);
+});
+<!--更改！！！！-->
+
+
 </script>
 </body>
 </#macro>
@@ -348,6 +369,7 @@ $(function() {
                 <div class="row" style="margin-left: 0px; margin-right: 0px;">
                         <p>${weibo.getContent()}</p>
                         <form id="in" action="../comment/inputComment" method="post">
+                            <input type="hidden"  name="weibo_id" value="${weibo.getId()}"/>
                             <textarea name="content" class="form-control" rows="2" style="resize:none;"
                                   placeholder="评论......" required></textarea>
                             <div style="text-align: right">
