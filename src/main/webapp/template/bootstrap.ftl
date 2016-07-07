@@ -1,4 +1,4 @@
-<#macro head title>
+﻿<#macro head title>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,8 @@
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
   <!-- Latest compiled and minified CSS -->
-  <link href="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet">
+  <link href="http://o9x8azwl1.bkt.clouddn.com/newnewup.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
 
   .fa-weibo-pic > li{
@@ -56,6 +57,7 @@
   }
   </style>
   <link href="http://o9x8azwl1.bkt.clouddn.com/newup.css" rel="stylesheet">
+>>>>>>> branch 'master' of https://github.com/Up618/TheNewUp.git
   <#nested>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -246,10 +248,10 @@ $(function() {
 </#macro>
 
 <#macro weibo_card weibo>
-<div class="row" style = "margin-bottom:20">
+<div class="row" style = "margin-bottom:20px">
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
         <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-            <img class="media-object" src="${weibo.getUser().getAvatar()}" alt="头像" width="60">
+            <img class="img-thumbnail" src="${weibo.getUser().getAvatar()}" alt="头像" width="60">
         </a>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
@@ -281,9 +283,7 @@ $(function() {
             <script>
                 var agree${weibo.getId()} = true;                 <!--把true改作是否点赞的布尔值-->
                 
-                $("#${weibo.getId()}agree").ready(function (){
-                //$(document).ready(function () {
-                alert("zhaoweishisohai");
+                $(document).ready(function () {
                     if (agree${weibo.getId()}) {
                         $("#${weibo.getId()}agree").css("color", "red");
                         $("#${weibo.getId()}agree").mouseover(function () {
