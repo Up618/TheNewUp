@@ -18,9 +18,8 @@ public class Picture {
 	@Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp time;
 	private String description;
-	private Boolean isPublic = true;
 	@ManyToOne
-	private User user;
+	private Weibo weibo;
 
 	public Long getId() {
 		return id;
@@ -54,19 +53,11 @@ public class Picture {
 		this.description = description;
 	}
 
-	public Boolean getIsPublic() {
-		return isPublic;
+	public Weibo getWeibo() {
+		return weibo;
 	}
 
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setWeibo(Weibo weibo) {
+		this.weibo = weibo;
 	}
 }

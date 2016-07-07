@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 public class Weibo {
 	@Id
@@ -29,6 +31,27 @@ public class Weibo {
 	private List<Comment> comments;
 	@OneToMany(mappedBy = "weibo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Agree> agrees;
+	@OneToMany(mappedBy = "weibo", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Picture> pictures;
+	
+	@Formula("(select count(*) from picture as p where p.weibo_id = id)")
+	private Long pictureAmount;
+
+	public Long getPictureAmount() {
+		return pictureAmount;
+	}
+
+	public void setPictureAmount(Long pictureAmount) {
+		this.pictureAmount = pictureAmount;
+	}
+
+	public List<Picture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<Picture> pictures) {
+		this.pictures = pictures;
+	}
 
 	public Long getId() {
 		return id;
@@ -82,7 +105,7 @@ public class Weibo {
 		return agrees;
 	}
 
-	public void setLikes(List<Agree> agrees) {
+	public void setAgrees(List<Agree> agrees) {
 		this.agrees = agrees;
 	}
 }

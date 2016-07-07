@@ -14,8 +14,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class UserAction extends ActionSupport {
 
-	@Action(value = "user", results = {
-			@Result(name = "success", type = "json", params = { "excludeProperties", "passwordHash", "encoding", "UTF-8" }) })
+	@Action(value = "user", results = { @Result(name = "success", type = "json", params = { "excludeProperties",
+			"passwordHash", "encoding", "UTF-8" }) })
 	@Override
 	public String execute() throws Exception {
 		String currentUsername;
@@ -49,6 +49,8 @@ public class UserAction extends ActionSupport {
 	private Timestamp createTime;
 	private Timestamp lastLogin;
 	private Long weiboAmount;
+	private Long followAmount;
+	private Long fansAmount;
 
 	@Autowired
 	private IUserService userService;
@@ -173,6 +175,22 @@ public class UserAction extends ActionSupport {
 		this.weiboAmount = weiboAmount;
 	}
 
+	public Long getFollowAmount() {
+		return followAmount;
+	}
+
+	public void setFollowAmount(Long followAmount) {
+		this.followAmount = followAmount;
+	}
+
+	public Long getFansAmount() {
+		return fansAmount;
+	}
+
+	public void setFansAmount(Long fansAmount) {
+		this.fansAmount = fansAmount;
+	}
+
 	private void setAction(User user) {
 		this.avatar = user.getAvatar();
 		this.createTime = user.getCreateTime();
@@ -189,5 +207,8 @@ public class UserAction extends ActionSupport {
 		this.signature = user.getSignature();
 		this.username = user.getUsername();
 		this.weiboAmount = user.getWeiboAmount();
+		this.fansAmount = user.getFansAmount();
+		this.followAmount = user.getFollowAmount();
 	}
+
 }

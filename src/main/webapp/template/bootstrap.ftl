@@ -62,6 +62,11 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/js/jasny-bootstrap.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/knockout/3.4.0/knockout-min.js"></script>
 </head>
 </#macro>
 
@@ -142,24 +147,18 @@
 </div>
 </div>
 <form id="pic-upload" method="post" enctype="multipart/form-data" style="display: none;">
-  <input type="file" name="upload" data-bind="value: upload" />
+  <input type="file" name="upload" />
 </form>
 <footer style="height:60px;position:absolute;bottom:0;width:100%;background-color:#2a2730">
   <div class="container" style="padding-right:15px;padding-left:15px;margin-top:10px">
     <p style="color:Ivory;text-align:center">Copyright &copy; 2016.UP All rights reserved.</p>
   </div>
 </footer>
-<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/js/jasny-bootstrap.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/knockout/3.4.0/knockout-min.js"></script>
 <script type="text/javascript">
 function ViewModel(){
   var self = this;
   self.avatar = ko.observable();
   self.nickname = ko.observable();
-  self.upload = ko.observable();
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/api" action="user" />",
@@ -170,36 +169,56 @@ function ViewModel(){
   self.signOut = function(){
     $("#sign-out").submit();
   };
-  xhr.onreadystatechange = function () {
-    if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        $("ul.fa-weibo-pic li:nth-last-child(2) img").attr("src",xhr.response.url);
-    };
-  };
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/api/pic-upload", true);
-  $("li.no-pic-li").click(function(e){
-    $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img></li>").insertBefore($(this));
-    $("input[name='upload']").click();
-    var fd = new FormData($("form#pic-upload"));
-    xhr.send(fd);
-    e.stopPropagation();
-    $("li.has-pic-li").click(function(e){
-      $(this).remove();
-      e.stopPropagation();
-    });
-    $("li.has-pic-li").hover(
-      function() {
-        $( this ).find("span").css("display","inherit");
-      }, function() {
-        $( this ).find( "span" ).hide();
-      }
-    );
-  });
+
 }
 $(function() {
   // Handler for .ready() called.
   var app = new ViewModel();
   ko.applyBindings(app);
+
+  var token = $("meta[name='_csrf']").attr("content");
+  var header = $("meta[name='_csrf_header']").attr("content");
+  var headers = {};
+  headers[header] = token;
+  $("input[name='upload']").change(function(){
+    var fd = new FormData();
+    fd.append("upload",$("input[name='upload']")[0].files[0]);
+    $.ajax({
+      url: "<@s.url namespace="/api" action="pic-upload"/>",
+      headers: headers,
+      type: 'POST',
+      data: fd,
+      contentType:false,
+      processData:false
+    }).done(function(result){
+      $("li.has-pic-li:last img").attr("src",result.url);
+      $("li.has-pic-li").click(function(e){
+        $("input[value=\""+$(this).children("img").attr("src")+"\"]").remove();
+        $(this).remove();
+        e.stopPropagation();
+      });
+      $("li.has-pic-li").hover(
+        function() {
+          $( this ).find("span").css("display","inherit");
+        }, function() {
+          $( this ).find( "span" ).hide();
+        }
+      );
+      $("form[action='<@s.url namespace="/weibo" action="new" />']").append(
+        "<input type=\"hidden\" name=\"urls\" value=\""+result.url+"\" />"
+      )
+    }).fail(function(err){
+      console.log(err);
+    });
+  });
+  $("input[name='upload']").click(function(e){
+    $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
+    e.stopPropagation();
+  });
+  $("li.no-pic-li").click(function(e){
+    $("input[name='upload']").click();
+    e.stopPropagation();
+  });
 });
 </script>
 </body>
