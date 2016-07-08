@@ -307,8 +307,10 @@ $(document).ready(function () {
                 		    type: 'GET',
                             url: "<@s.url namespace="/comment" action="comment"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
                 	    }).done(function (data) {
+      //======================下面是第1条评论的内容===============================
                 	    if(data.nickname!=null){
                 	        $("#${weibo.getId()}comment_name").text(data.nickname+"：");
+                	        $("#${weibo.getId()}comment_agree").show();
                 	    }
                 	    if(data.content!=null){
                 	        $("#${weibo.getId()}comment_content").text(data.content);
@@ -323,6 +325,7 @@ $(document).ready(function () {
      //======================下面是第2条评论的内容===============================
                 	    if(data.nickname2!=null){
                 	        $("#${weibo.getId()}comment_name2").text(data.nickname2+"：");
+                	        $("#${weibo.getId()}comment_agree2").show();
                 	    }
                 	    if(data.content2!=null){
                 	        $("#${weibo.getId()}comment_content2").text(data.content2);
@@ -334,9 +337,10 @@ $(document).ready(function () {
                 	        document.getElementById("${weibo.getId()}comment_img2").src=data.avatar2;
                 	    }
                 	    
-                	    //======================下面是第3条评论的内容===============================
+      //======================下面是第3条评论的内容===============================
                 	    if(data.nickname3!=null){
                 	        $("#${weibo.getId()}comment_name3").text(data.nickname3+"：");
+                	        $("#${weibo.getId()}comment_agree3").show();
                 	    }
                 	    if(data.content3!=null){
                 	        $("#${weibo.getId()}comment_content3").text(data.content3);
@@ -355,7 +359,7 @@ $(document).ready(function () {
                     }); //click   
                 }); //document.ready
 </script>
-<!-----------------------------------评论的获取函数---------------------------->
+<!-----------------------------------上面为评论的获取函数---------------------------->
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <p align="center" class="up-operate">
@@ -456,7 +460,7 @@ $(document).ready(function () {
                                 <p id="${weibo.getId()}comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 </p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                    <a id="${weibo.getId()}comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                <a id="${weibo.getId()}comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
                                 </div>
                             </div>
                             </div>
@@ -479,7 +483,7 @@ $(document).ready(function () {
                                 <p id="${weibo.getId()}comment_time2" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 </p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                    <a id="${weibo.getId()}comment_agree2" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                    <a id="${weibo.getId()}comment_agree2" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
                                 </div> 
                            </div>       
                            </div>                  
@@ -502,10 +506,9 @@ $(document).ready(function () {
                             </p>
                                 <p id="${weibo.getId()}comment_time3" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 </p><!--评论时间-->
-                                <!--评论时间<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                    <a id="${weibo.getId()}comment_agree3" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
+                                    <a id="${weibo.getId()}comment_agree3" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
                                 </div> 
-                                -->
                            </div>      
                            </div>                   
  <!------------------------------上面是第三条评论--------------------------------------------->
