@@ -222,6 +222,27 @@ $(function() {
     e.stopPropagation();
   });
 });
+
+
+<!--更改！！！！-->
+function CommentViewModel(){
+  var self = this;
+  self.c = ko.observable();
+  $.ajax({
+    type: 'GET',
+    url: "<@s.url namespace="/comment" action="comment" />",
+  }).done(function (datac) {
+    self.comments(datac.c);
+  });
+}
+$(function() {
+  // Handler for .ready() called.
+  var appc = new CommentViewModel();
+  ko.applyBindings(appc);
+});
+<!--更改！！！！-->
+
+
 </script>
 </body>
 </#macro>
@@ -348,6 +369,7 @@ $(function() {
                 <div class="row" style="margin-left: 0px; margin-right: 0px;">
                         <p>${weibo.getContent()}</p>
                         <form id="in" action="../comment/inputComment" method="post">
+                            <input type="hidden"  name="weibo_id" value="${weibo.getId()}"/>
                             <textarea name="content" class="form-control" rows="2" style="resize:none;"
                                   placeholder="评论......" required></textarea>
                             <div style="text-align: right">
@@ -438,28 +460,166 @@ $(function() {
 <div class="list-group-item row">
     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
         <a href="<@s.url namespace="/user" action="${user.getId()}" />" class="thumbnail">
-        <img class="img-responsive" src="${user.getAvatar()}" alt="头像">
+            <img class="img-responsive" src="${user.getAvatar()}" alt="头像">
         </a>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
         <h3>${user.getNickname()}</h3>
-        <p>关注数 粉丝数 微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
+        <p>关注数${user.getFollowAmount()}   粉丝数${user.getFansAmount()}   微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
         <p>${user.getSignature()!" "}</p>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-        <button class="btn btn-default btn-sm" style="font-weight: 600; display: none"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 已关注</button>
-        <button class="btn btn-default btn-sm" style="font-weight: 600;"><span style="color: #ff9900" class="glyphicon glyphicon-plus" aria-hidden="true"></span> 关注</button>
+        <button id="${user.getNickname()}followButton" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
     </div>
+    <script type="text/javascript">
+        var ${user.getNickname()}follow = false;                        //这地方写是否关注
+        $(document).ready(function () {
+
+            if (${user.getNickname()}follow) {
+                $("#${user.getNickname()}followButton").removeClass().addClass("btn btn-default");
+                $("#${user.getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                $("#${user.getNickname()}followButton b").text("已关注");
+                $("#${user.getNickname()}followButton span").css("color","black");
+                $("#${user.getNickname()}followButton b").css("color","black");
+            }
+            else {
+                $("#${user.getNickname()}followButton").removeClass().addClass("btn btn-info");
+                $("#${user.getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-plus");
+                $("#${user.getNickname()}followButton b").text("关注");
+                $("#${user.getNickname()}followButton span").css("color","white");
+                $("#${user.getNickname()}followButton b").css("color","white");
+            }
+            
+            $("#${user.getNickname()}followButton").click(function () {
+                if (${user.getNickname()}follow) {
+                    ${user.getNickname()}follow = false;
+                    $("#${user.getNickname()}followButton").removeClass().addClass("btn btn-info");
+                    $("#${user.getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-plus");
+                    $("#${user.getNickname()}followButton b").text("关注");
+                    $("#${user.getNickname()}followButton span").css("color","white");
+                    $("#${user.getNickname()}followButton b").css("color","white");
+
+
+                                        //发送取消关注请求
+                }
+                else {
+                    ${user.getNickname()}follow = true;
+				 			var oMyForm = new FormData();
+				 			oMyForm.append("followusername", "${user.getUsername()}");
+				 			var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							var headers = {};
+							headers[header] = token;
+				 			$.ajax({
+				 				type:'POST',
+				 				url:"<@s.url action="follow"/>",
+				 				data:oMyForm,
+ 								headers: headers,
+				 				dataType:'html',
+  								contentType:false,
+ 								processData:false,
+				 				error:function(){	
+										alert("发生了一些错误，请稍后再试！");
+								},
+				 				success:function(){
+                    				$("#${user.getNickname()}followButton").removeClass().addClass("btn btn-default");
+                   					 $("#${user.getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                  					 $("#${user.getNickname()}followButton b").text("已关注");
+                				    $("#${user.getNickname()}followButton span").css("color","black");
+                 					$("#${user.getNickname()}followButton b").css("color","black");
+
+				 					alert(	"已成功关注！");
+				 				},
+				 			});
+                    
+                    
+
+                                        //发送关注请求
+                }
+            });
+        });
+    </script>
 </div>
 </#macro>
 
 <#macro user_card_lg user>
-<div class="jumbotron" style="text-align:center;">
-  <div class="thumbnail">
-    <img src="${user.getAvatar()}" alt="头像" height="80" width="80">
-  </div>
-  <h4>${user.getNickname()}</h4>
-  <p>${user.getSignature()!" "}</p>
-  <button>关注</button>
+<div style="text-align:center;">
+    <div class="thumbnail userCard">
+        <img class="img-thumbnail" src="${user.getAvatar()}" alt="头像" alt="头像" height="120" width="120">
+        <h2>${user.getNickname()}</h2>
+        <p>${user.getSignature()!" "}</p>
+        <button id="followButton" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
+    </div>
+
+    <script type="text/javascript">
+        var follow = false;                        //这地方写是否关注
+        $(document).ready(function () {
+            if (follow) {
+            	alert("zhaoweisohai");
+                $("#followButton").removeClass().addClass("btn btn-default");
+                $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                $("#followButton b").text("已关注");
+                $("#followButton span").css("color","black");
+                $("#followButton b").css("color","black");
+            }
+            else {
+                $("#followButton").removeClass().addClass("btn btn-info");
+                $("#followButton span").removeClass().addClass("glyphicon glyphicon-plus");
+                $("#followButton b").text("关注");
+                $("#followButton span").css("color","white");
+                $("#followButton b").css("color","white");
+            }
+        
+            $("#followButton").click(function () {
+                if (follow) {
+                    follow = false;
+                    $("#followButton").removeClass().addClass("btn btn-info");
+                    $("#followButton span").removeClass().addClass("glyphicon glyphicon-plus");
+                    $("#followButton b").text("关注");
+                    $("#followButton span").css("color","white");
+                    $("#followButton b").css("color","white");
+
+
+                            //发送取消关注请求
+                }
+                else {
+                    follow = true;
+				 			alert("来啊！");
+				 			var oMyForm = new FormData();
+				 			oMyForm.append("followusername", "${user.getUsername()}");
+				 			var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							var headers = {};
+							headers[header] = token;
+				 			$.ajax({
+				 				type:'POST',
+				 				url:"<@s.url action="follow"/>",
+				 				data:oMyForm,
+ 								headers: headers,
+				 				dataType:'html',
+  								contentType:false,
+ 								processData:false,
+				 				error:function(){	
+										alert("错误");
+								},
+				 				success:function(){
+				 					alert(	"诶诶，可以了可以了");
+                    $("#followButton").removeClass().addClass("btn btn-default");
+                    $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                    $("#followButton b").text("已关注");
+                    $("#followButton span").css("color","black");
+                    $("#followButton b").css("color","black");
+				 					
+				 				},
+				 			});
+                    
+
+                            //发送关注请求
+                }
+            });
+        });
+        
+        	
+    </script>
 </div>
 </#macro>
