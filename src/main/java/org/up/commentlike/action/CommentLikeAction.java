@@ -62,7 +62,7 @@ public class CommentLikeAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 
-		CommentLike commentlike = new CommentLike();
+		CommentLike commentLike = new CommentLike();
 		String currentUsername;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
@@ -76,22 +76,22 @@ public class CommentLikeAction extends ActionSupport {
 		System.out.println(currentUsername);// 调试语句
 		System.out.println(comment_id);
 		// System.out.println(commentLikeAmount);
-		commentlike = commentLikeService.loadCommentLikeByCommentAndUser(comment_id, currentUsername);// 获取对应微博id、用户id的赞
+		commentLike = commentLikeService.loadCommentLikeByCommentAndUser(comment_id, currentUsername);// 获取对应微博id、用户id的赞
 
-		if (commentlike != null)
-			ifLiked = true; // 获得了commentlike实体，已经被点赞过
+		if (commentLike != null)
+			ifLiked = true; // commentlike实体非空，已经被点赞过
 		else
 			ifLiked = false;
 
 		if (ifLiked) {
-			commentLikeService.cancelCommentLike(commentlike); // 被点赞过，取消点赞
+			commentLikeService.cancelCommentLike(commentLike); // 被点赞过，取消点赞
 		} else {
-			CommentLike commentlike2 = new CommentLike();
+			CommentLike commentLike2 = new CommentLike();
 			Comment comment = commentService.loadCommentById(comment_id);
 			User user = userService.loadUserByUsername(currentUsername);
-			commentlike2.setUser(user);
-			commentlike2.setComment(comment);
-			commentLikeService.addCommentLike(commentlike2); // 新增点赞
+			commentLike2.setUser(user);
+			commentLike2.setComment(comment);
+			commentLikeService.addCommentLike(commentLike2); // 新增点赞
 		}
 		return SUCCESS;
 	}

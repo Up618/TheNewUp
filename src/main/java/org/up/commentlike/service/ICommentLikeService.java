@@ -5,15 +5,15 @@ import org.up.model.CommentLike;
 
 public interface ICommentLikeService {
 
-	public Long addCommentLike(CommentLike commentlike); // 点赞
-	public boolean cancelCommentLike(CommentLike commentlike); // 取消点赞
+	public Long addCommentLike(CommentLike commentLike); // 点赞
+	public boolean cancelCommentLike(CommentLike commentLike); // 取消点赞
 	public boolean cancelCommentLikeById(Long Id);
 
 	public CommentLike loadCommentLikeById(Long id);
 	public CommentLike loadCommentLikeByCommentAndUser(Long commentId, String username);
 	public List<CommentLike> listCommentLikeByUsername(String username);
-	public List<CommentLike> listCommentLikeByCommentId(String CommentId);
+	public List<CommentLike> listCommentLikeByCommentId(String commentId);
 
-	public Long countCommentLikeAmountByCommentId(Long commentId); // 某条微博的点赞数
+	public Long countCommentLikeAmountByCommentId(Long commentId); // 某条评论的点赞数
 
 }
