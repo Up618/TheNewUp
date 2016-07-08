@@ -228,39 +228,6 @@ $(function() {
   });
 });
 </script>
-
-
-
-
-<!-----------------------------------评论的获取函数---------------------------------->
-<script type="text/javascript">
-function CommentViewModel(){
-  var self = this;
-  self.avatar = ko.observable();
-  self.nickname = ko.observable();
-  self.time = ko.observable();
-  self.content = ko.observable("");
-  //alert("准备执行ajax");
-  $.ajax({
-    type: 'GET',
-    url: "<@s.url namespace="/comment" action="comment"/>",
-  }).done(function (datac) {
-    //alert(datac);
-    self.nickname(datac.nickname);
-    self.content(datac.content);
-    self.time(datac.time);
-    self.avatar(datac.avatar);
-  });
-}
-$(function() {
-  // Handler for .ready() called.
-  var appc = new CommentViewModel();
-  ko.applyBindings(appc);
-  //alert("已经binding");
-});
-</script>
-<!-----------------------------------评论的获取函数---------------------------->
-
 </body>
 </#macro>
 
@@ -324,8 +291,44 @@ $(function() {
                     <p align="center" class="up-operate"><a><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <p align="center" class="up-operate"><a data-toggle="modal" data-target="#${weibo.getId()}up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
+                    <p align="center" class="up-operate"><a id="${weibo.getId()}comment" data-toggle="modal" data-target="#${weibo.getId()}up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
                 </div>
+                
+<!-----------------------------------评论的获取函数---------------------------------->
+<script type="text/javascript">
+$(document).ready(function () {
+                	$("#${weibo.getId()}comment").click(function(){
+                        var self = this;
+                        self.avatar = ko.observable();
+                        self.nickname = ko.observable();
+                        self.time = ko.observable();
+                        self.content = ko.observable("");
+                	    $.ajax({
+                		    type: 'GET',
+                            url: "<@s.url namespace="/comment" action="comment"/>",
+                	    }).done(function (data) {
+                	    if(data.nickname!=null){
+                	        $("#${weibo.getId()}comment_name").text(data.nickname+"：");
+                	    }
+                	    if(data.content!=null){
+                	        $("#${weibo.getId()}comment_content").text(data.content);
+                	    }
+                	    if(data.time){
+                	        $("#${weibo.getId()}comment_time").text(data.time);
+                	    }
+                	    if(data.avatar!=null){
+                	        document.getElementById("${weibo.getId()}comment_img").src=data.avatar;
+                	    }
+                	    	self.nickname(data.nickname);
+                            self.content(data.content);
+                            self.time(data.time);
+                            self.avatar(data.avatar);
+                	    }) //done
+                    }); //click   
+                }); //document.ready
+</script>
+<!-----------------------------------评论的获取函数---------------------------->
+
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <p align="center" class="up-operate">
                     	<a id="${weibo.getId()}agree" href="#${weibo.getId()}">
@@ -412,12 +415,18 @@ $(function() {
                             <div class="row">
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
                                     <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img datac-bind="attr: { src: avatar, height: '30', width: '30' }, text: nickname">
+                                        <img id="${weibo.getId()}comment_img", text: nickname", width = "40", heighth = "40">
                                     </a>
                                 </div>
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-                                <p datac-bind="text:content">:</p><!--评论人名称-->
-                                <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">get评论时间</p><!--评论时间-->
+                            <p>
+                                <h id="${weibo.getId()}comment_name"></h>
+                                <!--评论人名称-->
+                                <h id="${weibo.getId()}comment_content"></h>
+                                <!--评论人名称-->
+                            </p>
+                                <p id="${weibo.getId()}comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                </p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
                                     <a id="${weibo.getId()}comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
                                 </div>

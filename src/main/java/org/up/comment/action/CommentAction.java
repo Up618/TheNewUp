@@ -103,7 +103,7 @@ public class CommentAction extends ActionSupport {
 		System.out.println("执行方法2");
 		comments = commentService.getCommentByWeibo(weibo);
 		System.out.println("执行方法3");
-		comment = comments.get(1);
+		comment = comments.get(0);
 		System.out.println("执行方法4");
 		System.out.println("comment: "+comment);
 		System.out.println("执行方法5");
