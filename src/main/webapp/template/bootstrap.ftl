@@ -235,12 +235,12 @@ function CommentViewModel(){
   self.nickname = ko.observable();
   self.time = ko.observable();
   self.content = ko.observable("");
-  alert("准备执行ajax");
+  //alert("准备执行ajax");
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/comment" action="comment"/>",
   }).done(function (datac) {
-    alert(datac);
+    //alert(datac);
     self.nickname(datac.nickname);
     self.content(datac.content);
     self.time(datac.time);
@@ -251,7 +251,7 @@ $(function() {
   // Handler for .ready() called.
   var appc = new CommentViewModel();
   ko.applyBindings(appc);
-  alert("已经binding");
+  //alert("已经binding");
 });
 </script>
 <!-----------------------------------评论的获取函数---------------------------->
@@ -323,7 +323,7 @@ $(function() {
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <p align="center" class="up-operate">
-                    	<a id="${weibo.getId()}agree" href="#">
+                    	<a id="${weibo.getId()}agree" href="#${weibo.getId()}">
                     		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     		点赞
                     		<b>${weibo.getAgreeAmount()}</b>
@@ -333,7 +333,7 @@ $(function() {
             </div>
 
             <script>
-                var agree${weibo.getId()} = ${weibo.getAgreeAmount()};  <!--暂且用点赞数测试-->
+                
                 $(document).ready(function () {
                 	$("#${weibo.getId()}agree").click(function(){
                         var token = $("meta[name='_csrf']").attr("content"); //之前已经把对应的变量存入<head>的<meta>中
@@ -345,9 +345,11 @@ $(function() {
                 		    dataType:'json',
                 		    headers: headers,
                 		    url: "<@s.url namespace="/agree" action="agree"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
-                	    }).done(function (data) {
+                	    	//传一个微博id的param到后台
+                	}).done(function (data) {
+                	    //alert(data.ifLiked);
                 	//判断按钮样式
-                	if (!agree${weibo.getId()}) {
+                	if (!data.ifLiked) {
                         $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) + 1);
                         agree${weibo.getId()} = true;
                         $("#${weibo.getId()}agree").css("color", "red");
@@ -368,34 +370,11 @@ $(function() {
                             $("#${weibo.getId()}agree").mouseout(function () {
                                 $("#${weibo.getId()}agree").css("color", "black");
                             });
-                        }//else
-                	    }) //done
+                    }//else
+                	}) //done
                     }); //click
-                    
-                    /* if (agree${weibo.getId()}) {
-                        $("#${weibo.getId()}agree").css("color", "red");
-                        $("#${weibo.getId()}agree").mouseover(function () {
-                            $("#${weibo.getId()}agree").css("color", "black");
-                        });
-                        $("#${weibo.getId()}agree").mouseout(function () {
-                            $("#${weibo.getId()}agree").css("color", "red");
-                        });
-                    } //if
-                    else {
-                        $("#${weibo.getId()}agree").css("color", "black");
-                        $("#${weibo.getId()}agree").mouseover(function () {
-                            $("#${weibo.getId()}agree").css("color", "red");
-                        });
-                        $("#${weibo.getId()}agree").mouseout(function () {
-                            $("#${weibo.getId()}agree").css("color", "black");
-                        });                        
-                    } //else
-                    */
-                    
                 }); //document.ready
                 
-                	
-                    
                 </script>
             </div>
         </div>
