@@ -222,28 +222,40 @@ $(function() {
     e.stopPropagation();
   });
 });
+</script>
 
 
-<!--更改！！！！-->
+
+
+<!-----------------------------------评论的获取函数---------------------------------->
+<script type="text/javascript">
 function CommentViewModel(){
   var self = this;
-  self.c = ko.observable();
+  self.avatar = ko.observable();
+  self.nickname = ko.observable();
+  self.time = ko.observable();
+  self.content = ko.observable("");
+  alert("准备执行ajax");
   $.ajax({
     type: 'GET',
-    url: "<@s.url namespace="/comment" action="comment" />",
+    url: "<@s.url namespace="/comment" action="comment"/>",
   }).done(function (datac) {
-    self.comments(datac.c);
+    alert(datac);
+    self.nickname(datac.nickname);
+    self.content(datac.content);
+    self.time(datac.time);
+    self.avatar(datac.avatar);
   });
 }
 $(function() {
   // Handler for .ready() called.
   var appc = new CommentViewModel();
   ko.applyBindings(appc);
+  alert("已经binding");
 });
-<!--更改！！！！-->
-
-
 </script>
+<!-----------------------------------评论的获取函数---------------------------->
+
 </body>
 </#macro>
 
@@ -398,11 +410,11 @@ $(function() {
                             <div class="row">
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
                                     <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img class="media-object" src="${weibo.getUser().getAvatar()}" alt="头像" height="30" width="30">
+                                        <img datac-bind="attr: { src: avatar, height: '30', width: '30' }, text: nickname">
                                     </a>
                                 </div>
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-                                <p>：你个sohai你个sohai你个sohai你个sohai你个sohai你个sohai</p><!--评论人名称-->
+                                <p datac-bind="text:content">:</p><!--评论人名称-->
                                 <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">get评论时间</p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
                                     <a id="${weibo.getId()}comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
