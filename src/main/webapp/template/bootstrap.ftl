@@ -286,6 +286,20 @@ $(function() {
             <p class="up-body">
                 <#nested>
             </p>
+            
+            <div id="firstWeiboImg" style="margin-left: 20px; margin-right: 20px;">
+                <img  id="firWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="secWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="thiWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="fouWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="fivWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="sixWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="sevWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="eigWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="ninWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+            </div>
+            <div class="clearfix"></div>
+                        
             <hr style="margin-bottom: 10px"/>
 
             <div class="row up-operat">
