@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("agreeService")
-public class AgreeService implements IAgreeService{
-	
+public class AgreeService implements IAgreeService {
+
 	@Autowired
 	private IBaseDao<Agree> agreeDao;
 
@@ -20,34 +20,32 @@ public class AgreeService implements IAgreeService{
 	public Long addAgree(Agree agree) {
 		return (Long) agreeDao.save(agree);
 	}
-	
+
 	/**
 	 * 取消点赞
 	 */
 	public boolean cancelAgree(Agree agree) {
-		try{
+		try {
 			agreeDao.delete(agree);
 			return true;
-		}
-		catch(Exception e){
-		return false;
+		} catch (Exception e) {
+			return false;
 		}
 	}
-	
+
 	public boolean cancelAgreeById(Long id) {
-		try{
+		try {
 			agreeDao.delete(agreeDao.get(Agree.class, id));
 			return true;
-		}
-		catch(Exception e){
-		return false;
+		} catch (Exception e) {
+			return false;
 		}
 	}
-	
+
 	public Agree loadAgreeById(Long id) {
 		return agreeDao.get(Agree.class, id);
 	}
-	
+
 	public List<Agree> listAgreeByUsername(String username) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(username);
@@ -58,7 +56,7 @@ public class AgreeService implements IAgreeService{
 	public List<Agree> listAgreeByWeiboId(String weiboId) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(weiboId);
-		return agreeDao.find("select a from Agree a where a.weibo.id = ?",params);
+		return agreeDao.find("select a from Agree a where a.weibo.id = ?", params);
 	}
 
 	@Override
@@ -68,7 +66,6 @@ public class AgreeService implements IAgreeService{
 		return agreeDao.count("select count(a) from Agree a where a.weibo.id = ?", params);
 	}
 
-	
 	/**
 	 * 判断此条微博是否已经被此用户点赞过。
 	 */
@@ -77,23 +74,11 @@ public class AgreeService implements IAgreeService{
 		List<Object> params = new ArrayList<Object>();
 		params.add(weiboId);
 		params.add(username);
-		//boolean isEmpty = agreeDao.find("select a from Agree a "
-		//		+ "where a.weibo.id = ? and a.user.username = ?", params).isEmpty();
+		// boolean isEmpty = agreeDao.find("select a from Agree a "
+		// + "where a.weibo.id = ? and a.user.username = ?", params).isEmpty();
 		Agree agree = new Agree();
-		agree = agreeDao.get("select a from Agree a "
-				+ "where a.weibo.id = ? and a.user.username = ?", params);
-			return agree;
-	}
-
-	@Override
-	public void cancelAgreeByWeiboAndUser(Long weiboId, String username) {
-		List<Object> params = new ArrayList<Object>();
-		params.add(weiboId);
-		params.add(username);
-		Agree agree = new Agree();
-		agree = agreeDao.get("select a from Agree a "
-				+ "where a.weibo.id = ? and a.user.username = ? limit 1", params);
-		agreeDao.delete(agree);
+		agree = agreeDao.get("select a from Agree a " + "where a.weibo.id = ? and a.user.username = ?", params);
+		return agree;
 	}
 
 }

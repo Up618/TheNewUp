@@ -9,12 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Formula;
-
 @Entity
 public class Agree {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp time;
@@ -22,23 +20,7 @@ public class Agree {
 	private User user;
 	@ManyToOne
 	private Weibo weibo;
-	
-	/*
-	
-	private Long weibo_id;
-	//private Long user_id;
-	
-	//@Formula("(select count(*) from agree as a where a.weibo_id = weibo_id and a.user_id = user_id)")
-	private boolean ifLiked;
 
-	public boolean isIfLiked() {
-		return ifLiked;
-	}
-
-	public void setIfLiked(boolean ifLiked) {
-		this.ifLiked = ifLiked;
-	}
-	 */
 	public Long getId() {
 		return id;
 	}
