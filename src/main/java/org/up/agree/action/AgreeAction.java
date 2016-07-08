@@ -27,7 +27,7 @@ import org.up.weibo.service.IWeiboService;
 public class AgreeAction extends ActionSupport {
 
 	/**
-	 * 点赞操作
+	 * 微博的点赞操作
 	 */
 
 	private Long weibo_id; // 接收前段传来的weibo_id

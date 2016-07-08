@@ -14,16 +14,10 @@ public class AgreeService implements IAgreeService {
 	@Autowired
 	private IBaseDao<Agree> agreeDao;
 
-	/**
-	 * 新增点赞
-	 */
 	public Long addAgree(Agree agree) {
 		return (Long) agreeDao.save(agree);
 	}
 
-	/**
-	 * 取消点赞
-	 */
 	public boolean cancelAgree(Agree agree) {
 		try {
 			agreeDao.delete(agree);
@@ -67,7 +61,7 @@ public class AgreeService implements IAgreeService {
 	}
 
 	/**
-	 * 判断此条微博是否已经被此用户点赞过。
+	 * 加载对应微博中对应用户的赞。
 	 */
 	@Override
 	public Agree loadAgreeByWeiboAndUser(Long weiboId, String username) {
