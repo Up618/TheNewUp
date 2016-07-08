@@ -62,7 +62,7 @@ public class AgreeService implements IAgreeService{
 	}
 
 	@Override
-	public Long countAgreeByWeiboId(Long weiboId) {
+	public Long countAgreeAmountByWeiboId(Long weiboId) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(weiboId);
 		return agreeDao.count("select count(a) from Agree a where a.weibo.id = ?", params);

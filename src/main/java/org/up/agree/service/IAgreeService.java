@@ -12,7 +12,7 @@ public interface IAgreeService {
 	public Agree loadAgreeById(Long id);
 	public List<Agree> listAgreeByUsername(String username);
 	public List<Agree> listAgreeByWeiboId(String weiboId);
-	public Long countAgreeByWeiboId(Long weiboId);
+	public Long countAgreeAmountByWeiboId(Long weiboId);
 	public Agree loadAgreeByWeiboAndUser(Long weiboId, String username);
 	
 }
