@@ -37,6 +37,7 @@ public class CommentAction extends ActionSupport {
 	private Weibo weibo;
 	private Comment comment;
 	private Comment comment2;
+	private Comment comment3;
 	private List<Comment> comments;
 	private Long weibo_id;
 	
@@ -102,10 +103,17 @@ public class CommentAction extends ActionSupport {
 		System.out.println("执行方法2");
 		comments = commentService.getCommentByWeibo(weibo);
 		System.out.println("执行方法3");
+		if(comments.get(0)!=null){
 		comment = comments.get(0);
+		}
+		System.out.println("执行方法4");
+		if(comments.size()>1){
 		comment2 = comments.get(1);
-		System.out.println("执行方法5");
-		setComment(comment, comment2);
+		}
+		if(comments.size()>2){
+			comment3 = comments.get(2);
+			}
+		setComment(comment, comment2, comment3);
 		System.out.println("执行方法6");
 		return SUCCESS;
 	}
@@ -213,26 +221,73 @@ public class CommentAction extends ActionSupport {
 		this.time2 = time2;
 	}
 	
-	private void setComment(Comment comment, Comment comment2){
+	
+	//这是第3条评论的方法
+		public void setContent3(String content3) {
+			this.content3 = content3;
+		}
+		
+		public String getContent3() {
+			return content3;
+		}
+		
+		public String getAvatar3() {
+			return avatar3;
+		}
+
+		public void setAvatar3(String avatar3) {
+			this.avatar3 = avatar3;
+		}
+		
+		public List<CommentLike> getCommentLikes3() {
+			return commentLikes3;
+		}
+
+		public void setCommentLike3(List<CommentLike> commentLikes3) {
+			this.commentLikes3 = commentLikes3;
+		}
+		
+		public String getNickname3() {
+			return nickname3;
+		}
+
+		public void setNickname3(String nickname3) {
+			this.nickname3 = nickname3;
+		}
+		
+		public Timestamp getTime3() {
+			return time3;
+		}
+
+		public void setTime3(Timestamp time3) {
+			this.time3 = time3;
+		}
+	
+	private void setComment(Comment comment, Comment comment2, Comment comment3){
+		if(comment!=null){
 		this.content = comment.getContent();
 		this.nickname = comment.getUser().getNickname();
 		this.time = comment.getTime();
 		this.avatar = comment.getUser().getAvatar();
 		this.commentLikes = comment.getCommentLikes();
+		}
 		
 		//Comment2
+		if(comment2!=null){
 		this.content2 = comment2.getContent();
 		this.nickname2 = comment2.getUser().getNickname();
 		this.time2 = comment2.getTime();
 		this.avatar2 = comment2.getUser().getAvatar();
 		this.commentLikes2 = comment2.getCommentLikes();
-		
+		}
 		//Comment3
-		/*this.content2 = comment2.getContent();
-	    this.nickname2 = comment2.getUser().getNickname();
-		this.time2 = comment2.getTime();
-		this.avatar = comment2.getUser().getAvatar();
-		this.commentLikes2 = comment2.getCommentLikes();
-		*/
+		if(comment3!=null){
+		this.content3 = comment3.getContent();
+	    this.nickname3 = comment3.getUser().getNickname();
+		this.time3 = comment3.getTime();
+		this.avatar3 = comment3.getUser().getAvatar();
+		this.commentLikes3 = comment2.getCommentLikes();
+		}
+		
 	}
 }

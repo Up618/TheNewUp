@@ -320,7 +320,7 @@ $(document).ready(function () {
                 	        document.getElementById("${weibo.getId()}comment_img").src=data.avatar;
                 	    }
                 	    
-                	    //======================下面是第2条评论的内容===============================
+     //======================下面是第2条评论的内容===============================
                 	    if(data.nickname2!=null){
                 	        $("#${weibo.getId()}comment_name2").text(data.nickname2+"：");
                 	    }
@@ -332,6 +332,20 @@ $(document).ready(function () {
                 	    }
                 	    if(data.avatar2!=null){
                 	        document.getElementById("${weibo.getId()}comment_img2").src=data.avatar2;
+                	    }
+                	    
+                	    //======================下面是第3条评论的内容===============================
+                	    if(data.nickname3!=null){
+                	        $("#${weibo.getId()}comment_name3").text(data.nickname3+"：");
+                	    }
+                	    if(data.content3!=null){
+                	        $("#${weibo.getId()}comment_content3").text(data.content3);
+                	    }
+                	    if(data.time3){
+                	        $("#${weibo.getId()}comment_time3").text(data.time3);
+                	    }
+                	    if(data.avatar3!=null){
+                	        document.getElementById("${weibo.getId()}comment_img3").src=data.avatar3;
                 	    }
                 	    	self.nickname(data.nickname);
                             self.content(data.content);
@@ -408,7 +422,7 @@ $(document).ready(function () {
                 <button type="button" class="close"data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <p class="comment-title">评论</p>
+                <p class="comment-title"></p>
             </div>
             <div class="modal-body">
                 <div class="row" style="margin-left: 0px; margin-right: 0px;">
@@ -418,7 +432,7 @@ $(document).ready(function () {
                             <textarea name="content" class="form-control" rows="2" style="resize:none;"
                                   placeholder="评论......" required></textarea>
                             <div style="text-align: right">
-                                <button type="submit" class="btn btn-primary" style="margin-top: 10px">UP!</button>
+                                <button type="submit" class="btn btn-primary" style="margin-top: 10px">评论</button>
                             </div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
