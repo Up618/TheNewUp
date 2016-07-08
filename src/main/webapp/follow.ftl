@@ -4,7 +4,7 @@
 <@bootstrap.body>
 <div class="container row" style="padding-top:60px">
 		<div class="col-lg-3">
-			<h1>aaaaa</h1>
+			<h1></h1>
 			<h3>关注：${followAmount}</h3>
 			<h3>粉丝：${fansAmount}</h3>
 		</div>
@@ -17,6 +17,8 @@
 			<div class="list-group">
 				<#list users as user>
 					<@bootstrap.user_card user=user/>
+					<#else>
+					<h1>你还没有关注任何人哦！</h1>
 				</#list>
 			</div>
 		</div>
