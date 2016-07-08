@@ -465,14 +465,14 @@ $(function() {
     </div>
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
         <h3>${user.getNickname()}</h3>
-        <p>关注数 粉丝数 微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
+        <p>关注数${user.getFollowAmount()}   粉丝数${user.getFansAmount()}   微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
         <p>${user.getSignature()!" "}</p>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
         <button id="${user.getNickname()}followButton" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
     </div>
     <script type="text/javascript">
-        var ${user.getNickname()}follow = true;                        //这地方写是否关注
+        var ${user.getNickname()}follow = false;                        //这地方写是否关注
         $(document).ready(function () {
 
             if (${user.getNickname()}follow) {
@@ -504,12 +504,35 @@ $(function() {
                 }
                 else {
                     ${user.getNickname()}follow = true;
-                    $("#${user.getNickname()}followButton").removeClass().addClass("btn btn-default");
-                    $("#${user.getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
-                    $("#${user.getNickname()}followButton b").text("已关注");
-                    $("#${user.getNickname()}followButton span").css("color","black");
-                    $("#${user.getNickname()}followButton b").css("color","black");
+				 			var oMyForm = new FormData();
+				 			oMyForm.append("followusername", "${user.getUsername()}");
+				 			var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							var headers = {};
+							headers[header] = token;
+				 			$.ajax({
+				 				type:'POST',
+				 				url:"<@s.url action="follow"/>",
+				 				data:oMyForm,
+ 								headers: headers,
+				 				dataType:'html',
+  								contentType:false,
+ 								processData:false,
+				 				error:function(){	
+										alert("发生了一些错误，请稍后再试！");
+								},
+				 				success:function(){
+                    				$("#${user.getNickname()}followButton").removeClass().addClass("btn btn-default");
+                   					 $("#${user.getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                  					 $("#${user.getNickname()}followButton b").text("已关注");
+                				    $("#${user.getNickname()}followButton span").css("color","black");
+                 					$("#${user.getNickname()}followButton b").css("color","black");
 
+				 					alert(	"已成功关注！");
+				 				},
+				 			});
+                    
+                    
 
                                         //发送关注请求
                 }
@@ -529,9 +552,10 @@ $(function() {
     </div>
 
     <script type="text/javascript">
-        var follow = true;                        //这地方写是否关注
+        var follow = false;                        //这地方写是否关注
         $(document).ready(function () {
             if (follow) {
+            	alert("zhaoweisohai");
                 $("#followButton").removeClass().addClass("btn btn-default");
                 $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
                 $("#followButton b").text("已关注");
@@ -560,17 +584,42 @@ $(function() {
                 }
                 else {
                     follow = true;
+				 			alert("来啊！");
+				 			var oMyForm = new FormData();
+				 			oMyForm.append("followusername", "${user.getUsername()}");
+				 			var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							var headers = {};
+							headers[header] = token;
+				 			$.ajax({
+				 				type:'POST',
+				 				url:"<@s.url action="follow"/>",
+				 				data:oMyForm,
+ 								headers: headers,
+				 				dataType:'html',
+  								contentType:false,
+ 								processData:false,
+				 				error:function(){	
+										alert("错误");
+								},
+				 				success:function(){
+				 					alert(	"诶诶，可以了可以了");
                     $("#followButton").removeClass().addClass("btn btn-default");
                     $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
                     $("#followButton b").text("已关注");
                     $("#followButton span").css("color","black");
                     $("#followButton b").css("color","black");
-
+				 					
+				 				},
+				 			});
+                    
 
                             //发送关注请求
                 }
             });
         });
+        
+        	
     </script>
 </div>
 </#macro>
