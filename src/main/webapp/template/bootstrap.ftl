@@ -305,7 +305,7 @@ $(document).ready(function () {
                         self.content = ko.observable("");
                 	    $.ajax({
                 		    type: 'GET',
-                            url: "<@s.url namespace="/comment" action="comment"/>",
+                            url: "<@s.url namespace="/comment" action="comment"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
                 	    }).done(function (data) {
                 	    if(data.nickname!=null){
                 	        $("#${weibo.getId()}comment_name").text(data.nickname+"：");

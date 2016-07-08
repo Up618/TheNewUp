@@ -82,9 +82,7 @@ public class CommentAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		//HttpServletRequest request = ServletActionContext.getRequest();
-    	//weibo_id = Long.valueOf(request.getParameter("weibo_id"));
-    	weibo_id = 1L;
+		weibo_id = getWeibo_id();
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String myname=null;
 		if (principal instanceof UserDetails) {
