@@ -36,6 +36,7 @@ public class CommentAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private Weibo weibo;
 	private Comment comment;
+	private Comment comment2;
 	private List<Comment> comments;
 	private Long weibo_id;
 	
@@ -102,21 +103,34 @@ public class CommentAction extends ActionSupport {
 		comments = commentService.getCommentByWeibo(weibo);
 		System.out.println("执行方法3");
 		comment = comments.get(0);
-		System.out.println("执行方法4");
-		System.out.println("comment: "+comment);
+		comment2 = comments.get(1);
 		System.out.println("执行方法5");
-		setComment(comment);
+		setComment(comment, comment2);
 		System.out.println("执行方法6");
 		return SUCCESS;
 	}
 	
 	//下面是json的内容了
-	
+	//第1条评论
 	private String nickname;
 	private String content;
 	private Timestamp time;
 	private String avatar;
 	public List<CommentLike> commentLikes;
+	
+	//第2条评论
+	private String nickname2;
+	private String content2;
+	private Timestamp time2;
+	private String avatar2;
+	public List<CommentLike> commentLikes2;
+	
+	//第3条评论
+	private String nickname3;
+	private String content3;
+	private Timestamp time3;
+	private String avatar3;
+	public List<CommentLike> commentLikes3;
 	
 	public String getAvatar() {
 		return avatar;
@@ -130,7 +144,7 @@ public class CommentAction extends ActionSupport {
 		return commentLikes;
 	}
 
-	public void setAvatar(List<CommentLike> commentLikes) {
+	public void setCommentLike(List<CommentLike> commentLikes) {
 		this.commentLikes = commentLikes;
 	}
 	
@@ -145,7 +159,7 @@ public class CommentAction extends ActionSupport {
 	public String getContent() {
 		return content;
 	}
-
+	
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -158,11 +172,67 @@ public class CommentAction extends ActionSupport {
 		this.time = time;
 	}
 	
-	private void setComment(Comment comment){
+	//这是第2条评论的方法
+	public void setContent2(String content2) {
+		this.content2 = content2;
+	}
+	
+	public String getContent2() {
+		return content2;
+	}
+	
+	public String getAvatar2() {
+		return avatar2;
+	}
+
+	public void setAvatar2(String avatar2) {
+		this.avatar2 = avatar2;
+	}
+	
+	public List<CommentLike> getCommentLikes2() {
+		return commentLikes2;
+	}
+
+	public void setCommentLike2(List<CommentLike> commentLikes2) {
+		this.commentLikes2 = commentLikes2;
+	}
+	
+	public String getNickname2() {
+		return nickname2;
+	}
+
+	public void setNickname2(String nickname2) {
+		this.nickname2 = nickname2;
+	}
+	
+	public Timestamp getTime2() {
+		return time2;
+	}
+
+	public void setTime2(Timestamp time2) {
+		this.time2 = time2;
+	}
+	
+	private void setComment(Comment comment, Comment comment2){
 		this.content = comment.getContent();
 		this.nickname = comment.getUser().getNickname();
 		this.time = comment.getTime();
 		this.avatar = comment.getUser().getAvatar();
 		this.commentLikes = comment.getCommentLikes();
+		
+		//Comment2
+		this.content2 = comment2.getContent();
+		this.nickname2 = comment2.getUser().getNickname();
+		this.time2 = comment2.getTime();
+		this.avatar2 = comment2.getUser().getAvatar();
+		this.commentLikes2 = comment2.getCommentLikes();
+		
+		//Comment3
+		/*this.content2 = comment2.getContent();
+	    this.nickname2 = comment2.getUser().getNickname();
+		this.time2 = comment2.getTime();
+		this.avatar = comment2.getUser().getAvatar();
+		this.commentLikes2 = comment2.getCommentLikes();
+		*/
 	}
 }
