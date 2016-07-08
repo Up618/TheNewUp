@@ -55,6 +55,11 @@
     height: 86;
     width: 86;
   }
+  
+  body.modal-open[style="margin-bottom: 60px; padding-right: 17px;"] > footer,
+  body.modal-open[style="margin-bottom: 60px; padding-right: 17px;"] > nav.navbar-fixed-top{
+  	padding-right: 17;
+  }
   </style>
   <link href="http://o9x8azwl1.bkt.clouddn.com/newup.css" rel="stylesheet">
 <#nested>
@@ -73,7 +78,7 @@
 </#macro>
 
 <#macro body>
-<body style="margin-bottom:60px">
+<body style="margin-bottom:60px;">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
