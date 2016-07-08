@@ -15,6 +15,7 @@ public interface ICommentService {
 	public List<Comment> getCommentBycurrentUser(User user);
 	
 	public Long addComment(Comment comment);
+	public Long countCommentLike(Comment comment);
 	public Long countCommentBycurrentUsername(String username);
 	public Long countCommentBycurrentUser(User user);
 	public Long countCommentBycurrentUserId(Long userId);

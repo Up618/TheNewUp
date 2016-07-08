@@ -47,11 +47,11 @@ public class FollowAction extends ActionSupport{
 		}
 		return SUCCESS;
 	}
-	private void setFollowusername(String followusername){
+	public void setFollowusername(String followusername){
 		this.followusername = followusername;
 	}
 	
-	private String getFollowusername(){
+	public String getFollowusername(){
 		return this.followusername;
 	}
 }

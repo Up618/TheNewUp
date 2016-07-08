@@ -222,28 +222,40 @@ $(function() {
     e.stopPropagation();
   });
 });
+</script>
 
 
-<!--更改！！！！-->
+
+
+<!-----------------------------------评论的获取函数---------------------------------->
+<script type="text/javascript">
 function CommentViewModel(){
   var self = this;
-  self.c = ko.observable();
+  self.avatar = ko.observable();
+  self.nickname = ko.observable();
+  self.time = ko.observable();
+  self.content = ko.observable("");
+  alert("准备执行ajax");
   $.ajax({
     type: 'GET',
-    url: "<@s.url namespace="/comment" action="comment" />",
+    url: "<@s.url namespace="/comment" action="comment"/>",
   }).done(function (datac) {
-    self.comments(datac.c);
+    alert(datac);
+    self.nickname(datac.nickname);
+    self.content(datac.content);
+    self.time(datac.time);
+    self.avatar(datac.avatar);
   });
 }
 $(function() {
   // Handler for .ready() called.
   var appc = new CommentViewModel();
   ko.applyBindings(appc);
+  alert("已经binding");
 });
-<!--更改！！！！-->
-
-
 </script>
+<!-----------------------------------评论的获取函数---------------------------->
+
 </body>
 </#macro>
 
@@ -286,6 +298,20 @@ $(function() {
             <p class="up-body">
                 <#nested>
             </p>
+            
+            <div id="firstWeiboImg" style="margin-left: 20px; margin-right: 20px;">
+                <img  id="firWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="secWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="thiWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="fouWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="fivWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="sixWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="sevWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="eigWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="ninWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+            </div>
+            <div class="clearfix"></div>
+                        
             <hr style="margin-bottom: 10px"/>
 
             <div class="row up-operat">
@@ -402,11 +428,11 @@ $(function() {
                             <div class="row">
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
                                     <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img class="media-object" src="${weibo.getUser().getAvatar()}" alt="头像" height="30" width="30">
+                                        <img datac-bind="attr: { src: avatar, height: '30', width: '30' }, text: nickname">
                                     </a>
                                 </div>
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-                                <p>：你个sohai你个sohai你个sohai你个sohai你个sohai你个sohai</p><!--评论人名称-->
+                                <p datac-bind="text:content">:</p><!--评论人名称-->
                                 <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">get评论时间</p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
                                     <a id="${weibo.getId()}comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
@@ -483,14 +509,14 @@ $(function() {
     </div>
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
         <h3>${user.getNickname()}</h3>
-        <p>关注数 粉丝数 微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
+        <p>关注数${user.getFollowAmount()}   粉丝数${user.getFansAmount()}   微博数<a href="<@s.url namespace="/user" action="${user.getId()}" />">${user.getWeiboAmount()}</a></p>
         <p>${user.getSignature()!" "}</p>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
         <button id="${user.getNickname()}followButton" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
     </div>
     <script type="text/javascript">
-        var ${user.getNickname()}follow = true;                        //这地方写是否关注
+        var ${user.getNickname()}follow = false;                        //这地方写是否关注
         $(document).ready(function () {
 
             if (${user.getNickname()}follow) {
@@ -522,12 +548,35 @@ $(function() {
                 }
                 else {
                     ${user.getNickname()}follow = true;
-                    $("#${user.getNickname()}followButton").removeClass().addClass("btn btn-default");
-                    $("#${user.getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
-                    $("#${user.getNickname()}followButton b").text("已关注");
-                    $("#${user.getNickname()}followButton span").css("color","black");
-                    $("#${user.getNickname()}followButton b").css("color","black");
+				 			var oMyForm = new FormData();
+				 			oMyForm.append("followusername", "${user.getUsername()}");
+				 			var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							var headers = {};
+							headers[header] = token;
+				 			$.ajax({
+				 				type:'POST',
+				 				url:"<@s.url action="follow"/>",
+				 				data:oMyForm,
+ 								headers: headers,
+				 				dataType:'html',
+  								contentType:false,
+ 								processData:false,
+				 				error:function(){	
+										alert("发生了一些错误，请稍后再试！");
+								},
+				 				success:function(){
+                    				$("#${user.getNickname()}followButton").removeClass().addClass("btn btn-default");
+                   					 $("#${user.getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                  					 $("#${user.getNickname()}followButton b").text("已关注");
+                				    $("#${user.getNickname()}followButton span").css("color","black");
+                 					$("#${user.getNickname()}followButton b").css("color","black");
 
+				 					alert(	"已成功关注！");
+				 				},
+				 			});
+                    
+                    
 
                                         //发送关注请求
                 }
@@ -547,9 +596,10 @@ $(function() {
     </div>
 
     <script type="text/javascript">
-        var follow = true;                        //这地方写是否关注
+        var follow = false;                        //这地方写是否关注
         $(document).ready(function () {
             if (follow) {
+            	alert("zhaoweisohai");
                 $("#followButton").removeClass().addClass("btn btn-default");
                 $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
                 $("#followButton b").text("已关注");
@@ -578,17 +628,42 @@ $(function() {
                 }
                 else {
                     follow = true;
+				 			alert("来啊！");
+				 			var oMyForm = new FormData();
+				 			oMyForm.append("followusername", "${user.getUsername()}");
+				 			var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							var headers = {};
+							headers[header] = token;
+				 			$.ajax({
+				 				type:'POST',
+				 				url:"<@s.url action="follow"/>",
+				 				data:oMyForm,
+ 								headers: headers,
+				 				dataType:'html',
+  								contentType:false,
+ 								processData:false,
+				 				error:function(){	
+										alert("错误");
+								},
+				 				success:function(){
+				 					alert(	"诶诶，可以了可以了");
                     $("#followButton").removeClass().addClass("btn btn-default");
                     $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
                     $("#followButton b").text("已关注");
                     $("#followButton span").css("color","black");
                     $("#followButton b").css("color","black");
-
+				 					
+				 				},
+				 			});
+                    
 
                             //发送关注请求
                 }
             });
         });
+        
+        	
     </script>
 </div>
 </#macro>
