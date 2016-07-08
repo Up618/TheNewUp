@@ -55,6 +55,11 @@
     height: 86;
     width: 86;
   }
+  
+  body.modal-open[style="margin-bottom: 60px; padding-right: 17px;"] > footer,
+  body.modal-open[style="margin-bottom: 60px; padding-right: 17px;"] > nav.navbar-fixed-top{
+  	padding-right: 17;
+  }
   </style>
   <link href="http://o9x8azwl1.bkt.clouddn.com/newup.css" rel="stylesheet">
 <#nested>
@@ -73,7 +78,7 @@
 </#macro>
 
 <#macro body>
-<body style="margin-bottom:60px">
+<body style="margin-bottom:60px;">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -222,27 +227,6 @@ $(function() {
     e.stopPropagation();
   });
 });
-
-
-<!--更改！！！！-->
-function CommentViewModel(){
-  var self = this;
-  self.c = ko.observable();
-  $.ajax({
-    type: 'GET',
-    url: "<@s.url namespace="/comment" action="comment" />",
-  }).done(function (datac) {
-    self.comments(datac.c);
-  });
-}
-$(function() {
-  // Handler for .ready() called.
-  var appc = new CommentViewModel();
-  ko.applyBindings(appc);
-});
-<!--更改！！！！-->
-
-
 </script>
 </body>
 </#macro>
@@ -286,6 +270,20 @@ $(function() {
             <p class="up-body">
                 <#nested>
             </p>
+            
+            <div id="firstWeiboImg" style="margin-left: 20px; margin-right: 20px;">
+                <img  id="firWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="secWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="thiWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="fouWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="fivWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="sixWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="sevWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="eigWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                <img  id="ninWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+            </div>
+            <div class="clearfix"></div>
+                        
             <hr style="margin-bottom: 10px"/>
 
             <div class="row up-operat">
@@ -293,39 +291,105 @@ $(function() {
                     <p align="center" class="up-operate"><a><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <p align="center" class="up-operate"><a data-toggle="modal" data-target="#${weibo.getId()}up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
+                    <p align="center" class="up-operate"><a id="${weibo.getId()}comment" data-toggle="modal" data-target="#${weibo.getId()}up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
                 </div>
+                
+<!-----------------------------------评论的获取函数---------------------------------->
+<script type="text/javascript">
+$(document).ready(function () {
+                	$("#${weibo.getId()}comment").click(function(){
+                        var self = this;
+                        self.avatar = ko.observable();
+                        self.nickname = ko.observable();
+                        self.time = ko.observable();
+                        self.content = ko.observable("");
+                	    $.ajax({
+                		    type: 'GET',
+                            url: "<@s.url namespace="/comment" action="comment"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
+                	    }).done(function (data) {
+      //======================下面是第1条评论的内容===============================
+                	    if(data.nickname!=null){
+                	        $("#${weibo.getId()}comment_name").text(data.nickname+"：");
+                	        $("#${weibo.getId()}comment_agree").show();
+                	    }
+                	    if(data.content!=null){
+                	        $("#${weibo.getId()}comment_content").text(data.content);
+                	    }
+                	    if(data.time){
+                	        $("#${weibo.getId()}comment_time").text(data.time);
+                	    }
+                	    if(data.avatar!=null){
+                	        document.getElementById("${weibo.getId()}comment_img").src=data.avatar;
+                	    }
+                	    
+     //======================下面是第2条评论的内容===============================
+                	    if(data.nickname2!=null){
+                	        $("#${weibo.getId()}comment_name2").text(data.nickname2+"：");
+                	        $("#${weibo.getId()}comment_agree2").show();
+                	    }
+                	    if(data.content2!=null){
+                	        $("#${weibo.getId()}comment_content2").text(data.content2);
+                	    }
+                	    if(data.time2){
+                	        $("#${weibo.getId()}comment_time2").text(data.time2);
+                	    }
+                	    if(data.avatar2!=null){
+                	        document.getElementById("${weibo.getId()}comment_img2").src=data.avatar2;
+                	    }
+                	    
+      //======================下面是第3条评论的内容===============================
+                	    if(data.nickname3!=null){
+                	        $("#${weibo.getId()}comment_name3").text(data.nickname3+"：");
+                	        $("#${weibo.getId()}comment_agree3").show();
+                	    }
+                	    if(data.content3!=null){
+                	        $("#${weibo.getId()}comment_content3").text(data.content3);
+                	    }
+                	    if(data.time3){
+                	        $("#${weibo.getId()}comment_time3").text(data.time3);
+                	    }
+                	    if(data.avatar3!=null){
+                	        document.getElementById("${weibo.getId()}comment_img3").src=data.avatar3;
+                	    }
+                	    	self.nickname(data.nickname);
+                            self.content(data.content);
+                            self.time(data.time);
+                            self.avatar(data.avatar);
+                	    }) //done
+                    }); //click   
+                }); //document.ready
+</script>
+<!-----------------------------------上面为评论的获取函数---------------------------->
+
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <p align="center" class="up-operate"><a id="${weibo.getId()}agree" href="javascript:agreeit${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>点赞<b>1</b></a></p>
+                    <p align="center" class="up-operate">
+                    	<a id="${weibo.getId()}agree" href="#${weibo.getId()}">
+                    		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    		点赞
+                    		<b>${weibo.getAgreeAmount()}</b>
+                    	</a>
+                    </p>
                 </div>
             </div>
 
             <script>
-                var agree${weibo.getId()} = true;                 <!--把true改作是否点赞的布尔值-->
                 
                 $(document).ready(function () {
-                    if (agree${weibo.getId()}) {
-                        $("#${weibo.getId()}agree").css("color", "red");
-                        $("#${weibo.getId()}agree").mouseover(function () {
-                            $("#${weibo.getId()}agree").css("color", "black");
-                        });
-                        $("#${weibo.getId()}agree").mouseout(function () {
-                            $("#${weibo.getId()}agree").css("color", "red");
-                        });
-                    }
-                    else {
-                        $("#${weibo.getId()}agree").css("color", "black");
-                        $("#${weibo.getId()}agree").mouseover(function () {
-                            $("#${weibo.getId()}agree").css("color", "red");
-                        });
-                        $("#${weibo.getId()}agree").mouseout(function () {
-                            $("#${weibo.getId()}agree").css("color", "black");
-                        });                        
-                    }
-                });
-                
-                function agreeit${weibo.getId()}() {
-                    if (!agree${weibo.getId()}) {
+                	$("#${weibo.getId()}agree").click(function(){
+                        var token = $("meta[name='_csrf']").attr("content"); //之前已经把对应的变量存入<head>的<meta>中
+						var header = $("meta[name='_csrf_header']").attr("content");
+						var headers = {};
+						headers[header] = token;
+                	    $.ajax({
+                		    type: 'POST',
+                		    dataType:'json',
+                		    headers: headers,
+                		    url: "<@s.url namespace="/agree" action="agree"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
+                	    	//传一个微博id的param到后台
+                	}).done(function (data) {
+                	    //alert(data.ifLiked);
+                	//判断按钮样式
+                	if (!data.ifLiked) {
                         $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) + 1);
                         agree${weibo.getId()} = true;
                         $("#${weibo.getId()}agree").css("color", "red");
@@ -335,9 +399,7 @@ $(function() {
                         $("#${weibo.getId()}agree").mouseout(function () {
                             $("#${weibo.getId()}agree").css("color", "red");
                         });
-
-                        //这个地方发点赞请求
-                    }
+                    }//if
                     else {
                         $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) - 1);
                         agree${weibo.getId()} = false;
@@ -348,10 +410,11 @@ $(function() {
                             $("#${weibo.getId()}agree").mouseout(function () {
                                 $("#${weibo.getId()}agree").css("color", "black");
                             });
-
-                            //这个地方发取消点赞请求
-                        }
-                    }
+                    }//else
+                	}) //done
+                    }); //click
+                }); //document.ready
+                
                 </script>
             </div>
         </div>
@@ -363,7 +426,7 @@ $(function() {
                 <button type="button" class="close"data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <p class="comment-title">评论</p>
+                <p class="comment-title"></p>
             </div>
             <div class="modal-body">
                 <div class="row" style="margin-left: 0px; margin-right: 0px;">
@@ -373,7 +436,7 @@ $(function() {
                             <textarea name="content" class="form-control" rows="2" style="resize:none;"
                                   placeholder="评论......" required></textarea>
                             <div style="text-align: right">
-                                <button type="submit" class="btn btn-primary" style="margin-top: 10px">UP!</button>
+                                <button type="submit" class="btn btn-primary" style="margin-top: 10px">评论</button>
                             </div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
@@ -384,15 +447,73 @@ $(function() {
                             <div class="row">
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
                                     <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img class="media-object" src="${weibo.getUser().getAvatar()}" alt="头像" height="30" width="30">
+                                        <img id="${weibo.getId()}comment_img", text: nickname", width = "40", heighth = "40">
                                     </a>
                                 </div>
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-                                <p>：你个sohai你个sohai你个sohai你个sohai你个sohai你个sohai</p><!--评论人名称-->
-                                <p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">get评论时间</p><!--评论时间-->
+                            <p>
+                                <h id="${weibo.getId()}comment_name"></h>
+                                <!--评论人名称-->
+                                <h id="${weibo.getId()}comment_content"></h>
+                                <!--评论人名称-->
+                            </p>
+                                <p id="${weibo.getId()}comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                </p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                    <a id="${weibo.getId()}comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                <a id="${weibo.getId()}comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
                                 </div>
+                            </div>
+                            </div>
+                                
+                                
+<!------------------------------下面是第二条评论--------------------------------------------->
+                            <div class="row">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
+                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
+                                        <img id="${weibo.getId()}comment_img2", text: nickname2", width = "40", heighth = "40">
+                                    </a>
+                                </div>
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
+                            <p>
+                                <h id="${weibo.getId()}comment_name2"></h>
+                                <!--评论人名称-->
+                                <h id="${weibo.getId()}comment_content2"></h>
+                                <!--评论人名称-->
+                            </p>
+                                <p id="${weibo.getId()}comment_time2" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                </p><!--评论时间-->
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
+                                    <a id="${weibo.getId()}comment_agree2" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                </div> 
+                           </div>       
+                           </div>                  
+<!------------------------------上面是第二条评论--------------------------------------------->
+                                
+                                
+<!------------------------------下面是第三条评论--------------------------------------------->
+                            <div class="row">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
+                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
+                                        <img id="${weibo.getId()}comment_img3", text: nickname3", width = "40", heighth = "40">
+                                    </a>
+                                </div>
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
+                            <p>
+                                <h id="${weibo.getId()}comment_name3"></h>
+                                <!--评论人名称-->
+                                <h id="${weibo.getId()}comment_content3"></h>
+                                <!--评论人名称-->
+                            </p>
+                                <p id="${weibo.getId()}comment_time3" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                </p><!--评论时间-->
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
+                                    <a id="${weibo.getId()}comment_agree3" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                </div> 
+                           </div>      
+                           </div>                   
+ <!------------------------------上面是第三条评论--------------------------------------------->
+                                
+                                
                                 <script>
                                     var comment_agree${weibo.getId()} = true;                 <!--把true改作是否点赞的布尔值-->
 

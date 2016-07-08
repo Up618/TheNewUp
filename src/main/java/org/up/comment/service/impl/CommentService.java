@@ -29,6 +29,11 @@ public class CommentService implements ICommentService {
 	public Comment loadCommentById(Long id) {
 		return commentDao.get(Comment.class, id);
 	}
+	
+	@Override
+	public Long countCommentLike(Comment comment){
+		return 1L;
+	}
 
 	@Override
 	public Long addComment(Comment comment) {
