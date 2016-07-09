@@ -15,4 +15,6 @@ public interface IFollowService {
 	public Follow getFollow(String username, String followusername);
 	public List<User> findFollowUserByUserName(String username);
 	public List<User> findFansByUsername(String username);
+	public List<List> getFollowByUsername(String username);
+	public List<List> getFansByUsername(String username);
 }

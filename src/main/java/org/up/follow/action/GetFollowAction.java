@@ -59,7 +59,7 @@ public class GetFollowAction extends ActionSupport{
 		listFollow = followService.findByUsername(myname);
 		followAmount = user.getFollowAmount();
 		fansAmount = user.getFansAmount();
-		users = userDtoService.getUserByUsername(myname);
+		users = followService.getFollowByUsername(myname);
 		
 		return SUCCESS;
 	}

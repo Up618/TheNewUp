@@ -19,7 +19,7 @@
 			<div class="list-group">
 				<#list fans as user>
 				
-					<@bootstrap.user_card user=user/>
+					<@bootstrap.user_card_fans user=user/>
 				
 					<#else>
 					<h1>你还没有任何粉丝哦！</h1>

@@ -16,7 +16,7 @@
 			<h5>全部关注：${followAmount}</h5>
 			<div class="list-group">
 				<#list users as user>
-					<@bootstrap.user_card user=user/>
+					<@bootstrap.user_card_follow user=user/>
 					<#else>
 					<h1>你还没有关注任何人哦！</h1>
 				</#list>
