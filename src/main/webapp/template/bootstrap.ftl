@@ -568,11 +568,8 @@ $(document).ready(function () {
                                     }
                                 </script>
                                 </div>
-                            </div>
                         </div>
                 </div>
-
-            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
