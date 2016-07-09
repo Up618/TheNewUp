@@ -10,11 +10,11 @@
 		<div class="col-sm-9 col-sm-offset-2 col-md-8 col-md-offset-3 col-lg-7 col-lg-offset-4">
 			<div class="list-group">
 				<#list users as user>
-					<@bootstrap.user_card user=user/>
+					<@bootstrap.user_card_lg user=user/>
 				</#list>
 			</div>
 		</div>
 	</div>
 </div>
 </@bootstrap.body>
-</html>
+</html>1

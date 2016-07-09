@@ -36,6 +36,8 @@ public class CommentAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private Weibo weibo;
 	private Comment comment;
+	private Comment comment2;
+	private Comment comment3;
 	private List<Comment> comments;
 	private Long weibo_id;
 	
@@ -82,9 +84,7 @@ public class CommentAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		//HttpServletRequest request = ServletActionContext.getRequest();
-    	//weibo_id = Long.valueOf(request.getParameter("weibo_id"));
-    	weibo_id = 1L;
+		weibo_id = getWeibo_id();
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String myname=null;
 		if (principal instanceof UserDetails) {
@@ -103,22 +103,42 @@ public class CommentAction extends ActionSupport {
 		System.out.println("执行方法2");
 		comments = commentService.getCommentByWeibo(weibo);
 		System.out.println("执行方法3");
-		comment = comments.get(1);
+		if(comments.get(0)!=null){
+		comment = comments.get(0);
+		}
 		System.out.println("执行方法4");
-		System.out.println("comment: "+comment);
-		System.out.println("执行方法5");
-		setComment(comment);
+		if(comments.size()>1){
+		comment2 = comments.get(1);
+		}
+		if(comments.size()>2){
+			comment3 = comments.get(2);
+			}
+		setComment(comment, comment2, comment3);
 		System.out.println("执行方法6");
 		return SUCCESS;
 	}
 	
 	//下面是json的内容了
-	
+	//第1条评论
 	private String nickname;
 	private String content;
 	private Timestamp time;
 	private String avatar;
 	public List<CommentLike> commentLikes;
+	
+	//第2条评论
+	private String nickname2;
+	private String content2;
+	private Timestamp time2;
+	private String avatar2;
+	public List<CommentLike> commentLikes2;
+	
+	//第3条评论
+	private String nickname3;
+	private String content3;
+	private Timestamp time3;
+	private String avatar3;
+	public List<CommentLike> commentLikes3;
 	
 	public String getAvatar() {
 		return avatar;
@@ -132,7 +152,7 @@ public class CommentAction extends ActionSupport {
 		return commentLikes;
 	}
 
-	public void setAvatar(List<CommentLike> commentLikes) {
+	public void setCommentLike(List<CommentLike> commentLikes) {
 		this.commentLikes = commentLikes;
 	}
 	
@@ -147,7 +167,7 @@ public class CommentAction extends ActionSupport {
 	public String getContent() {
 		return content;
 	}
-
+	
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -160,11 +180,114 @@ public class CommentAction extends ActionSupport {
 		this.time = time;
 	}
 	
-	private void setComment(Comment comment){
+	//这是第2条评论的方法
+	public void setContent2(String content2) {
+		this.content2 = content2;
+	}
+	
+	public String getContent2() {
+		return content2;
+	}
+	
+	public String getAvatar2() {
+		return avatar2;
+	}
+
+	public void setAvatar2(String avatar2) {
+		this.avatar2 = avatar2;
+	}
+	
+	public List<CommentLike> getCommentLikes2() {
+		return commentLikes2;
+	}
+
+	public void setCommentLike2(List<CommentLike> commentLikes2) {
+		this.commentLikes2 = commentLikes2;
+	}
+	
+	public String getNickname2() {
+		return nickname2;
+	}
+
+	public void setNickname2(String nickname2) {
+		this.nickname2 = nickname2;
+	}
+	
+	public Timestamp getTime2() {
+		return time2;
+	}
+
+	public void setTime2(Timestamp time2) {
+		this.time2 = time2;
+	}
+	
+	
+	//这是第3条评论的方法
+		public void setContent3(String content3) {
+			this.content3 = content3;
+		}
+		
+		public String getContent3() {
+			return content3;
+		}
+		
+		public String getAvatar3() {
+			return avatar3;
+		}
+
+		public void setAvatar3(String avatar3) {
+			this.avatar3 = avatar3;
+		}
+		
+		public List<CommentLike> getCommentLikes3() {
+			return commentLikes3;
+		}
+
+		public void setCommentLike3(List<CommentLike> commentLikes3) {
+			this.commentLikes3 = commentLikes3;
+		}
+		
+		public String getNickname3() {
+			return nickname3;
+		}
+
+		public void setNickname3(String nickname3) {
+			this.nickname3 = nickname3;
+		}
+		
+		public Timestamp getTime3() {
+			return time3;
+		}
+
+		public void setTime3(Timestamp time3) {
+			this.time3 = time3;
+		}
+	
+	private void setComment(Comment comment, Comment comment2, Comment comment3){
+		if(comment!=null){
 		this.content = comment.getContent();
 		this.nickname = comment.getUser().getNickname();
 		this.time = comment.getTime();
 		this.avatar = comment.getUser().getAvatar();
 		this.commentLikes = comment.getCommentLikes();
+		}
+		
+		//Comment2
+		if(comment2!=null){
+		this.content2 = comment2.getContent();
+		this.nickname2 = comment2.getUser().getNickname();
+		this.time2 = comment2.getTime();
+		this.avatar2 = comment2.getUser().getAvatar();
+		this.commentLikes2 = comment2.getCommentLikes();
+		}
+		//Comment3
+		if(comment3!=null){
+		this.content3 = comment3.getContent();
+	    this.nickname3 = comment3.getUser().getNickname();
+		this.time3 = comment3.getTime();
+		this.avatar3 = comment3.getUser().getAvatar();
+		this.commentLikes3 = comment2.getCommentLikes();
+		}
+		
 	}
 }

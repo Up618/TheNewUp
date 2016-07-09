@@ -10,12 +10,14 @@
     </div>
 
     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-        <h5>全部关注：${followAmount}</h5>
-        <div class="list-group">
-            <#list users as user>
-                <@bootstrap.user_card user=user/>
-            </#list>
-        </div>
+      <h5>全部关注：${followAmount}</h5>
+      <div class="list-group">
+        <#list users as user>
+          <@bootstrap.user_card_follow user=user/>
+          <#else>
+          <h1>你还没有关注任何人哦！</h1>
+        </#list>
+      </div>
     </div>
 </div>
 </@bootstrap.body>

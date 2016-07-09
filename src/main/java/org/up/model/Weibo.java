@@ -36,6 +36,7 @@ public class Weibo {
 	
 	@Formula("(select count(*) from picture as p where p.weibo_id = id)")
 	private Long pictureAmount;
+	//微博点赞数计数。和Service中的操作本质是一样的，加在实体中，供前端页面调用。
 	@Formula("(select count(*) from agree as a where a.weibo_id = id)")
 	private Long agreeAmount;
 	

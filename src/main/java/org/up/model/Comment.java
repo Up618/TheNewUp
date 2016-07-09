@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 public class Comment {
 	@Id
@@ -26,6 +28,17 @@ public class Comment {
 	private Weibo weibo;
 	@OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CommentLike> commentLikes;
+	//评论点赞数计数。和Service中的操作本质是一样的，加在实体中，供前端页面调用。
+	@Formula("(select count(*) from commentlike as cl where cl.comment_id = id)")
+	private Long commentLikeAmount;
+
+	public Long getCommentLikeAmount() {
+		return commentLikeAmount;
+	}
+
+	public void setCommentLikeAmount(Long commentLikeAmount) {
+		this.commentLikeAmount = commentLikeAmount;
+	}
 
 	public Long getId() {
 		return id;

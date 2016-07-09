@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class DeleteFollow extends ActionSupport{
+@Results({ @Result(name = "success", location = "follow.ftl")})
+public class DeleteFollowAction extends ActionSupport{
 	/**
 	 * 
 	 */
@@ -21,8 +22,6 @@ public class DeleteFollow extends ActionSupport{
 	@Autowired
 	private IFollowService followService;
 	
-	@Autowired
-
 	@Override
 	public String execute() throws Exception {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
