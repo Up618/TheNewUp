@@ -444,76 +444,14 @@ $(document).ready(function () {
                         <hr style="margin-bottom: 10px"/>
 
                         <div>
-                            <div class="row">
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img id="${weibo.getId()}comment_img" width = "40" heighth = "40">
-                                    </a>
-                                </div>
-                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-                            <p>
-                                <h id="${weibo.getId()}comment_name"></h>
-                                <!--评论人名称-->
-                                <h id="${weibo.getId()}comment_content"></h>
-                                <!--评论人名称-->
-                            </p>
-                                <p id="${weibo.getId()}comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                </p><!--评论时间-->
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                <a id="${weibo.getId()}comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
-                                </div>
-                            </div>
-                            </div>
-                                
-                                
-<!------------------------------下面是第二条评论--------------------------------------------->
-                            <div class="row">
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img id="${weibo.getId()}comment_img2" width = "40" heighth = "40">
-                                    </a>
-                                </div>
-                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-                            <p>
-                                <h id="${weibo.getId()}comment_name2"></h>
-                                <!--评论人名称-->
-                                <h id="${weibo.getId()}comment_content2"></h>
-                                <!--评论人名称-->
-                            </p>
-                                <p id="${weibo.getId()}comment_time2" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                </p><!--评论时间-->
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                    <a id="${weibo.getId()}comment_agree2" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
-                                </div> 
-                           </div>       
-                           </div>                  
-<!------------------------------上面是第二条评论--------------------------------------------->
-                                
-                                
-<!------------------------------下面是第三条评论--------------------------------------------->
-                            <div class="row">
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img id="${weibo.getId()}comment_img3"  width = "40" heighth = "40">
-                                    </a>
-                                </div>
-                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-                            <p>
-                                <h id="${weibo.getId()}comment_name3"></h>
-                                <!--评论人名称-->
-                                <h id="${weibo.getId()}comment_content3"></h>
-                                <!--评论人名称-->
-                            </p>
-                                <p id="${weibo.getId()}comment_time3" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                </p><!--评论时间-->
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                    <a id="${weibo.getId()}comment_agree3" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
-                                </div> 
-                           </div>      
-                           </div>                   
- <!------------------------------上面是第三条评论--------------------------------------------->
-                                
-                                
+                            
+<!--------------------------------------------------测试----------------------------------->
+                            
+				<@bootstrap.comment_card weibo>	
+				</@bootstrap.comment_card>
+			
+<!--------------------------------------------------测试---------------------------------->
+	   
                                 <script>
                                     var comment_agree${weibo.getId()} = true;                 <!--把true改作是否点赞的布尔值-->
 
@@ -841,3 +779,31 @@ $(document).ready(function () {
     </script>
 </div>
 </#macro>
+
+
+<!--------------------------------------下面是评论卡片-------------------------------------->
+<#macro comment_card weibo>
+<div>
+                            <div class="row">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
+                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
+                                        <img id="${weibo.getId()}comment_img" width = "40" heighth = "40">
+                                    </a>
+                                </div>
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
+                            <p>
+                                <h id="${weibo.getId()}comment_name"></h>
+                                <!--评论人名称-->
+                                <h id="${weibo.getId()}comment_content"></h>
+                                <!--评论人名称-->
+                            </p>
+                                <p id="${weibo.getId()}comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                </p><!--评论时间-->
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
+                                  <a id="${weibo.getId()}comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                </div>
+                            </div>
+                            </div>
+</div>
+</#macro>
+<!--------------------------------------上面是评论卡片-------------------------------------->
