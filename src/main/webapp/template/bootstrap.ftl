@@ -235,12 +235,12 @@ function CommentViewModel(){
   self.nickname = ko.observable();
   self.time = ko.observable();
   self.content = ko.observable("");
-  alert("准备执行ajax");
+  //alert("准备执行ajax");
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/comment" action="comment"/>",
   }).done(function (datac) {
-    alert(datac);
+    //alert(datac);
     self.nickname(datac.nickname);
     self.content(datac.content);
     self.time(datac.time);
@@ -647,5 +647,33 @@ $(function() {
         
         	
     </script>
+</div>
+</#macro>
+
+<#macro user_sidebar user>
+<div class="thumbnail">
+    <div class="caption">
+        <#nested>        
+	    <a href="<@s.url namespace="/user" action="${user.getId()}" />">
+		    <li class="list-group-item">
+			    <span class="badge">${user.getWeiboAmount()}</span>
+				Weibos
+			</li>
+		</a>
+			
+		<a href="<@s.url action="get-follow" />">
+			<li class="list-group-item">
+				<span class="badge">${user.getFollowAmount()}</span>
+				关注
+			</li>
+		</a>
+			
+		<a href="<@s.url action="get-fans" />">
+			<li class="list-group-item">
+				<span class="badge">${user.getFansAmount()}</span>
+				粉丝
+			</li>
+		</a>
+	</div>
 </div>
 </#macro>
