@@ -1,8 +1,12 @@
 package org.up.follow.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.up.dto.UserDto;
+import org.up.dto.service.IUserDtoService;
 import org.up.follow.service.IFollowService;
 import org.up.model.Follow;
 
@@ -25,11 +29,15 @@ public class GetFollowAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 
 	private List<Follow> listFollow;
-	private List<User> users;
+	@SuppressWarnings("rawtypes")
+	private List<List> users;
+	private HashMap<User,String> userMap;
 	private String username;
-	
 	private Long followAmount;
 	private Long fansAmount;
+	private List<User> userinfo;
+	@Autowired
+	private IUserDtoService userDtoService;
 	
 	@Autowired
 	private IFollowService followService;
@@ -51,16 +59,34 @@ public class GetFollowAction extends ActionSupport{
 		listFollow = followService.findByUsername(myname);
 		followAmount = user.getFollowAmount();
 		fansAmount = user.getFansAmount();
-		users = followService.findFollowUserByUserName(myname);
+		users = userDtoService.getUserByUsername(myname);
+		
 		return SUCCESS;
 	}
 	
-	public List<User> getUsers(){
+	@SuppressWarnings("rawtypes")
+	public List<List> getUsers(){
 		return this.users;
 	}
 	
-	public void setUsers(List<User> users){
+	@SuppressWarnings("rawtypes")
+	public void setUsers(List<List> users){
 		this.users = users;
+	}
+	
+	public void setUserinfo(List<User> userinfo){
+		this.userinfo = userinfo;
+	}
+	
+	public List<User> getUserinfo(){
+		return this.userinfo;
+	}
+	public HashMap<User, String> getUserMap(){
+		return this.userMap;
+	}
+	
+	public void setUserMap(HashMap<User,String> userMap){
+		this.userMap = userMap;
 	}
 	
 	public Long getFollowAmount(){

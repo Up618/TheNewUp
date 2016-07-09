@@ -7,6 +7,7 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.up.dto.service.IUserDtoService;
 import org.up.follow.service.IFollowService;
 import org.up.model.Follow;
 import org.up.model.User;
@@ -24,7 +25,7 @@ public class GetFansAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 
 	private List<Follow> listFollow;
-	private List<User> fans;
+	private List<List> fans;
 	private String message;
 	private String username;
 	private Long fansAmount;
@@ -33,6 +34,9 @@ public class GetFansAction extends ActionSupport{
 	private IFollowService followService;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IUserDtoService userDtoService;
+	
 	@Override
 	public String execute() throws Exception{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -47,7 +51,7 @@ public class GetFansAction extends ActionSupport{
 		listFollow = followService.findByFollowUsername(myname);
 		fansAmount = user.getFansAmount();
 		followAmount = user.getFollowAmount();
-		fans = followService.findFansByUsername(myname);
+		fans = userDtoService.getFansByUsername(myname);
 		return SUCCESS;
 	}
 	
@@ -90,11 +94,11 @@ public class GetFansAction extends ActionSupport{
 		return this.listFollow;
 	}
 	
-	public void setFans(List<User> fans){
+	public void setFans(List<List> fans){
 		this.fans = fans;
 	}
 	
-	public List<User> getFans(){
+	public List<List> getFans(){
 		return this.fans;
 	}
 }
