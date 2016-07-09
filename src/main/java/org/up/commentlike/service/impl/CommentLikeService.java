@@ -16,15 +16,15 @@ import java.util.List;
 public class CommentLikeService implements ICommentLikeService {
 
 	@Autowired
-	private IBaseDao<CommentLike> commentlikeDao;
+	private IBaseDao<CommentLike> commentLikeDao;
 
-	public Long addCommentLike(CommentLike commentlike) {
-		return (Long) commentlikeDao.save(commentlike);
+	public Long addCommentLike(CommentLike commentLike) {
+		return (Long) commentLikeDao.save(commentLike);
 	}
 
-	public boolean cancelCommentLike(CommentLike commentlike) {
+	public boolean cancelCommentLike(CommentLike commentLike) {
 		try {
-			commentlikeDao.delete(commentlike);
+			commentLikeDao.delete(commentLike);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -33,7 +33,7 @@ public class CommentLikeService implements ICommentLikeService {
 
 	public boolean cancelCommentLikeById(Long id) {
 		try {
-			commentlikeDao.delete(commentlikeDao.get(CommentLike.class, id));
+			commentLikeDao.delete(commentLikeDao.get(CommentLike.class, id));
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -41,27 +41,27 @@ public class CommentLikeService implements ICommentLikeService {
 	}
 
 	public CommentLike loadCommentLikeById(Long id) {
-		return commentlikeDao.get(CommentLike.class, id);
+		return commentLikeDao.get(CommentLike.class, id);
 	}
 
 	public List<CommentLike> listCommentLikeByUsername(String username) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(username);
-		return commentlikeDao.find("select cl from CommentLike cl where a.user.username = ?", params);
+		return commentLikeDao.find("select cl from commentlike cl where a.user.username = ?", params);
 	}
 
 	@Override
 	public List<CommentLike> listCommentLikeByCommentId(String commentId) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(commentId);
-		return commentlikeDao.find("select cl from CommentLike cl where a.comment.id = ?", params);
+		return commentLikeDao.find("select cl from commentlike cl where a.comment.id = ?", params);
 	}
 
 	@Override
 	public Long countCommentLikeAmountByCommentId(Long commentId) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(commentId);
-		return commentlikeDao.count("select count(a) from CommentLike cl where a.comment.id = ?", params);
+		return commentLikeDao.count("select count(a) from commentlike cl where a.comment.id = ?", params);
 	}
 
 	/**
@@ -72,11 +72,11 @@ public class CommentLikeService implements ICommentLikeService {
 		List<Object> params = new ArrayList<Object>();
 		params.add(commentId);
 		params.add(username);
-		// boolean isEmpty = commentlikeDao.find("select cl from CommentLike cl "
+		// boolean isEmpty = commentLikeDao.find("select cl from commentlike cl "
 		// + "where a.comment.id = ? and a.user.username = ?", params).isEmpty();
-		CommentLike commentlike = new CommentLike();
-		commentlike = commentlikeDao.get("select cl from CommentLike cl " + "where a.comment.id = ? and a.user.username = ?", params);
-		return commentlike;
+		CommentLike commentLike = new CommentLike();
+		commentLike = commentLikeDao.get("select cl from commentlike cl where a.comment.id = ? and a.user.username = ?", params);
+		return commentLike;
 	}
 
 }
