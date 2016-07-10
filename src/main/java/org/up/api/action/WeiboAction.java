@@ -1,47 +1,46 @@
-package org.up.user.action;
+package org.up.api.action;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Actions;
+import java.util.List;
+
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.up.dto.UserDto;
-import org.up.model.User;
-import org.up.user.service.IUserDtoService;
+import org.up.model.Weibo;
+import org.up.weibo.service.IWeiboService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Actions({ @Action(value = "*", params = { "id", "{1}" }) })
-@Results({ @Result(name = "success", location = "/user/id.ftl") })
-public class IdAction extends ActionSupport {
+@Results({ @Result(name = "success", type = "json", params = { "excludeProperties", "weibos.*.user", "encoding",
+		"UTF-8" }) })
+public class WeiboAction extends ActionSupport {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long id;
-	private UserDto user;
 	@Autowired
-	private IUserDtoService userDtoService;
+	private IWeiboService weiboService;
+	private List<Weibo> weibos;
+	private Integer page;
 
-	public Long getId() {
-		return id;
+	public Integer getPage() {
+		return page;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 
-	public UserDto getUser() {
-		return user;
+	public List<Weibo> getWeibos() {
+		return weibos;
 	}
 
-	public void setUser(UserDto user) {
-		this.user = user;
+	public void setWeibos(List<Weibo> weibos) {
+		this.weibos = weibos;
 	}
-	
+
 	@Override
 	public String execute() throws Exception {
 		String currentUsername;
@@ -51,7 +50,7 @@ public class IdAction extends ActionSupport {
 		} else {
 			currentUsername = principal.toString();
 		}
-		user = userDtoService.loadUserDtoById(id, currentUsername);
+		weibos = weiboService.getWeiboByCurrentUsername(currentUsername, page, 10);
 		return SUCCESS;
 	}
 }

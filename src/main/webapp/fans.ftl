@@ -4,14 +4,7 @@
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
 
-	<div class="row">
-		<@bootstrap.user_card_lg user=user />
-	</div>
-
 <div class="row">
-		<div class=" col-lg-3">
-			<@bootstrap.user_sidebar user=user />
-		</div>
 			
 	<div class="row col-lg-9">
 		<div class="col-sm-3 col-md-3 col-lg-3">

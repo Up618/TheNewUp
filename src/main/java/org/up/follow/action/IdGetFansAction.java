@@ -2,6 +2,7 @@ package org.up.follow.action;
 
 import java.util.List;
 
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ import org.up.user.service.IUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+@Action(value = "*-get-fans", params = { "id", "{1}" })
 @Results({ @Result(name = "success", location = "fans.ftl")})
-public class GetFansAction extends ActionSupport{
+public class IdGetFansAction extends ActionSupport{
 
 
 	/**
@@ -29,12 +31,12 @@ public class GetFansAction extends ActionSupport{
 	private String username;
 	private Long fansAmount;
 	private Long followAmount;
+	private Long id;
+	private User user;
 	@Autowired
 	private IFollowService followService;
 	@Autowired
 	private IUserService userService;
-
-	
 	@Override
 	public String execute() throws Exception{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -44,15 +46,27 @@ public class GetFansAction extends ActionSupport{
 		} else {
 			myname = principal.toString();
 		}	
-		User user = new User();
-		user = userService.loadUserByUsername(myname);
-		listFollow = followService.findByFollowUsername(myname);
+		user = userService.loadUserById(id);
 		fansAmount = user.getFansAmount();
 		followAmount = user.getFollowAmount();
-		fans = followService.getFansByUsername(myname);
+		fans = followService.getFansById(id,myname);
 		return SUCCESS;
 	}
 	
+	public void setUser(User user){
+		this.user = user;
+	}
+	
+	public User getUser(){
+		return this.user;
+	}
+	public void setId(Long id){
+		this.id = id;
+	}
+	
+	public Long getId(){
+		return this.id;
+	}
 	public void setFansAmount(Long fansAmount){
 		this.fansAmount = fansAmount;
 	}

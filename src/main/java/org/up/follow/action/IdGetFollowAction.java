@@ -13,14 +13,17 @@ import org.up.model.User;
 import org.up.user.service.IUserService;
 import com.opensymphony.xwork2.ActionSupport;
 
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@Action(value = "*-get-follow", params = { "id", "{1}" })
 @Results({ @Result(name = "success", location = "follow.ftl")})
-public class GetFollowAction extends ActionSupport{
+public class IdGetFollowAction extends ActionSupport{
 	
 	/**
 	 * 
@@ -35,7 +38,8 @@ public class GetFollowAction extends ActionSupport{
 	private Long followAmount;
 	private Long fansAmount;
 	private List<User> userinfo;
-	
+	private Long id;
+	private User user;
 	@Autowired
 	private IFollowService followService;
 	
@@ -51,16 +55,28 @@ public class GetFollowAction extends ActionSupport{
 		} else {
 			myname = principal.toString();
 		}
-		User user = new User();
-		user = userService.loadUserByUsername(myname);
-		listFollow = followService.findByUsername(myname);
+		user = userService.loadUserById(id);
 		followAmount = user.getFollowAmount();
 		fansAmount = user.getFansAmount();
-		users = followService.getFollowByUsername(myname);
+		users = followService.getFollowById(id,myname);
 		
 		return SUCCESS;
 	}
 	
+	public void setUser(User user){
+		this.user = user;
+	}
+	
+	public User getUser(){
+		return this.user;
+	}
+	public void setId(Long id){
+		this.id = id;
+	}
+	
+	public Long getId(){
+		return this.id;
+	}
 	@SuppressWarnings("rawtypes")
 	public List<List> getUsers(){
 		return this.users;

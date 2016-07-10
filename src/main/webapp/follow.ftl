@@ -1,28 +1,20 @@
-<#import "/template/bootstrap.ftl" as bootstrap>
+﻿<#import "/template/bootstrap.ftl" as bootstrap>
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="关注"></@bootstrap.head>
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
 
-
-	<div class="row">
-		<@bootstrap.user_card_lg user=user />
-	</div>
-
 <div class="row">
 
-		<div class="col-lg-3">
-			<@bootstrap.user_sidebar user=user />
-		</div>
-			
+
 	<div class="row col-lg-9">
 		<div class="col-sm-3 col-md-3 col-lg-3">
 		</div>
 		<div class="col-sm-9 col-md-9 col-lg-9">
 			<h5>全部关注：${followAmount}</h5>
 			<div class="list-group">
-<#list users as user>
-				
+				<#list users as user>
+
 <div id="${user[0].getUsername()}card" class="list-group-item row">
     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
         <a href="<@s.url namespace="/user" action="${user[0].getId()}" />" class="thumbnail">
@@ -56,16 +48,16 @@
                 $("#${user[0].getUsername()}followButton b").css("color","white");
             }
             else{
-            	
-                    
+
+
                     $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-info");
                     $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-plus");
                     $("#${user[0].getUsername()}followButton b").text("关注");
                     $("#${user[0].getUsername()}followButton span").css("color","white");
                     $("#${user[0].getUsername()}followButton b").css("color","white");
-				 				
+
             }
-            
+
             $("#${user[0].getUsername()}followButton").click(function () {
             	if(b2${user[0].getUsername()}){
 				 			var oMyForm = new FormData();
@@ -82,24 +74,25 @@
 				 				dataType:'html',
   								contentType:false,
  								processData:false,
-				 				error:function(){	
+				 				error:function(){
 										alert("发生了一些错误，请稍后再试！");
 								},
 				 				success:function(){
                     b2${user[0].getUsername()} = false;
                     
+>>>>>>> branch 'master' of https://github.com/Up618/TheNewUp.git
                     $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-info");
                     $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-plus");
                     $("#${user[0].getUsername()}followButton b").text("关注");
                     $("#${user[0].getUsername()}followButton span").css("color","white");
                     $("#${user[0].getUsername()}followButton b").css("color","white");
 				 					alert(	"已取消关注");
-				 					
+
 				 				},
 				 			});
 				 	}
 				 	else{
-				 		
+
                     ${user[0].getUsername()}follow = true;
 				 			var oMyForm = new FormData();
 				 			oMyForm.append("followusername", "${user[0].getUsername()}");
@@ -115,7 +108,7 @@
 				 				dataType:'html',
   								contentType:false,
  								processData:false,
-				 				error:function(){	
+				 				error:function(){
 										alert("发生了一些错误，请稍后再试！");
 								},
 				 				success:function(){
@@ -127,6 +120,7 @@
                 $("#${user[0].getUsername()}followButton b").css("color","black");
                  				}
                  				else{
+<<<<<<< HEAD
                  				
                 $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-info");
                 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
@@ -136,18 +130,19 @@
                  				}	
                  				
                     b2${user[0].getUsername()} = true;
+
 				 					alert(	"已成功关注");
 				 				},
 				 			});
-                    
+
 				 	}
-                                        
-                
+
+
             });
         });
     </script>
 </div>
-	
+
 					<#else>
 					<h1>你还没有关注任何人哦！</h1>
 				</#list>
