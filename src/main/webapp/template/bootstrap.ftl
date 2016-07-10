@@ -161,6 +161,10 @@
     <p style="color:Ivory;text-align:center">Copyright &copy; 2016.UP All rights reserved.</p>
   </div>
 </footer>
+</body>
+</#macro>
+
+<#macro javascript>
 <script type="text/javascript">
 function ViewModel(){
   var self = this;
@@ -171,6 +175,7 @@ function ViewModel(){
   self.weiboAmount = ko.observable();
   self.fansAmount = ko.observable();
   self.followAmount = ko.observable();
+  self.weibos = ko.observable();
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/api" action="user" />",
@@ -236,10 +241,9 @@ $(function() {
     $("input[name='upload']").click();
     e.stopPropagation();
   });
+  <#nested>
 });
 </script>
-
-</body>
 </#macro>
 
 <#macro modal title>

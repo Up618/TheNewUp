@@ -20,17 +20,17 @@
 		<div class="col-md-3 col-sm-3 col-lg-3">
 			
 		</div>
-		<div class="col-md-9 col-sm-9 col-lg-9 content-column">
+		<div class="col-md-9 col-sm-9 col-lg-9" data-bind="html: weibos">
 			
 		</div>
 	</div>
 </div>
-<script>
+<@bootstrap.javascript>
 	$.ajax({
 		url: "${user.getUser().getId()}/weibo",
 	}).done(function(data){
-		$(".content-column").append(data);
+		app.weibos(data);
 	});
-</script>
+</@bootstrap.javascript>
 </@bootstrap.body>
 </html>

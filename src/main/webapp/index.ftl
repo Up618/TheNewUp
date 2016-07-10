@@ -39,4 +39,5 @@
 </div>
 </div>
 </@bootstrap.body>
+<@bootstrap.javascript/>
 </html>
