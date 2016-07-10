@@ -23,7 +23,7 @@
         <p align="center" class="up-operate"><a><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <p align="center" class="up-operate"><a data-toggle="modal" data-target="#${weibo.getWeibo().getId()}up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
+        <p align="center" class="up-operate"><a data-toggle="modal" data-target="#up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
         <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}agree" href="javascript:agreeit${weibo.getWeibo().getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>点赞<b>1</b></a></p>
@@ -34,7 +34,7 @@
 </div>
 </#macro>
 
-<#macro weibo_comment weibo>
+<#macro weibo_comment>
 <div class="modal fade" id="up-comment" tabindex="-1" role="dialog" aria-labelledby="1comment-title" aria-hidden="true">//摸态框头
   <div class="modal-dialog">
     <div class="modal-content">//摸态框内容
@@ -85,7 +85,7 @@
       <p id="${weibo.getWeibo().getId()}comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
 
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
-        <a id="${weibo.getWeibo().getId()}comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()">
+        <a id="${weibo.getWeibo().getId()}comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getWeibo().getId()}()">
           <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           <b>1</b>
         </a>
