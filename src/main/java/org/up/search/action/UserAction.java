@@ -5,9 +5,10 @@ import java.util.List;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.up.model.User;
-import org.up.user.service.IUserService;
-
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.up.dto.UserDto;
+import org.up.user.service.IUserDtoService;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Results({ @Result(name = "success", location = "/search/user.ftl"),
@@ -19,9 +20,9 @@ public class UserAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String keyword;
-	private List<User> users;
+	private List<UserDto> users;
 	@Autowired
-	IUserService userService;
+	IUserDtoService userDtoService;
 
 	public String getKeyword() {
 		return keyword;
@@ -31,17 +32,24 @@ public class UserAction extends ActionSupport {
 		this.keyword = keyword;
 	}
 
-	public List<User> getUsers() {
+	public List<UserDto> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(List<UserDto> users) {
 		this.users = users;
 	}
 
 	@Override
 	public String execute() throws Exception {
-		users = userService.searchUserByNickname(keyword);
+		String currentUsername;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			currentUsername = ((UserDetails) principal).getUsername();
+		} else {
+			currentUsername = principal.toString();
+		}
+		users = userDtoService.searchUserDtoByNickname(keyword, currentUsername);
 		return SUCCESS;
 	}
 }

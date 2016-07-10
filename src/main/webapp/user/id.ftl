@@ -25,6 +25,7 @@
 		</div>
 	</div>
 </div>
+</@bootstrap.body>
 <@bootstrap.javascript>
 	$.ajax({
 		url: "${user.getUser().getId()}/weibo",
@@ -32,5 +33,4 @@
 		app.weibos(data);
 	});
 </@bootstrap.javascript>
-</@bootstrap.body>
 </html>
