@@ -18,6 +18,7 @@
 
 	<div class="row">
 		<div class="col-md-3 col-sm-3 col-lg-3">
+				<@bootstrap.user_sidebar user=user.getUser()/>
 			
 		</div>
 		<div class="col-md-9 col-sm-9 col-lg-9" data-bind="html: weibos">

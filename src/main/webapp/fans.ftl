@@ -2,12 +2,9 @@
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="粉丝"></@bootstrap.head>
 <@bootstrap.body>
-<div class="container row" style="padding-top:60px">
-		<div class=" col-lg-3">
-			<h1></h1>
-			<h3>关注：${followAmount}</h3>
-			<h3>粉丝：${fansAmount}</h3>
-		</div>
+<div class="container" style="padding-top:60px">
+
+<div class="row">
 			
 	<div class="row col-lg-9">
 		<div class="col-sm-3 col-md-3 col-lg-3">
@@ -34,17 +31,18 @@
         <button id="${user[0].getUsername()}followButton" style = "width:90px" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
     </div>
     <script type="text/javascript">
-        var ${user[0].getUsername()}follow = ${user[1]};                        //这地方写是否关注
+        var b1${user[0].getUsername()} = ${user[1]};   
+        var b2${user[0].getUsername()} = ${user[2]};
         $(document).ready(function () {
 
-            if (${user[1]}&&${user[2]}) {
+            if (b1${user[0].getUsername()}&&b2${user[0].getUsername()}) {
                 $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-default");
                 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-retweet");
                 $("#${user[0].getUsername()}followButton b").text("互相关注");
                 $("#${user[0].getUsername()}followButton span").css("color","black");
                 $("#${user[0].getUsername()}followButton b").css("color","black");
             }
-            else if(${user[1]}){
+            else if(b1${user[0].getUsername()}){
             
                 $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-info");
                 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
@@ -63,7 +61,7 @@
             }
             
             $("#${user[0].getUsername()}followButton").click(function () {
-                if (${user[1]}) {
+                if (b1${user[0].getUsername()}) {
 				 			var oMyForm = new FormData();
 				 			oMyForm.append("followusername", "${user[0].getUsername()}");
 				 			var token = $("meta[name='_csrf']").attr("content");
@@ -83,7 +81,7 @@
 								},
 				 				success:function(){
                     
-                    
+                    b1${user[0].getUsername()} = false;
                     $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-info");
                     $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-plus");
                     $("#${user[0].getUsername()}followButton b").text("关注");
@@ -97,7 +95,6 @@
                                         
                 }
                 else {
-                    ${user[0].getUsername()}follow = true;
 				 			var oMyForm = new FormData();
 				 			oMyForm.append("followusername", "${user[0].getUsername()}");
 				 			var token = $("meta[name='_csrf']").attr("content");
@@ -116,7 +113,7 @@
 										alert("发生了一些错误，请稍后再试！");
 								},
 				 				success:function(){
-				 				if(${user[2]}){
+				 				if(b2${user[0].getUsername()}){
                 $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-default");
                 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-retweet");
                 $("#${user[0].getUsername()}followButton b").text("互相关注");
@@ -124,13 +121,14 @@
                 $("#${user[0].getUsername()}followButton b").css("color","black");
                  				}
                  				else{
-                 				
-                    				$("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-default");
-                   					 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-retweet");
-                  					 $("#${user[0].getUsername()}followButton b").text("已关注");
-                				    $("#${user[0].getUsername()}followButton span").css("color","black");
-                 					$("#${user[0].getUsername()}followButton b").css("color","black");
+                $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-info");
+                $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                $("#${user[0].getUsername()}followButton b").text("已关注");
+                $("#${user[0].getUsername()}followButton span").css("color","white");
+                $("#${user[0].getUsername()}followButton b").css("color","white");
+            
                  				}	
+                 				b1${user[0].getUsername()} = true;
 				 					alert(	"已成功关注");
 				 				},
 				 			});
@@ -152,6 +150,7 @@
 				
 			</div>
 		</div>
+	</div>
 	</div>
 </div>
 

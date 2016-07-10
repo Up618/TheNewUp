@@ -817,15 +817,12 @@ $(function() {
 
             },
           });
-
         },
       });
       </script>
       </div>
       </#macro>
-
-
-      <#macro user_sidebar user><!--这个就是我想复用的那个写微博，粉丝，关注数量的侧边栏-->
+      <#macro user_sidebar user>
       <div class="thumbnail">
       <div class="caption">
       <#nested>
@@ -835,15 +832,13 @@ $(function() {
       Weibos
       </li>
       </a>
-
-      <a href="<@s.url action="get-follow" />">
+      <a href="<@s.url action="${user.getId()}-get-follow" />">
       <li class="list-group-item">
       <span class="badge">${user.getFollowAmount()}</span>
       关注
       </li>
       </a>
-
-      <a href="<@s.url action="get-fans" />">
+      <a href="<@s.url action="${user.getId()}-get-fans" />">
       <li class="list-group-item">
       <span class="badge">${user.getFansAmount()}</span>
       粉丝
@@ -852,94 +847,6 @@ $(function() {
       </div>
       </div>
       </#macro>
-
-
-      <#macro comment_model weibo>
-      <div class="modal-body">
-      <div class="row" style="margin-left: 0px; margin-right: 0px;">
-      <p>${weibo.getContent()}</p>
-      <form id="in" action="../comment/inputComment" method="post">
-      <input type="hidden"  name="weibo_id" value="${weibo.getId()}"/>
-      <textarea name="content" class="form-control" rows="2" style="resize:none;"
-      placeholder="评论......" required></textarea>
-      <div style="text-align: right">
-      <button type="submit" class="btn btn-primary" style="margin-top: 10px">评论</button>
-      </div>
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-      </form>
-
-      <hr style="margin-bottom: 10px"/>
-
-      <div>
-
-      <!--------------------------------------------------测试----------------------------------->
-
-
-      <@bootstrap.comment_card weibo=weibo>
-      </@bootstrap.comment_card>
-
-
-
-      <!--------------------------------------------------测试---------------------------------->
-
-
-      <script>
-      var comment_agree${weibo.getId()} = true;                 <!--把true改作是否点赞的布尔值-->
-
-      $(document).ready(function () {
-        if (!comment_agree${weibo.getId()}) {
-          $("#${weibo.getId()}comment_agree").css("color", "black");
-          $("#${weibo.getId()}comment_agree").mouseover(function () {
-            $("#${weibo.getId()}comment_agree").css("color", "red");
-          });
-          $("#${weibo.getId()}comment_agree").mouseout(function () {
-            $("#${weibo.getId()}comment_agree").css("color", "black");
-          });
-        }
-        else {
-          $("#${weibo.getId()}comment_agree").css("color", "red");
-          $("#${weibo.getId()}comment_agree").mouseover(function () {
-            $("#${weibo.getId()}comment_agree").css("color", "black");
-          });
-          $("#${weibo.getId()}comment_agree").mouseout(function () {
-            $("#${weibo.getId()}comment_agree").css("color", "red");
-          })
-        }
-      });
-      function agreethecomment${weibo.getId()}() {
-        if (!comment_agree${weibo.getId()}) {
-          $("#${weibo.getId()}comment_agree b").text(parseInt($("#${weibo.getId()}comment_agree b").text()) + 1);
-          comment_agree${weibo.getId()} = true;
-          $("#${weibo.getId()}comment_agree").css("color", "red");
-          $("#${weibo.getId()}comment_agree").mouseover(function () {
-            $("#${weibo.getId()}comment_agree").css("color", "black");
-          });
-          $("#${weibo.getId()}comment_agree").mouseout(function () {
-            $("#${weibo.getId()}comment_agree").css("color", "red");
-          });
-
-          //这个地方发评论点赞请求
-        }
-        else {
-          $("#${weibo.getId()}comment_agree b").text(parseInt($("#${weibo.getId()}comment_agree b").text()) - 1);
-          comment_agree${weibo.getId()} = false;
-          $("#${weibo.getId()}comment_agree").css("color", "black");
-          $("#${weibo.getId()}comment_agree").mouseover(function () {
-            $("#${weibo.getId()}comment_agree").css("color", "red");
-          });
-          $("#${weibo.getId()}comment_agree").mouseout(function () {
-            $("#${weibo.getId()}comment_agree").css("color", "black");
-          });
-
-          //这个地方发取消评论点赞请求
-        }
-      }
-      </script>
-      </div>
-      </div>
-      </div>
-      </#macro>
-
 
       <!--------------------------------------下面是评论卡片-------------------------------------->
       <#macro comment_card weibo>
