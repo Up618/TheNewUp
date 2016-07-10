@@ -17,14 +17,14 @@
       </li>
     </a>
 
-    <a href="<@s.url action="get-follow" />">
+    <a href="<@s.url action="${user.getId()}-get-follow" />">
     <li class="list-group-item">
       <span class="badge">${user.getFollowAmount()}</span>
       关注
     </li>
   </a>
 
-  <a href="<@s.url action="get-fans" />">
+  <a href="<@s.url action="${user.getId()}-get-fans" />">
   <li class="list-group-item">
     <span class="badge">${user.getFansAmount()}</span>
     粉丝
