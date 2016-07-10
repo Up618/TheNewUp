@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.up.dto.UserDto;
-import org.up.dto.service.IUserDtoService;
 import org.up.follow.service.IFollowService;
 import org.up.model.Follow;
 
@@ -36,8 +35,6 @@ public class GetFollowAction extends ActionSupport{
 	private Long followAmount;
 	private Long fansAmount;
 	private List<User> userinfo;
-	@Autowired
-	private IUserDtoService userDtoService;
 	
 	@Autowired
 	private IFollowService followService;

@@ -3,78 +3,52 @@ package org.up.dto;
 import org.up.model.User;
 
 public class UserDto {
-	private String username;
-	private String nickname;
-	private Long followAmount;
-	private Long fansAmount;
-	private Long weiboAmount;
-	private boolean followed;
-	private boolean following;
+
 	private User user;
-
-	public UserDto(String username, String nickname, Long followAmount, Long fansAmount, Long weiboAmount,
-			boolean followed) {
-		this.username = username;
-		this.nickname = nickname;
-		this.followAmount = followAmount;
-		this.fansAmount = fansAmount;
-		this.weiboAmount = weiboAmount;
-		this.followed = followed;
+	private Boolean following;
+	private Boolean follower;
+	
+	public UserDto(User user, Boolean following, Boolean follower) {
+		super();
+		this.user = user;
+		this.following = following;
+		this.follower = follower;
+	}
+	
+	public UserDto(User user, String following,String follower) {
+		super();
+		this.user = user;
+		this.following = new Boolean(following);
+		this.follower = new Boolean(follower);
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public UserDto(User user) {
+		super();
+		this.user = user;
 	}
 
-	public String getUsername() {
-		return this.username;
+	public User getUser() {
+		return user;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getNickname() {
-		return this.nickname;
+	public Boolean getFollowing() {
+		return following;
 	}
 
-	public void setFollowaAmount(Long followAmount) {
-		this.followAmount = followAmount;
-	}
-
-	public Long getFollowAmount() {
-		return this.followAmount;
-	}
-
-	public void setFansAmount(Long fansAmount) {
-		this.fansAmount = fansAmount;
-	}
-
-	public Long getFansAmount() {
-		return this.fansAmount;
-	}
-
-	public void setWeiboAmount(Long weiboAmount) {
-		this.weiboAmount = weiboAmount;
-	}
-
-	public Long getWeiboAmount() {
-		return this.weiboAmount;
-	}
-
-	public void setFollowed(boolean followed) {
-		this.followed = followed;
-	}
-
-	public boolean getFollowed() {
-		return this.followed;
-	}
-
-	public void setFollowing(boolean following) {
+	public void setFollowing(Boolean following) {
 		this.following = following;
 	}
 
-	public boolean getFollowing() {
-		return this.following;
+	public Boolean getFollower() {
+		return follower;
 	}
+
+	public void setFollower(Boolean follower) {
+		this.follower = follower;
+	}
+
 }

@@ -7,7 +7,6 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.up.dto.service.IUserDtoService;
 import org.up.follow.service.IFollowService;
 import org.up.model.Follow;
 import org.up.model.User;
@@ -34,8 +33,7 @@ public class GetFansAction extends ActionSupport{
 	private IFollowService followService;
 	@Autowired
 	private IUserService userService;
-	@Autowired
-	private IUserDtoService userDtoService;
+
 	
 	@Override
 	public String execute() throws Exception{

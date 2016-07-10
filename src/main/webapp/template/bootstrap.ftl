@@ -55,7 +55,7 @@
     height: 86;
     width: 86;
   }
-  
+
   body.modal-open[style="margin-bottom: 60px; padding-right: 17px;"] > footer,
   body.modal-open[style="margin-bottom: 60px; padding-right: 17px;"] > nav.navbar-fixed-top{
   	padding-right: 17;
@@ -166,12 +166,22 @@ function ViewModel(){
   var self = this;
   self.avatar = ko.observable();
   self.nickname = ko.observable();
+  self.myId = ko.observable();
+  self.username = ko.observable();
+  self.weiboAmount = ko.observable();
+  self.fansAmount = ko.observable();
+  self.followAmount = ko.observable();
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/api" action="user" />",
   }).done(function (data) {
-    self.avatar(data.avatar);
-    self.nickname(data.nickname);
+    self.avatar(data.user.user.avatar);
+    self.nickname(data.user.user.nickname);
+    self.myId(data.user.user.id);
+    self.username(data.user.user.username);
+    self.weiboAmount(data.user.user.weiboAmount);
+    self.fansAmount(data.user.user.fansAmount);
+    self.followAmount(data.user.user.followAmount);
   });
   self.signOut = function(){
     $("#sign-out").submit();
@@ -188,6 +198,7 @@ $(function() {
   var headers = {};
   headers[header] = token;
   $("input[name='upload']").change(function(){
+    $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
     var fd = new FormData();
     fd.append("upload",$("input[name='upload']")[0].files[0]);
     $.ajax({
@@ -219,7 +230,6 @@ $(function() {
     });
   });
   $("input[name='upload']").click(function(e){
-    $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
     e.stopPropagation();
   });
   $("li.no-pic-li").click(function(e){
@@ -254,36 +264,30 @@ $(function() {
 <#macro weibo_card weibo>
 <div class="row" style = "margin-bottom:20px">
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-            <img class="img-thumbnail" src="${weibo.getUser().getAvatar()}" alt="头像" width="60">
+        <a href="<@s.url namespace="/user" action="${weibo.getWeibo().getUser().getId()}" />">
+            <img class="img-thumbnail" src="${weibo.getWeibo().getUser().getAvatar()}" alt="头像" width="60">
         </a>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
         <div class="up-content" style="height: auto">
             <p class="up-sign-nickname">
-                <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                    ${weibo.getUser().getNickname()}：
+                <a href="<@s.url namespace="/user" action="${weibo.getWeibo().getUser().getId()}" />">
+                    ${weibo.getWeibo().getUser().getNickname()}：
                 </a>
             </p>
-            <p class="up-time">${weibo.getTime()}</p>
+            <p class="up-time">${weibo.getWeibo().getTime()}</p>
             <s><i></i></s>
             <p class="up-body">
                 <#nested>
             </p>
-            
-            <div id="firstWeiboImg" style="margin-left: 20px; margin-right: 20px;">
-                <img  id="firWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
-                <img  id="secWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
-                <img  id="thiWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
-                <img  id="fouWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
-                <img  id="fivWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
-                <img  id="sixWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
-                <img  id="sevWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
-                <img  id="eigWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
-                <img  id="ninWeiboFirstImg" src="" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+
+            <div id="${weibo.getWeibo().getId()}WeiboImg" style="margin-left: 20px; margin-right: 20px;">
+            	<#list weibo.getWeibo().getPictures() as picture>
+                	<img src="${picture.getPath()}" style="float: left;" data-toggle="modal" data-target="#imgModal" >
+                </#list>
             </div>
             <div class="clearfix"></div>
-                        
+
             <hr style="margin-bottom: 10px"/>
 
             <div class="row up-operat">
@@ -291,13 +295,13 @@ $(function() {
                     <p align="center" class="up-operate"><a><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <p align="center" class="up-operate"><a id="${weibo.getId()}comment" data-toggle="modal" data-target="#${weibo.getId()}up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
+                    <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}comment" data-toggle="modal" data-target="#${weibo.getWeibo().getId()}up-comment"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p>
                 </div>
-                
+
 <!-----------------------------------评论的获取函数---------------------------------->
 <script type="text/javascript">
 $(document).ready(function () {
-                	$("#${weibo.getId()}comment").click(function(){
+                	$("#${weibo.getWeibo().getId()}comment").click(function(){
                         var self = this;
                         self.avatar = ko.observable();
                         self.nickname = ko.observable();
@@ -305,77 +309,77 @@ $(document).ready(function () {
                         self.content = ko.observable("");
                 	    $.ajax({
                 		    type: 'GET',
-                            url: "<@s.url namespace="/comment" action="comment"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
+                            url: "<@s.url namespace="/comment" action="comment"><@s.param name="weibo_id" value="${weibo.getWeibo().getId()}"/> </@s.url>",
                 	    }).done(function (data) {
       //======================下面是第1条评论的内容===============================
                 	    if(data.nickname!=null){
-                	        $("#${weibo.getId()}comment_name").text(data.nickname+"：");
-                	        $("#${weibo.getId()}comment_agree").show();
+                	        $("#${weibo.getWeibo().getId()}comment_name").text(data.nickname+"：");
+                	        $("#${weibo.getWeibo().getId()}comment_agree").show();
                 	    }
                 	    if(data.content!=null){
-                	        $("#${weibo.getId()}comment_content").text(data.content);
+                	        $("#${weibo.getWeibo().getId()}comment_content").text(data.content);
                 	    }
                 	    if(data.time){
-                	        $("#${weibo.getId()}comment_time").text(data.time);
+                	        $("#${weibo.getWeibo().getId()}comment_time").text(data.time);
                 	    }
                 	    if(data.avatar!=null){
-                	        document.getElementById("${weibo.getId()}comment_img").src=data.avatar;
+                	        document.getElementById("${weibo.getWeibo().getId()}comment_img").src=data.avatar;
                 	    }
-                	    
+
      //======================下面是第2条评论的内容===============================
                 	    if(data.nickname2!=null){
-                	        $("#${weibo.getId()}comment_name2").text(data.nickname2+"：");
-                	        $("#${weibo.getId()}comment_agree2").show();
+                	        $("#${weibo.getWeibo().getId()}comment_name2").text(data.nickname2+"：");
+                	        $("#${weibo.getWeibo().getId()}comment_agree2").show();
                 	    }
                 	    if(data.content2!=null){
-                	        $("#${weibo.getId()}comment_content2").text(data.content2);
+                	        $("#${weibo.getWeibo().getId()}comment_content2").text(data.content2);
                 	    }
                 	    if(data.time2){
-                	        $("#${weibo.getId()}comment_time2").text(data.time2);
+                	        $("#${weibo.getWeibo().getId()}comment_time2").text(data.time2);
                 	    }
                 	    if(data.avatar2!=null){
-                	        document.getElementById("${weibo.getId()}comment_img2").src=data.avatar2;
+                	        document.getElementById("${weibo.getWeibo().getId()}comment_img2").src=data.avatar2;
                 	    }
-                	    
+
       //======================下面是第3条评论的内容===============================
                 	    if(data.nickname3!=null){
-                	        $("#${weibo.getId()}comment_name3").text(data.nickname3+"：");
-                	        $("#${weibo.getId()}comment_agree3").show();
+                	        $("#${weibo.getWeibo().getId()}comment_name3").text(data.nickname3+"：");
+                	        $("#${weibo.getWeibo().getId()}comment_agree3").show();
                 	    }
                 	    if(data.content3!=null){
-                	        $("#${weibo.getId()}comment_content3").text(data.content3);
+                	        $("#${weibo.getWeibo().getId()}comment_content3").text(data.content3);
                 	    }
                 	    if(data.time3){
-                	        $("#${weibo.getId()}comment_time3").text(data.time3);
+                	        $("#${weibo.getWeibo().getId()}comment_time3").text(data.time3);
                 	    }
                 	    if(data.avatar3!=null){
-                	        document.getElementById("${weibo.getId()}comment_img3").src=data.avatar3;
+                	        document.getElementById("${weibo.getWeibo().getId()}comment_img3").src=data.avatar3;
                 	    }
                 	    	self.nickname(data.nickname);
                             self.content(data.content);
                             self.time(data.time);
                             self.avatar(data.avatar);
                 	    }) //done
-                    }); //click   
+                    }); //click
                 }); //document.ready
 </script>
 <!-----------------------------------上面为评论的获取函数---------------------------->
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <p align="center" class="up-operate">
-                    	<a id="${weibo.getId()}agree" href="#${weibo.getId()}">
+                    	<a id="${weibo.getWeibo().getId()}agree" href="#${weibo.getWeibo().getId()}">
                     		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     		点赞
-                    		<b>${weibo.getAgreeAmount()}</b>
+                    		<b>${weibo.getWeibo().getAgreeAmount()}</b>
                     	</a>
                     </p>
                 </div>
             </div>
 
             <script>
-                
+
                 $(document).ready(function () {
-                	$("#${weibo.getId()}agree").click(function(){
+                	$("#${weibo.getWeibo().getId()}agree").click(function(){
                         var token = $("meta[name='_csrf']").attr("content"); //之前已经把对应的变量存入<head>的<meta>中
 						var header = $("meta[name='_csrf_header']").attr("content");
 						var headers = {};
@@ -384,42 +388,42 @@ $(document).ready(function () {
                 		    type: 'POST',
                 		    dataType:'json',
                 		    headers: headers,
-                		    url: "<@s.url namespace="/agree" action="agree"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
+                		    url: "<@s.url namespace="/agree" action="agree"><@s.param name="weibo_id" value="${weibo.getWeibo().getId()}"/> </@s.url>",
                 	    	//传一个微博id的param到后台
                 	}).done(function (data) {
                 	    //alert(data.ifLiked);
                 	//判断按钮样式
                 	if (!data.ifLiked) {
-                        $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) + 1);
-                        agree${weibo.getId()} = true;
-                        $("#${weibo.getId()}agree").css("color", "red");
-                        $("#${weibo.getId()}agree").mouseover(function () {
-                            $("#${weibo.getId()}agree").css("color", "black");
+                        $("#${weibo.getWeibo().getId()}agree b").text(parseInt($("#${weibo.getWeibo().getId()}agree b").text()) + 1);
+                        agree${weibo.getWeibo().getId()} = true;
+                        $("#${weibo.getWeibo().getId()}agree").css("color", "red");
+                        $("#${weibo.getWeibo().getId()}agree").mouseover(function () {
+                            $("#${weibo.getWeibo().getId()}agree").css("color", "black");
                         });
-                        $("#${weibo.getId()}agree").mouseout(function () {
-                            $("#${weibo.getId()}agree").css("color", "red");
+                        $("#${weibo.getWeibo().getId()}agree").mouseout(function () {
+                            $("#${weibo.getWeibo().getId()}agree").css("color", "red");
                         });
                     }//if
                     else {
-                        $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) - 1);
-                        agree${weibo.getId()} = false;
-                        $("#${weibo.getId()}agree").css("color", "black");
-                            $("#${weibo.getId()}agree").mouseover(function () {
-                                $("#${weibo.getId()}agree").css("color", "red");
+                        $("#${weibo.getWeibo().getId()}agree b").text(parseInt($("#${weibo.getWeibo().getId()}agree b").text()) - 1);
+                        agree${weibo.getWeibo().getId()} = false;
+                        $("#${weibo.getWeibo().getId()}agree").css("color", "black");
+                            $("#${weibo.getWeibo().getId()}agree").mouseover(function () {
+                                $("#${weibo.getWeibo().getId()}agree").css("color", "red");
                             });
-                            $("#${weibo.getId()}agree").mouseout(function () {
-                                $("#${weibo.getId()}agree").css("color", "black");
+                            $("#${weibo.getWeibo().getId()}agree").mouseout(function () {
+                                $("#${weibo.getWeibo().getId()}agree").css("color", "black");
                             });
                     }//else
                 	}) //done
                     }); //click
                 }); //document.ready
-                
+
                 </script>
             </div>
         </div>
     </div>
-<div class="modal fade" id="${weibo.getId()}up-comment" tabindex="-1" role="dialog" aria-labelledby="${weibo.getId()}comment-title" aria-hidden="true">
+<div class="modal fade" id="${weibo.getWeibo().getId()}up-comment" tabindex="-1" role="dialog" aria-labelledby="${weibo.getId()}comment-title" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -430,9 +434,9 @@ $(document).ready(function () {
             </div>
             <div class="modal-body">
                 <div class="row" style="margin-left: 0px; margin-right: 0px;">
-                        <p>${weibo.getContent()}</p>
+                        <p>${weibo.getWeibo().getContent()}</p>
                         <form id="in" action="../comment/inputComment" method="post">
-                            <input type="hidden"  name="weibo_id" value="${weibo.getId()}"/>
+                            <input type="hidden"  name="weibo_id" value="${weibo.getWeibo().getId()}"/>
                             <textarea name="content" class="form-control" rows="2" style="resize:none;"
                                   placeholder="评论......" required></textarea>
                             <div style="text-align: right">
@@ -446,120 +450,120 @@ $(document).ready(function () {
                         <div>
                             <div class="row">
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img id="${weibo.getId()}comment_img", text: nickname", width = "40", heighth = "40">
+                                    <a href="<@s.url namespace="/user" action="${weibo.getWeibo().getUser().getId()}" />">
+                                        <img id="${weibo.getWeibo().getId()}comment_img", text: nickname", width = "40", heighth = "40">
                                     </a>
                                 </div>
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
                             <p>
-                                <h id="${weibo.getId()}comment_name"></h>
+                                <h id="${weibo.getWeibo().getId()}comment_name"></h>
                                 <!--评论人名称-->
-                                <h id="${weibo.getId()}comment_content"></h>
+                                <h id="${weibo.getWeibo().getId()}comment_content"></h>
                                 <!--评论人名称-->
                             </p>
-                                <p id="${weibo.getId()}comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p id="${weibo.getWeibo().getId()}comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 </p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                <a id="${weibo.getId()}comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                <a id="${weibo.getWeibo().getId()}comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
                                 </div>
                             </div>
                             </div>
-                                
-                                
+
+
 <!------------------------------下面是第二条评论--------------------------------------------->
                             <div class="row">
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img id="${weibo.getId()}comment_img2", text: nickname2", width = "40", heighth = "40">
+                                    <a href="<@s.url namespace="/user" action="${weibo.getWeibo().getUser().getId()}" />">
+                                        <img id="${weibo.getWeibo().getId()}comment_img2", text: nickname2", width = "40", heighth = "40">
                                     </a>
                                 </div>
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
                             <p>
-                                <h id="${weibo.getId()}comment_name2"></h>
+                                <h id="${weibo.getWeibo().getId()}comment_name2"></h>
                                 <!--评论人名称-->
-                                <h id="${weibo.getId()}comment_content2"></h>
+                                <h id="${weibo.getWeibo().getId()}comment_content2"></h>
                                 <!--评论人名称-->
                             </p>
-                                <p id="${weibo.getId()}comment_time2" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p id="${weibo.getWeibo().getId()}comment_time2" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 </p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                    <a id="${weibo.getId()}comment_agree2" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
-                                </div> 
-                           </div>       
-                           </div>                  
+                                    <a id="${weibo.getWeibo().getId()}comment_agree2" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getWeibo().getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                </div>
+                           </div>
+                           </div>
 <!------------------------------上面是第二条评论--------------------------------------------->
-                                
-                                
+
+
 <!------------------------------下面是第三条评论--------------------------------------------->
                             <div class="row">
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-                                    <a href="<@s.url namespace="/user" action="${weibo.getUser().getId()}" />">
-                                        <img id="${weibo.getId()}comment_img3", text: nickname3", width = "40", heighth = "40">
+                                    <a href="<@s.url namespace="/user" action="${weibo.getWeibo().getUser().getId()}" />">
+                                        <img id="${weibo.getWeibo().getId()}comment_img3", text: nickname3", width = "40", heighth = "40">
                                     </a>
                                 </div>
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
                             <p>
-                                <h id="${weibo.getId()}comment_name3"></h>
+                                <h id="${weibo.getWeibo().getId()}comment_name3"></h>
                                 <!--评论人名称-->
-                                <h id="${weibo.getId()}comment_content3"></h>
+                                <h id="${weibo.getWeibo().getId()}comment_content3"></h>
                                 <!--评论人名称-->
                             </p>
-                                <p id="${weibo.getId()}comment_time3" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p id="${weibo.getWeibo().getId()}comment_time3" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 </p><!--评论时间-->
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">
-                                    <a id="${weibo.getId()}comment_agree3" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
-                                </div> 
-                           </div>      
-                           </div>                   
+                                    <a id="${weibo.getWeibo().getId()}comment_agree3" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment${weibo.getId()}()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><b>1</b></a>
+                                </div>
+                           </div>
+                           </div>
  <!------------------------------上面是第三条评论--------------------------------------------->
-                                
-                                
+
+
                                 <script>
-                                    var comment_agree${weibo.getId()} = true;                 <!--把true改作是否点赞的布尔值-->
+                                    var comment_agree${weibo.getWeibo().getId()} = true;                 <!--把true改作是否点赞的布尔值-->
 
                                     $(document).ready(function () {
-                                        if (!comment_agree${weibo.getId()}) {
-                                            $("#${weibo.getId()}comment_agree").css("color", "black");
-                                            $("#${weibo.getId()}comment_agree").mouseover(function () {
-                                                $("#${weibo.getId()}comment_agree").css("color", "red");
+                                        if (!comment_agree${weibo.getWeibo().getId()}) {
+                                            $("#${weibo.getWeibo().getId()}comment_agree").css("color", "black");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").mouseover(function () {
+                                                $("#${weibo.getWeibo().getId()}comment_agree").css("color", "red");
                                             });
-                                            $("#${weibo.getId()}comment_agree").mouseout(function () {
-                                                $("#${weibo.getId()}comment_agree").css("color", "black");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").mouseout(function () {
+                                                $("#${weibo.getWeibo().getId()}comment_agree").css("color", "black");
                                             });
                                         }
                                         else {
-                                            $("#${weibo.getId()}comment_agree").css("color", "red");
-                                            $("#${weibo.getId()}comment_agree").mouseover(function () {
-                                                $("#${weibo.getId()}comment_agree").css("color", "black");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").css("color", "red");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").mouseover(function () {
+                                                $("#${weibo.getWeibo().getId()}comment_agree").css("color", "black");
                                             });
-                                            $("#${weibo.getId()}comment_agree").mouseout(function () {
-                                                $("#${weibo.getId()}comment_agree").css("color", "red");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").mouseout(function () {
+                                                $("#${weibo.getWeibo().getId()}comment_agree").css("color", "red");
                                             })
                                         }
                                     });
-                                    function agreethecomment${weibo.getId()}() {
-                                        if (!comment_agree${weibo.getId()}) {
-                                            $("#${weibo.getId()}comment_agree b").text(parseInt($("#${weibo.getId()}comment_agree b").text()) + 1);
-                                            comment_agree${weibo.getId()} = true;
-                                            $("#${weibo.getId()}comment_agree").css("color", "red");
-                                            $("#${weibo.getId()}comment_agree").mouseover(function () {
-                                                $("#${weibo.getId()}comment_agree").css("color", "black");
+                                    function agreethecomment${weibo.getWeibo().getId()}() {
+                                        if (!comment_agree${weibo.getWeibo().getId()}) {
+                                            $("#${weibo.getWeibo().getId()}comment_agree b").text(parseInt($("#${weibo.getWeibo().getId()}comment_agree b").text()) + 1);
+                                            comment_agree${weibo.getWeibo().getId()} = true;
+                                            $("#${weibo.getWeibo().getId()}comment_agree").css("color", "red");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").mouseover(function () {
+                                                $("#${weibo.getWeibo().getId()}comment_agree").css("color", "black");
                                             });
-                                            $("#${weibo.getId()}comment_agree").mouseout(function () {
-                                                $("#${weibo.getId()}comment_agree").css("color", "red");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").mouseout(function () {
+                                                $("#${weibo.getWeibo().getId()}comment_agree").css("color", "red");
                                             });
 
                                             //这个地方发评论点赞请求
                                         }
                                         else {
-                                            $("#${weibo.getId()}comment_agree b").text(parseInt($("#${weibo.getId()}comment_agree b").text()) - 1);
-                                            comment_agree${weibo.getId()} = false;
-                                            $("#${weibo.getId()}comment_agree").css("color", "black");
-                                            $("#${weibo.getId()}comment_agree").mouseover(function () {
-                                                $("#${weibo.getId()}comment_agree").css("color", "red");
+                                            $("#${weibo.getWeibo().getId()}comment_agree b").text(parseInt($("#${weibo.getWeibo().getId()}comment_agree b").text()) - 1);
+                                            comment_agree${weibo.getWeibo().getId()} = false;
+                                            $("#${weibo.getWeibo().getId()}comment_agree").css("color", "black");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").mouseover(function () {
+                                                $("#${weibo.getWeibo().getId()}comment_agree").css("color", "red");
                                             });
-                                            $("#${weibo.getId()}comment_agree").mouseout(function () {
-                                                $("#${weibo.getId()}comment_agree").css("color", "black");
+                                            $("#${weibo.getWeibo().getId()}comment_agree").mouseout(function () {
+                                                $("#${weibo.getWeibo().getId()}comment_agree").css("color", "black");
                                             });
 
                                             //这个地方发取消评论点赞请求
@@ -610,7 +614,7 @@ $(document).ready(function () {
                 $("#${user[0].getNickname()}followButton span").css("color","white");
                 $("#${user[0].getNickname()}followButton b").css("color","white");
             }
-            
+
             $("#${user[0].getNickname()}followButton").click(function () {
 				 			var oMyForm = new FormData();
 				 			oMyForm.append("followusername", "${user[0].getUsername()}");
@@ -626,30 +630,30 @@ $(document).ready(function () {
 				 				dataType:'html',
   								contentType:false,
  								processData:false,
-				 				error:function(){	
+				 				error:function(){
 										alert("发生了一些错误，请稍后再试！");
 								},
 				 				success:function(){
-                    
-                    
+
+
                     $("#${user[0].getNickname()}followButton").removeClass().addClass("btn btn-info");
                     $("#${user[0].getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-plus");
                     $("#${user[0].getNickname()}followButton b").text("关注");
                     $("#${user[0].getNickname()}followButton span").css("color","white");
                     $("#${user[0].getNickname()}followButton b").css("color","white");
-				 				
+
 				 					alert(	"已取消关注");
                     $("#${user[0].getUsername()}card").hide();
 				 				},
 				 			});
 
                                         //发送取消关注请求
-                
+
             });
         });
     </script>
 </div>
-	
+
 </#macro>
 
 
@@ -687,7 +691,7 @@ $(document).ready(function () {
                 $("#${user[0].getNickname()}followButton span").css("color","white");
                 $("#${user[0].getNickname()}followButton b").css("color","white");
             }
-            
+
             $("#${user[0].getNickname()}followButton").click(function () {
                 if (${user[0].getNickname()}follow) {
                     ${user[0].getNickname()}follow = false;
@@ -705,18 +709,18 @@ $(document).ready(function () {
 				 				dataType:'html',
   								contentType:false,
  								processData:false,
-				 				error:function(){	
+				 				error:function(){
 										alert("发生了一些错误，请稍后再试！");
 								},
 				 				success:function(){
-                    
-                    
+
+
                     $("#${user[0].getNickname()}followButton").removeClass().addClass("btn btn-info");
                     $("#${user[0].getNickname()}followButton span").removeClass().addClass("glyphicon glyphicon-plus");
                     $("#${user[0].getNickname()}followButton b").text("关注");
                     $("#${user[0].getNickname()}followButton span").css("color","white");
                     $("#${user[0].getNickname()}followButton b").css("color","white");
-				 				
+
 				 					alert(	"已取消关注");
 				 				},
 				 			});
@@ -739,7 +743,7 @@ $(document).ready(function () {
 				 				dataType:'html',
   								contentType:false,
  								processData:false,
-				 				error:function(){	
+				 				error:function(){
 										alert("发生了一些错误，请稍后再试！");
 								},
 				 				success:function(){
@@ -752,8 +756,8 @@ $(document).ready(function () {
 				 					alert(	"已成功关注");
 				 				},
 				 			});
-                    
-                    
+
+
 
                                         //发送关注请求
                 }
@@ -761,21 +765,23 @@ $(document).ready(function () {
         });
     </script>
 </div>
-	
+
 </#macro>
 
 
 <#macro user_card_lg user>
 <div style="text-align:center;">
     <div class="thumbnail userCard">
-        <img class="img-thumbnail" src="${user.getAvatar()}" alt="头像" alt="头像" height="120" width="120">
-        <h2>${user.getNickname()}</h2>
-        <p>${user.getSignature()!" "}</p>
+        <img class="img-thumbnail" src="${user.getUser().getAvatar()}" alt="头像" alt="头像" height="120" width="120">
+        <h2>${user.getUser().getNickname()}</h2>
+        <p>${user.getUser().getSignature()!" "}</p>
         <button id="followButton" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
     </div>
 
     <script type="text/javascript">
         var follow = false;                        //这地方写是否关注
+        var following = ${user.getFollowing()?then('true','false')};
+		var followed = ${user.getFollower()?then('true','false')};
         $(document).ready(function () {
             if (follow) {
             	alert("zhaoweisohai");
@@ -792,7 +798,7 @@ $(document).ready(function () {
                 $("#followButton span").css("color","white");
                 $("#followButton b").css("color","white");
             }
-        
+
             $("#followButton").click(function () {
                 if (follow) {
                     follow = false;
@@ -808,7 +814,7 @@ $(document).ready(function () {
                 else {
                     follow = true;
 				 			var oMyForm = new FormData();
-				 			oMyForm.append("followusername", "${user.getUsername()}");
+				 			oMyForm.append("followusername", "${user.getUser().getUsername()}");
 				 			var token = $("meta[name='_csrf']").attr("content");
 							var header = $("meta[name='_csrf_header']").attr("content");
 							var headers = {};
@@ -821,7 +827,7 @@ $(document).ready(function () {
 				 				dataType:'html',
   								contentType:false,
  								processData:false,
-				 				error:function(){	
+				 				error:function(){
 										alert("发生了一些故障，请稍后再试！");
 								},
 				 				success:function(){
@@ -830,17 +836,17 @@ $(document).ready(function () {
                     $("#followButton b").text("已关注");
                     $("#followButton span").css("color","black");
                     $("#followButton b").css("color","black");
-				 					
+
 				 				},
 				 			});
-                    
+
 
                             //发送关注请求
                 }
             });
         });
-        
-        	
+
+
     </script>
 </div>
 </#macro>

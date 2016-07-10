@@ -10,7 +10,6 @@ import org.up.dao.IBaseDao;
 import org.up.model.User;
 import org.up.user.service.IUserService;
 
-
 @Service
 @Transactional
 public class UserService implements IUserService {
@@ -48,7 +47,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public List<User> searchUserByNickname(String nickname) {
-		return userDao.find("from User where nickname like \'%"+nickname+"%\'");
+		return userDao.find("from User where nickname like \'%" + nickname + "%\'");
 	}
 
 }
