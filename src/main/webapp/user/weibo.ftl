@@ -1,4 +1,5 @@
-﻿<#import "/template/bootstrap.ftl" as bootstrap>
+﻿<#import "../template/bootstrap.ftl" as bootstrap>
+<#import "../template/weibo.ftl" as bootstrap>
 <#list weibos as weibo>
 	<@bootstrap.weibo_card weibo=weibo>
 	${weibo.getWeibo().getContent()}
