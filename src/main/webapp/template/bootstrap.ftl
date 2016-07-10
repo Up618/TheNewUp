@@ -374,47 +374,48 @@ $(document).ready(function () {
             </div>
 
             <script>
+         
 
-                $(document).ready(function () {
-                	$("#${weibo.getId()}agree").click(function(){
-                        var token = $("meta[name='_csrf']").attr("content"); //之前已经把对应的变量存入<head>的<meta>中
-						var header = $("meta[name='_csrf_header']").attr("content");
-						var headers = {};
-						headers[header] = token;
-                	    $.ajax({
-                		    type: 'POST',
-                		    dataType:'json',
-                		    headers: headers,
-                		    url: "<@s.url namespace="/agree" action="agree"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
-                	    	//传一个微博id的param到后台
-                	}).done(function (data) {
-                	    //alert(data.ifLiked);
-                	//判断按钮样式
-                	if (!data.ifLiked) {
-                        $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) + 1);
-                        agree${weibo.getId()} = true;
-                        $("#${weibo.getId()}agree").css("color", "red");
-                        $("#${weibo.getId()}agree").mouseover(function () {
-                            $("#${weibo.getId()}agree").css("color", "black");
-                        });
-                        $("#${weibo.getId()}agree").mouseout(function () {
-                            $("#${weibo.getId()}agree").css("color", "red");
-                        });
-                    }//if
-                    else {
-                        $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) - 1);
-                        agree${weibo.getId()} = false;
-                        $("#${weibo.getId()}agree").css("color", "black");
-                            $("#${weibo.getId()}agree").mouseover(function () {
-                                $("#${weibo.getId()}agree").css("color", "red");
-                            });
-                            $("#${weibo.getId()}agree").mouseout(function () {
-                                $("#${weibo.getId()}agree").css("color", "black");
-                            });
-                    }//else
-                	}) //done
-                    }); //click
-                }); //document.ready
+$(document).ready(function () {
+    $("#${weibo.getId()}agree").click(function(){
+        var token = $("meta[name='_csrf']").attr("content"); //之前已经把对应的变量存入<head>的<meta>中
+        var header = $("meta[name='_csrf_header']").attr("content");
+        var headers = {};
+        headers[header] = token;
+        $.ajax({
+            type: 'POST',
+            dataType:'json',
+            headers: headers,
+            url: "<@s.url namespace="/agree" action="agree"><@s.param name="weibo_id" value="${weibo.getId()}"/> </@s.url>",
+            //传一个微博id的param到后台
+        }).done(function (data) {
+            //alert(data.ifLiked);
+            //判断按钮样式
+            if (!data.ifLiked) {
+                $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) + 1);
+                agree${weibo.getId()} = true;
+                $("#${weibo.getId()}agree").css("color", "red");
+                $("#${weibo.getId()}agree").mouseover(function () {
+                    $("#${weibo.getId()}agree").css("color", "black");
+                });
+                $("#${weibo.getId()}agree").mouseout(function () {
+                    $("#${weibo.getId()}agree").css("color", "red");
+                });
+            }//if
+            else {
+                $("#${weibo.getId()}agree b").text(parseInt($("#${weibo.getId()}agree b").text()) - 1);
+                agree${weibo.getId()} = false;
+                $("#${weibo.getId()}agree").css("color", "black");
+                $("#${weibo.getId()}agree").mouseover(function () {
+                    $("#${weibo.getId()}agree").css("color", "red");
+                });
+                $("#${weibo.getId()}agree").mouseout(function () {
+                    $("#${weibo.getId()}agree").css("color", "black");
+                });
+            }//else
+        }) //done
+    }); //click
+}); //document.ready     
 
                 </script>
             </div>
