@@ -16,7 +16,7 @@
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
   <!-- Latest compiled and minified CSS -->
-  <link href="http://o9x8azwl1.bkt.clouddn.com/newnewup.css" rel="stylesheet">
+  <link href="http://139.129.48.155:8081/up.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
 
@@ -591,7 +591,33 @@ $(document).ready(function () {
     </script>
 </div>
 </#macro>
+<#macro user_sidebar user>
+<div class="thumbnail">
+  <div class="caption">
+    <#nested>
+    <a href="<@s.url namespace="/user" action="${user.getId()}" />">
+    <li class="list-group-item">
+      <span class="badge">${user.getWeiboAmount()}</span>
+      Weibos
+    </li>
+  </a>
 
+  <a href="<@s.url action="${user.getId()}-get-follow" />">
+  <li class="list-group-item">
+    <span class="badge">${user.getFollowAmount()}</span>
+    关注
+  </li>
+</a>
+
+<a href="<@s.url action="${user.getId()}-get-fans" />">
+<li class="list-group-item">
+  <span class="badge">${user.getFansAmount()}</span>
+  粉丝
+</li>
+</a>
+</div>
+</div>
+</#macro>
 
 <!--------------------------------------下面是评论卡片-------------------------------------->
 <#macro comment_card weibo>
