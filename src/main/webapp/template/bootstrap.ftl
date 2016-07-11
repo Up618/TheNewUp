@@ -74,12 +74,13 @@
   <script src="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/js/jasny-bootstrap.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://cdn.bootcss.com/knockout/3.4.0/knockout-min.js"></script>
+  <script src="https://cdn.bootcss.com/vue/1.0.26/vue.min.js"></script>
 </head>
 </#macro>
 
 <#macro body>
 <body style="margin-bottom:60px;">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav id="nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -103,9 +104,14 @@
         </a>
       </li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img data-bind="attr: { src: avatar, height: '20', width: '20' }, text: nickname "><span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img data-bind="attr: { src: avatar, height: '20', width: '20' }"><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Action</a></li>
+          <li>
+            <a href="#">Signed in as
+              <span id="myNicknameOnNavbar" data-bind="text: nickname" style="font-weight:bolder;"></span>
+            </a>
+          </li>
+          <li role="separator" class="divider"></li>
           <li><a href="#">Another action</a></li>
           <li><a href="#">Something else here</a></li>
           <li role="separator" class="divider"></li>
@@ -193,10 +199,11 @@ function ViewModel(){
   };
 
 }
+  var app = new ViewModel();
+  ko.applyBindings(app,document.getElementById("nav"));
 $(function() {
   // Handler for .ready() called.
-  var app = new ViewModel();
-  ko.applyBindings(app);
+
 
   var token = $("meta[name='_csrf']").attr("content");
   var header = $("meta[name='_csrf_header']").attr("content");
@@ -266,79 +273,6 @@ $(function() {
 </div><!-- /.modal -->
 </#macro>
 
-<#macro user_card_lg user>
-<div style="text-align:center;">
-<div class="thumbnail userCard">
-<img class="img-thumbnail" src="${user.getUser().getAvatar()}" alt="头像" alt="头像" height="120" width="120">
-<h2>${user.getUser().getNickname()}</h2>
-<p>${user.getUser().getSignature()!" "}</p>
-<button id="followButton" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
-</div>
-<script type="text/javascript">
-var follow = false;                        //这地方写是否关注
-var following = ${user.getFollowing()?then('true','false')};
-var followed = ${user.getFollower()?then('true','false')};
-$(document).ready(function () {
-  if (follow) {
-    alert("zhaoweisohai");
-    $("#followButton").removeClass().addClass("btn btn-default");
-    $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
-    $("#followButton b").text("已关注");
-    $("#followButton span").css("color","black");
-    $("#followButton b").css("color","black");
-  }
-  else {
-    $("#followButton").removeClass().addClass("btn btn-info");
-    $("#followButton span").removeClass().addClass("glyphicon glyphicon-plus");
-    $("#followButton b").text("关注");
-    $("#followButton span").css("color","white");
-    $("#followButton b").css("color","white");
-  }
-
-  $("#followButton").click(function () {
-    if (follow) {
-      follow = false;
-      $("#followButton").removeClass().addClass("btn btn-info");
-      $("#followButton span").removeClass().addClass("glyphicon glyphicon-plus");
-      $("#followButton b").text("关注");
-      $("#followButton span").css("color","white");
-      $("#followButton b").css("color","white");
-
-      //发送取消关注请求
-    }
-    else {
-      follow = true;
-      var oMyForm = new FormData();
-      oMyForm.append("followusername", "${user.getUser().getUsername()}");
-      var token = $("meta[name='_csrf']").attr("content");
-      var header = $("meta[name='_csrf_header']").attr("content");
-      var headers = {};
-      headers[header] = token;
-      $.ajax({
-        type:'POST',
-        url:"<@s.url action="follow"/>",
-        data:oMyForm,
-        headers: headers,
-        dataType:'html',
-        contentType:false,
-        processData:false,
-        error:function(){
-          alert("发生了一些故障，请稍后再试！");
-        },
-        success:function(){
-          $("#followButton").removeClass().addClass("btn btn-default");
-          $("#followButton span").removeClass().addClass("glyphicon glyphicon-ok");
-          $("#followButton b").text("已关注");
-          $("#followButton span").css("color","black");
-          $("#followButton b").css("color","black");
-
-        },
-      });
-    },
-  });
-  </script>
-  </div>
-  </#macro>
   <#macro user_sidebar user>
   <div class="thumbnail">
   <div class="caption upSidebar">
@@ -349,16 +283,28 @@ $(document).ready(function () {
   Weibos
   </li>
   </a>
-  <a href="<@s.url action="${user.getId()}-get-follow" />">
+  <a href="<@s.url namespace="/" action="${user.getId()}-get-follow" />">
   <li class="list-group-item">
   <span class="badge">${user.getFollowAmount()}</span>
   关注
   </li>
   </a>
-  <a href="<@s.url action="${user.getId()}-get-fans" />">
+  <a href="<@s.url namespace="/" action="${user.getId()}-get-fans" />">
   <li class="list-group-item">
   <span class="badge">${user.getFansAmount()}</span>
   粉丝
+  </li>
+  </a>
+  </div>
+  </div>
+  
+  <div class="thumbnail">
+  <div class="caption">
+  <#nested>
+  <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
+  <li class="list-group-item">
+  <span class="badge">${user.getLikedWeiboAmount()}</span>
+	我赞过的微博
   </li>
   </a>
   </div>

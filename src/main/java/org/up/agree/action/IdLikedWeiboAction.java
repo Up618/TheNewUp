@@ -1,4 +1,4 @@
-package org.up.user.action;
+package org.up.agree.action;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -13,13 +13,16 @@ import org.up.user.service.IUserDtoService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Actions({ @Action(value = "*", params = { "id", "{1}" }) })
-@Results({ @Result(name = "success", location = "/user/id.ftl") })
-public class IdAction extends ActionSupport {
+/*
+ * 复用 ./user/action/IdAction.java
+ * 我赞过的微博Action，列出当前登录用户的点赞微博，而非任意用户的点赞微博。
+ * 本Action作用在于获得用户，获得微博见LikedWeiboAction.java
+ */
 
-	/**
-	 * 
-	 */
+@Actions({ @Action(value = "*-liked-weibo", params = { "id", "{1}" }) })
+@Results({ @Result(name = "success", location = "/user/likedweibo.ftl") })
+public class IdLikedWeiboAction extends ActionSupport {
+
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private UserDto user;
@@ -41,7 +44,7 @@ public class IdAction extends ActionSupport {
 	public void setUser(UserDto user) {
 		this.user = user;
 	}
-	
+
 	@Override
 	public String execute() throws Exception {
 		String currentUsername;
@@ -52,11 +55,6 @@ public class IdAction extends ActionSupport {
 			currentUsername = principal.toString();
 		}
 		user = userDtoService.loadUserDtoById(id, currentUsername);
-		if(user.getUser().getUsername().equals(currentUsername)){
-			user.setIsMe(true);
-		}else{
-			user.setIsMe(false);
-		}
 		return SUCCESS;
 	}
 }

@@ -2,7 +2,8 @@
 <#import "../template/weibo.ftl" as bootstrap_weibo>
 <#import "../template/usercard.ftl" as bootstrap_usercard>
 <html style="position:relative;min-height:100%;">
-<@bootstrap.head title="个人首页"></@bootstrap.head>
+<@bootstrap.head title="我赞过的微博"></@bootstrap.head>
+<#--除了取的数据不一样（即执行的action不同），其余同id.ftl一模一样-->
 <@bootstrap.body>
 
 <@bootstrap_weibo.weibo_comment/>
@@ -19,21 +20,24 @@
   <div class="row">
     <@bootstrap_usercard.user_card_lg user=user />
   </div>
-<div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1" style="padding-left:0px">
-  <@bootstrap.user_sidebar user=user.getUser()/>
-</div>
-<div id="user-weibo-column" class="col-sm-8 col-md-7 col-lg-7" data-bind="html: weibos" style="padding-right: 0px">
 
-</div>
+	<div class="row">
+		<div class="col-md-3 col-sm-3 col-lg-3">
+				<@bootstrap.user_sidebar user=user.getUser()/>
+		</div>
+		<div id="user-weibo-column" class="col-md-9 col-sm-9 col-lg-9" data-bind="html: weibos">
+			
+		</div>
+	</div>
 </div>
 </@bootstrap.body>
 <@bootstrap.javascript>
-function weiboColumn(){
+	function weiboColumn(){
   var self = this;
   var userWeiboPage = 1;
   self.weibos = ko.observable();
   $.ajax({
-    url: "${user.getUser().getId()}/weibo",
+    url: "${user.getUser().getId()}-liked-weibo/liked-weibo",
   }).done(function(data){
     self.weibos(data);
     applyNew();
@@ -43,7 +47,7 @@ function weiboColumn(){
       userWeiboPage++;
       $.ajax({
         data: {page:userWeiboPage},
-        url: "${user.getUser().getId()}/weibo",
+        url: "${user.getUser().getId()}-liked-weibo/liked-weibo",
       }).done(function(data){
         self.weibos(data);
         applyNew();
@@ -53,7 +57,7 @@ function weiboColumn(){
       userWeiboPage--;
       $.ajax({
         data: {page:userWeiboPage},
-        url: "${user.getUser().getId()}/weibo",
+        url: "${user.getUser().getId()}-liked-weibo/liked-weibo",
       }).done(function(data){
         self.weibos(data);
         applyNew();
