@@ -4,7 +4,7 @@
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
 
-  <div class="col-lg-3 col-md-3 col-sm-3">
+  <div class="col-lg-3 col-md-3 col-sm-3" style="padding-left:0px">
     <div class="thumbnail">
       <div class="caption">
         <a href="<@s.url namespace="/user" action="${user.getId()}" />">

@@ -20,15 +20,13 @@
     <@bootstrap.user_card_lg user=user />
   </div>
 
-	<div class="row">
-		<div class="col-md-3 col-sm-3 col-lg-3">
+		<div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1" style="padding-left:0px">
 				<@bootstrap.user_sidebar user=user.getUser()/>
 			
 		</div>
-		<div class="col-md-9 col-sm-9 col-lg-9" data-bind="html: weibos">
+		<div class="col-sm-8 col-md-7 col-lg-7" data-bind="html: weibos" style="padding-right: 0px">
 			
 		</div>
-	</div>
 </div>
 </@bootstrap.body>
 <@bootstrap.javascript>

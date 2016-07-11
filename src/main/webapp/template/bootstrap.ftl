@@ -61,7 +61,7 @@
     padding-right: 17;
   }
   </style>
-  <link href="http://o9x8azwl1.bkt.clouddn.com/newup.css" rel="stylesheet">
+
   <#nested>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -341,7 +341,7 @@ $(document).ready(function () {
   </#macro>
   <#macro user_sidebar user>
   <div class="thumbnail">
-  <div class="caption">
+  <div class="caption upSidebar">
   <#nested>
   <a href="<@s.url namespace="/user" action="${user.getId()}" />">
   <li class="list-group-item">

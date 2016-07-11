@@ -5,3 +5,5 @@
 	${weibo.getWeibo().getContent()}
 	</@bootstrap_weibo.weibo_card>
 </#list>
+<@bootstrap_weibo.weibo_card_js>
+</@bootstrap_weibo.weibo_card_js>
