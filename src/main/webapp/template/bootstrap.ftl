@@ -74,12 +74,13 @@
   <script src="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/js/jasny-bootstrap.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://cdn.bootcss.com/knockout/3.4.0/knockout-min.js"></script>
+  <script src="https://cdn.bootcss.com/vue/1.0.26/vue.min.js"></script>
 </head>
 </#macro>
 
 <#macro body>
 <body style="margin-bottom:60px;">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav id="nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -193,10 +194,11 @@ function ViewModel(){
   };
 
 }
+  var app = new ViewModel();
+  ko.applyBindings(app,document.getElementById("nav"));
 $(function() {
   // Handler for .ready() called.
-  var app = new ViewModel();
-  ko.applyBindings(app);
+
 
   var token = $("meta[name='_csrf']").attr("content");
   var header = $("meta[name='_csrf_header']").attr("content");
