@@ -1,44 +1,33 @@
 package org.up.user.action;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.up.dto.UserDto;
-import org.up.user.service.IUserDtoService;
+import org.up.model.User;
+import org.up.user.service.IUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Actions({ @Action(value = "*", params = { "id", "{1}" }) })
-@Results({ @Result(name = "success", location = "/user/id.ftl") })
-public class IdAction extends ActionSupport {
+@Results({ @Result(name = "success", type = "redirectAction", params = { "namespace", "/", "actionName", "logout" }),
+		@Result(name = "input", location = "/user/account.ftl") })
+public class AccountAction extends ActionSupport {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long id;
-	private UserDto user;
+	private String password;
 	@Autowired
-	private IUserDtoService userDtoService;
+	private IUserService userService;
 
-	public Long getId() {
-		return id;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UserDto getUser() {
-		return user;
-	}
-
-	public void setUser(UserDto user) {
-		this.user = user;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
@@ -50,7 +39,10 @@ public class IdAction extends ActionSupport {
 		} else {
 			currentUsername = principal.toString();
 		}
-		user = userDtoService.loadUserDtoById(id, currentUsername);
-		return SUCCESS;
+		User user = userService.loadUserByUsername(currentUsername);
+		user.setPasswordHash(password);
+		userService.editUser(user);
+		return super.execute();
 	}
+	
 }

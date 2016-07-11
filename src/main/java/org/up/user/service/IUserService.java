@@ -12,4 +12,6 @@ public interface IUserService {
 	public List<User> searchUserByNickname(String nickname);
 	public Long addUser(User user);
 	public void editUser(User user);
+	public Boolean ifNicknameValid(String nickname);
+	public Boolean ifUsernameValid(String username);
 }

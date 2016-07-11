@@ -1,7 +1,5 @@
 package org.up.user.action;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,25 +10,24 @@ import org.up.user.service.IUserDtoService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Actions({ @Action(value = "*", params = { "id", "{1}" }) })
 @Results({ @Result(name = "success", location = "/user/id.ftl") })
-public class IdAction extends ActionSupport {
+public class NicknameAction extends ActionSupport {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long id;
+	private String nickname;
 	private UserDto user;
 	@Autowired
 	private IUserDtoService userDtoService;
 
-	public Long getId() {
-		return id;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public UserDto getUser() {
@@ -50,7 +47,7 @@ public class IdAction extends ActionSupport {
 		} else {
 			currentUsername = principal.toString();
 		}
-		user = userDtoService.loadUserDtoById(id, currentUsername);
-		return SUCCESS;
+		user = userDtoService.loadUserDtoByNickname(nickname, currentUsername);
+		return super.execute();
 	}
 }
