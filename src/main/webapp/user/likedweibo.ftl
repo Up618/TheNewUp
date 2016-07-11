@@ -1,6 +1,6 @@
 ﻿<#import "/template/bootstrap.ftl" as bootstrap>
 <#import "../template/weibo.ftl" as bootstrap_weibo>
-
+<#import "../template/usercard.ftl" as bootstrap_usercard>
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="我赞过的微博"></@bootstrap.head>
 <@bootstrap.body>
@@ -17,24 +17,53 @@
 
 <div class="container" style="padding-top:60px">
   <div class="row">
-    <@bootstrap.user_card_lg user=user/>
+    <@bootstrap_usercard.user_card_lg user=user />
   </div>
 
 	<div class="row">
 		<div class="col-md-3 col-sm-3 col-lg-3">
 				<@bootstrap.user_sidebar user=user.getUser()/>
 		</div>
-		<div class="col-md-9 col-sm-9 col-lg-9" data-bind="html: weibos">
+		<div id="user-weibo-column" class="col-md-9 col-sm-9 col-lg-9" data-bind="html: weibos">
 			
 		</div>
 	</div>
 </div>
 </@bootstrap.body>
 <@bootstrap.javascript>
-	$.ajax({
-		url: "${user.getUser().getId()}-liked-weibo/liked-weibo",
-	}).done(function(data){
-		app.weibos(data);
-	});
+	function weiboColumn(){
+  var self = this;
+  var userWeiboPage = 1;
+  self.weibos = ko.observable();
+  $.ajax({
+    url: "${user.getUser().getId()}-liked-weibo/liked-weibo",
+  }).done(function(data){
+    self.weibos(data);
+    applyNew();
+  });
+  function applyNew(){
+    $(".nextable").click(function(){
+      userWeiboPage++;
+      $.ajax({
+        data: {page:userWeiboPage},
+        url: "${user.getUser().getId()}-liked-weibo/liked-weibo",
+      }).done(function(data){
+        self.weibos(data);
+        applyNew();
+      });
+    });
+    $(".previousable").click(function(){
+      userWeiboPage--;
+      $.ajax({
+        data: {page:userWeiboPage},
+        url: "${user.getUser().getId()}-liked-weibo/liked-weibo",
+      }).done(function(data){
+        self.weibos(data);
+        applyNew();
+      });
+    });
+  }
+}
+ko.applyBindings(new weiboColumn(),document.getElementById("user-weibo-column"));
 </@bootstrap.javascript>
 </html>
