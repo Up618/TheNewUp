@@ -22,12 +22,17 @@
 
 
   <div class="row">
+		<div class="col-sm-1 col-md-1 col-lg-1">	
+		</div>
+		
+		<div class="row col-lg-10">
     <div class="col-md-3 col-sm-3 col-lg-3">
       <@bootstrap.user_sidebar user=user.getUser()/>
 
     </div>
     <div id="user-weibo-column" class="col-md-9 col-sm-9 col-lg-9" data-bind="html: weibos">
 
+    </div>
     </div>
   </div>
 </div>
