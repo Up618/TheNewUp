@@ -30,7 +30,7 @@
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
         <h3>${user[0].getNickname()}</h3>
         <p><a href="<@s.url action="${user[0].getId()}-get-follow" />">关注${user[0].getFollowAmount()}</a>      <a href="<@s.url action="${user[0].getId()}-get-fans" />">粉丝${user[0].getFansAmount()}</a>   <a href="<@s.url namespace="/user" action="${user[0].getId()}" />">微博数${user[0].getWeiboAmount()}</a></p>
-         <p>${user[0].getSignature()!" "}</p>
+         <p>${user[0].getBio()!" "}</p>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
         <button id="${user[0].getUsername()}followButton" style = "width:90px" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
