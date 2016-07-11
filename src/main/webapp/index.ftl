@@ -4,7 +4,7 @@
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
 
-  <div class="col-lg-3 col-md-3 col-sm-3">
+  <div class="col-lg-3 col-md-3 col-sm-3" style="padding-left:0px">
     <div class="thumbnail">
       <div class="caption">
         <a href="<@s.url namespace="/user" action="${user.getId()}" />">
@@ -32,8 +32,18 @@
 </a>
 </div>
 </div>
+  <div class="thumbnail">
+  <div class="caption">
+  <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
+  <li class="list-group-item">
+  <span class="badge">${user.getLikedWeiboAmount()}</span>
+	我赞过的微博
+  </li>
+  </a>
+  </div>
+  </div>
 </div>
-</div>
+
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 
 </div>
