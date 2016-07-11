@@ -1,10 +1,11 @@
 <#import "/template/bootstrap.ftl" as bootstrap>
+<#import "/template/usercard.ftl" as bootstrap_usercard>
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="关注"></@bootstrap.head>
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
 	<div class="row">
-		<@bootstrap.user_card_lg user=user />
+		<@bootstrap_usercard.user_card_lg user=user />
 	</div>
 	 <div class="row">
 	 
@@ -15,10 +16,12 @@
 			<@bootstrap.user_sidebar user=user.getUser() />
 		</div>
 		<div class="col-sm-9 col-md-9 col-lg-9">
+		<div class="list-group-item row" style="padding:0 0 0 15">
 			<h5>全部关注：${followAmount}</h5>
+			</div>
 			<div class="list-group">
 			<#list users as user>
-<div id="${user[0].getUsername()}card" class="list-group-item row">
+<div id="${user[0].getUsername()}card" class="list-group-item row" style="margin-bottom:10px">
     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
         <a href="<@s.url namespace="/user" action="${user[0].getId()}" />" class="thumbnail">
             <img class="img-responsive" src="${user[0].getAvatar()}" alt="头像">
@@ -33,21 +36,22 @@
         <button id="${user[0].getUsername()}followButton" style = "width:90px" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
     </div>
     <script type="text/javascript">
-        var ${user[0].getUsername()}follow = ${user[1]};                        //这地方写是否关注
+	    var b1${user[0].getUsername()} = ${user[1]};   
+	    var b2${user[0].getUsername()} = ${user[2]};                      //这地方写是否关注
         $(document).ready(function () {
-            if (${user[1]}&&${user[2]}) {
+            if (b1${user[0].getUsername()}&&b2${user[0].getUsername()}) {
                 $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-default");
                 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-retweet");
                 $("#${user[0].getUsername()}followButton b").text("互相关注");
                 $("#${user[0].getUsername()}followButton span").css("color","black");
                 $("#${user[0].getUsername()}followButton b").css("color","black");
             }
-            else if(${user[2]}){
-                $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-info");
-                $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
-                $("#${user[0].getUsername()}followButton b").text("已关注");
-                $("#${user[0].getUsername()}followButton span").css("color","white");
-                $("#${user[0].getUsername()}followButton b").css("color","white");
+            else if(b2${user[0].getUsername()}){
+                    				$("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-default");
+                   					 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
+                  					 $("#${user[0].getUsername()}followButton b").text("已关注");
+                				    $("#${user[0].getUsername()}followButton span").css("color","black");
+                 					$("#${user[0].getUsername()}followButton b").css("color","black");
             }
             else{
             	
@@ -61,7 +65,7 @@
             }
             
             $("#${user[0].getUsername()}followButton").click(function () {
-            	if(${user[2]}){
+            	if(b2${user[0].getUsername()}){
 				 			var oMyForm = new FormData();
 				 			oMyForm.append("followusername", "${user[0].getUsername()}");
 				 			var token = $("meta[name='_csrf']").attr("content");
@@ -87,6 +91,7 @@
                     $("#${user[0].getUsername()}followButton b").text("关注");
                     $("#${user[0].getUsername()}followButton span").css("color","white");
                     $("#${user[0].getUsername()}followButton b").css("color","white");
+                    b2${user[0].getUsername()} = false;
 				 					alert(	"已取消关注");
 				 					
 				 				},
@@ -123,11 +128,12 @@
                  				else{
                  				
                     				$("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-default");
-                   					 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-retweet");
+                   					 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-ok");
                   					 $("#${user[0].getUsername()}followButton b").text("已关注");
                 				    $("#${user[0].getUsername()}followButton span").css("color","black");
                  					$("#${user[0].getUsername()}followButton b").css("color","black");
                  				}	
+                 				b2${user[0].getUsername()} = true;
 				 					alert(	"已成功关注");
 				 				},
 				 			});
@@ -141,7 +147,7 @@
 </div>
 	
 					<#else>
-					<h1>你还没有关注任何人哦！</h1>
+					<h1>还没有关注任何人哦！</h1>
 				</#list>
 			</div>
 		</div>
