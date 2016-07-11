@@ -52,6 +52,11 @@ public class IdAction extends ActionSupport {
 			currentUsername = principal.toString();
 		}
 		user = userDtoService.loadUserDtoById(id, currentUsername);
+		if(user.getUser().getUsername().equals(currentUsername)){
+			user.setIsMe(true);
+		}else{
+			user.setIsMe(false);
+		}
 		return SUCCESS;
 	}
 }
