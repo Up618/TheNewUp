@@ -3,6 +3,7 @@
 <#import "../template/usercard.ftl" as bootstrap_usercard>
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="我赞过的微博"></@bootstrap.head>
+<#--除了取的数据不一样（即执行的action不同），其余同id.ftl一模一样-->
 <@bootstrap.body>
 
 <@bootstrap_weibo.weibo_comment/>
