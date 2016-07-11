@@ -13,4 +13,5 @@ public interface IWeiboDtoService {
 	public List<WeiboDto> getWeiboDtoByCurrentNickname(String nickname, Integer page, Integer rows);
 	public List<WeiboDto> getWeiboDtoByCurrentUserId(Long userId, Integer page, Integer rows);
 	public List<WeiboDto> getWeiboDtoByUser(User user, Integer page, Integer rows);
+	public List<WeiboDto> getWeiboDtoByUserLiked(Long userId, Integer page, Integer rows);
 }

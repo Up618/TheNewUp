@@ -64,4 +64,11 @@ public class WeiboDtoService implements IWeiboDtoService {
 		return null;
 	}
 
+	@Override
+	public List<WeiboDto> getWeiboDtoByUserLiked(Long userId, Integer page, Integer rows) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(userId);
+		return weiboDtoDao.find("select new org.up.dto.WeiboDto(w, true) from Weibo w join w.agrees as a where a.user.id = ?", param, page, rows);
+	}
+
 }
