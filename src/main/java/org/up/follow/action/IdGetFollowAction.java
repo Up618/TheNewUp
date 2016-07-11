@@ -10,6 +10,7 @@ import org.up.follow.service.IFollowService;
 import org.up.model.Follow;
 
 import org.up.model.User;
+import org.up.user.service.IUserDtoService;
 import org.up.user.service.IUserService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -39,13 +40,15 @@ public class IdGetFollowAction extends ActionSupport{
 	private Long fansAmount;
 	private List<User> userinfo;
 	private Long id;
-	private User user;
+	private UserDto user;
 	@Autowired
 	private IFollowService followService;
 	
 	@Autowired
 	private IUserService userService;
-	
+
+	@Autowired
+	private IUserDtoService userDtoService;
 	@Override
 	public String execute() throws Exception{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -55,19 +58,20 @@ public class IdGetFollowAction extends ActionSupport{
 		} else {
 			myname = principal.toString();
 		}
+		User user = new User();
 		user = userService.loadUserById(id);
 		followAmount = user.getFollowAmount();
 		fansAmount = user.getFansAmount();
 		users = followService.getFollowById(id,myname);
-		
+		this.user = userDtoService.loadUserDtoById(id, myname);
 		return SUCCESS;
 	}
 	
-	public void setUser(User user){
+	public void setUser(UserDto user){
 		this.user = user;
 	}
 	
-	public User getUser(){
+	public UserDto getUser(){
 		return this.user;
 	}
 	public void setId(Long id){

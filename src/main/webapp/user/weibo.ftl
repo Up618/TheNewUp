@@ -1,9 +1,9 @@
-﻿<#import "/template/bootstrap.ftl" as bootstrap>
-<#import "/template/ChanKCsWeiboCard.ftl" as new>
+<#import "../template/bootstrap.ftl" as bootstrap>
+<#import "../template/weibo.ftl" as bootstrap_weibo>
 <#list weibos as weibo>
-	<@new.weibo_card weibo=weibo>
-	${weibo.getWeibo().getContent()}
-	</@new.weibo_card>
+	<@bootstrap_weibo.weibo_card weibo=weibo>
+		${weibo.getWeibo().getContent()}
+</@bootstrap_weibo.weibo_card>
 </#list>
 <nav>
   <ul id="weibo-pager" class="pager">

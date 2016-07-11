@@ -8,9 +8,11 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.up.dto.UserDto;
 import org.up.follow.service.IFollowService;
 import org.up.model.Follow;
 import org.up.model.User;
+import org.up.user.service.IUserDtoService;
 import org.up.user.service.IUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -32,11 +34,14 @@ public class IdGetFansAction extends ActionSupport{
 	private Long fansAmount;
 	private Long followAmount;
 	private Long id;
-	private User user;
+	private UserDto user;
 	@Autowired
 	private IFollowService followService;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IUserDtoService userDtoService;
+
 	@Override
 	public String execute() throws Exception{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -46,18 +51,20 @@ public class IdGetFansAction extends ActionSupport{
 		} else {
 			myname = principal.toString();
 		}	
+		User user = new User();
 		user = userService.loadUserById(id);
 		fansAmount = user.getFansAmount();
 		followAmount = user.getFollowAmount();
 		fans = followService.getFansById(id,myname);
+		this.user = userDtoService.loadUserDtoById(id, myname);
 		return SUCCESS;
 	}
 	
-	public void setUser(User user){
+	public void setUser(UserDto user){
 		this.user = user;
 	}
 	
-	public User getUser(){
+	public UserDto getUser(){
 		return this.user;
 	}
 	public void setId(Long id){
