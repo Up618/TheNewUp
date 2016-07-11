@@ -42,6 +42,7 @@ public class UserDtoService implements IUserDtoService {
 		List<Object> param = new ArrayList<Object>();
 		param.add(myId);
 		param.add(myId);
+		param.add(myId);
 		param.add(nickname);
 		return userDtoDao.find("select new org.up.dto.UserDto(u, "
 				+ "case when "
@@ -49,13 +50,16 @@ public class UserDtoService implements IUserDtoService {
 				+ "then 'true' else 'false' end, "
 				+ "case when "
 				+ "? in (select f.followed.id from Follow f where f.following.id = u.id) "
-				+ "then 'true' else 'false' end) "
+				+ "then 'true' else 'false' end,"
+				+ "case when "
+				+ "? = u.id then 'true' else 'false' end) "
 				+ "from User u where u.nickname like ?", param);
 	}
 
 	@Override
 	public List<UserDto> searchUserDtoByNickname(String keyword, String username) {
 		List<Object> param = new ArrayList<Object>();
+		param.add(username);
 		param.add(username);
 		param.add(username);
 		param.add("%"+keyword+"%");
@@ -65,7 +69,9 @@ public class UserDtoService implements IUserDtoService {
 				+ "then 'true' else 'false' end, "
 				+ "case when "
 				+ "? in (select f.followed.username from Follow f where f.following.id = u.id) "
-				+ "then 'true' else 'false' end) "
+				+ "then 'true' else 'false' end, "
+				+ "case when "
+				+ "? = u.username then 'true' else 'false' end) "
 				+ "from User u where u.nickname like ?", param);
 	}
 
@@ -74,6 +80,7 @@ public class UserDtoService implements IUserDtoService {
 		List<Object> param = new ArrayList<Object>();
 		param.add(myId);
 		param.add(myId);
+		param.add(myId);
 		param.add(username);
 		return userDtoDao.get("select new org.up.dto.UserDto(u, "
 				+ "case when "
@@ -81,7 +88,9 @@ public class UserDtoService implements IUserDtoService {
 				+ "then 'true' else 'false' end, "
 				+ "case when "
 				+ "? in (select f.followed.id from Follow f where f.following.id = u.id) "
-				+ "then 'true' else 'false' end) "
+				+ "then 'true' else 'false' end, "
+				+ "case when "
+				+ "? = u.id then 'true' else 'false' end) "
 				+ "from User u where u.username = ?", param);
 	}
 
@@ -90,6 +99,7 @@ public class UserDtoService implements IUserDtoService {
 		List<Object> param = new ArrayList<Object>();
 		param.add(myId);
 		param.add(myId);
+		param.add(myId);
 		param.add(id);
 		return userDtoDao.get("select new org.up.dto.UserDto(u, "
 				+ "case when "
@@ -97,13 +107,16 @@ public class UserDtoService implements IUserDtoService {
 				+ "then 'true' else 'false' end, "
 				+ "case when "
 				+ "? in (select f.followed.id from Follow f where f.following.id = u.id) "
-				+ "then 'true' else 'false' end) "
+				+ "then 'true' else 'false' end, "
+				+ "case when "
+				+ "? = u.id then 'true' else 'false' end) "
 				+ "from User u where u.id = ?", param);
 	}
 
 	@Override
 	public UserDto loadUserDtoByNickname(String nickname, Long myId) {
 		List<Object> param = new ArrayList<Object>();
+		param.add(myId);
 		param.add(myId);
 		param.add(myId);
 		param.add(nickname);
@@ -113,13 +126,16 @@ public class UserDtoService implements IUserDtoService {
 				+ "then 'true' else 'false' end, "
 				+ "case when "
 				+ "? in (select f.followed.id from Follow f where f.following.id = u.id) "
-				+ "then 'true' else 'false' end) "
+				+ "then 'true' else 'false' end, "
+				+ "case when "
+				+ "? = u.id then 'true' else 'false' end) "
 				+ "from User u where u.nickname = ?", param);
 	}
 
 	@Override
 	public UserDto loadUserDtoByUsername(String username, String myUsername) {
 		List<Object> param = new ArrayList<Object>();
+		param.add(myUsername);
 		param.add(myUsername);
 		param.add(myUsername);
 		param.add(username);
@@ -129,13 +145,16 @@ public class UserDtoService implements IUserDtoService {
 				+ "then 'true' else 'false' end, "
 				+ "case when "
 				+ "? in (select f.followed.username from Follow f where f.following.id = u.id) "
-				+ "then 'true' else 'false' end) "
+				+ "then 'true' else 'false' end, "
+				+ "case when "
+				+ "? = u.username then 'true' else 'false' end) "
 				+ "from User u where u.username = ?", param);
 	}
 
 	@Override
 	public UserDto loadUserDtoById(Long id, String myUsername) {
 		List<Object> param = new ArrayList<Object>();
+		param.add(myUsername);
 		param.add(myUsername);
 		param.add(myUsername);
 		param.add(id);
@@ -145,13 +164,16 @@ public class UserDtoService implements IUserDtoService {
 				+ "then 'true' else 'false' end, "
 				+ "case when "
 				+ "? in (select f.followed.username from Follow f where f.following.id = u.id) "
-				+ "then 'true' else 'false' end) "
+				+ "then 'true' else 'false' end, "
+				+ "case when "
+				+ "? = u.username then 'true' else 'false' end) "
 				+ "from User u where u.id = ?", param);
 	}
 
 	@Override
 	public UserDto loadUserDtoByNickname(String nickname, String myUsername) {
 		List<Object> param = new ArrayList<Object>();
+		param.add(myUsername);
 		param.add(myUsername);
 		param.add(myUsername);
 		param.add(nickname);
@@ -161,7 +183,9 @@ public class UserDtoService implements IUserDtoService {
 				+ "then 'true' else 'false' end, "
 				+ "case when "
 				+ "? in (select f.followed.username from Follow f where f.following.id = u.id) "
-				+ "then 'true' else 'false' end) "
+				+ "then 'true' else 'false' end, "
+				+ "case when "
+				+ "? = u.username then 'true' else 'false' end) "
 				+ "from User u where u.nickname = ?", param);
 	}
 

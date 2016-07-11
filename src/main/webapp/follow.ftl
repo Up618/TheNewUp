@@ -37,8 +37,12 @@
     </div>
     <script type="text/javascript">
 	    var b1${user[0].getUsername()} = ${user[1]};   
-	    var b2${user[0].getUsername()} = ${user[2]};                      //这地方写是否关注
+	    var b2${user[0].getUsername()} = ${user[2]};
+	    var b3${user[0].getUsername()} = ${user[3]};
         $(document).ready(function () {
+        if(b3${user[0].getUsername()}){
+        	$("#${user[0].getUsername()}followButton").hide();
+        }
             if (b1${user[0].getUsername()}&&b2${user[0].getUsername()}) {
                 $("#${user[0].getUsername()}followButton").removeClass().addClass("btn btn-default");
                 $("#${user[0].getUsername()}followButton span").removeClass().addClass("glyphicon glyphicon-retweet");

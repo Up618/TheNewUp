@@ -7,19 +7,22 @@ public class UserDto {
 	private User user;
 	private Boolean following;
 	private Boolean follower;
+	private Boolean isMe;
 	
-	public UserDto(User user, Boolean following, Boolean follower) {
+	public UserDto(User user, Boolean following, Boolean follower, Boolean isMe) {
 		super();
 		this.user = user;
 		this.following = following;
 		this.follower = follower;
+		this.isMe = isMe;
 	}
 	
-	public UserDto(User user, String following,String follower) {
+	public UserDto(User user, String following,String follower,String isMe) {
 		super();
 		this.user = user;
 		this.following = new Boolean(following);
 		this.follower = new Boolean(follower);
+		this.isMe = new Boolean(isMe);
 	}
 
 	public UserDto(User user) {
@@ -49,6 +52,12 @@ public class UserDto {
 
 	public void setFollower(Boolean follower) {
 		this.follower = follower;
+	}
+	public void setIsMe(Boolean isMe){
+		this.isMe = isMe;
+	}	
+	public Boolean getIsMe(){
+		return this.isMe;
 	}
 
 }

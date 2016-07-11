@@ -1,4 +1,4 @@
-
+﻿<#import "/template/bootstrap.ftl" as bootstrap>
 <#macro user_card_lg user>
 <div style="text-align:center;">
 	<div class="thumbnail userCard">
@@ -11,6 +11,9 @@
 		var following${user.getUser().getId()} = ${user.getFollowing()?then('true','false')};
 		var followed${user.getUser().getId()} = ${user.getFollower()?then('true','false')};
 		$(document).ready(function () {
+		if(${user.getIsMe()?then('true','false')}){
+			$("#followButton${user.getUser().getId()}").hide();
+		}
 		if (following${user.getUser().getId()}&&followed${user.getUser().getId()}) {
             $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
             $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-retweet");
