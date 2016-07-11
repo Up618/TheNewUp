@@ -108,7 +108,7 @@
         <ul class="dropdown-menu">
           <li>
             <a href="#">Signed in as
-              <span data-bind="text: nickname" style="font-weight:bolder;"></span>
+              <span id="myNicknameOnNavbar" data-bind="text: nickname" style="font-weight:bolder;"></span>
             </a>
           </li>
           <li role="separator" class="divider"></li>
