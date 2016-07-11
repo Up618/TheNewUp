@@ -74,12 +74,13 @@
   <script src="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/js/jasny-bootstrap.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://cdn.bootcss.com/knockout/3.4.0/knockout-min.js"></script>
+  <script src="https://cdn.bootcss.com/vue/1.0.26/vue.min.js"></script>
 </head>
 </#macro>
 
 <#macro body>
 <body style="margin-bottom:60px;">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav id="nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -196,7 +197,7 @@ function ViewModel(){
 $(function() {
   // Handler for .ready() called.
   var app = new ViewModel();
-  ko.applyBindings(app);
+  ko.applyBindings(app,document.getElementById("nav"));
 
   var token = $("meta[name='_csrf']").attr("content");
   var header = $("meta[name='_csrf_header']").attr("content");
@@ -404,7 +405,7 @@ $(function() {
 </div>
 </div>
 </div>
-<div class="modal fade" id="${weibo.getWeibo().getId()}up-comment" tabindex="-1" role="dialog" aria-labelledby="${weibo.getId()}comment-title" aria-hidden="true">
+<div class="modal fade" id="${weibo.getWeibo().getId()}up-comment" tabindex="-1" role="dialog" aria-labelledby="${weibo.getWeibo().getId()}comment-title" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -625,7 +626,7 @@ $(function() {
 
               alert(	"已取消关注");
               $("#${user[0].getUsername()}card").hide();
-            },
+            }
           });
 
           //发送取消关注请求
@@ -817,7 +818,8 @@ $(function() {
 
             },
           });
-        },
+        }
+      });
       });
       </script>
       </div>
