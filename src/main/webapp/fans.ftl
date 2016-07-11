@@ -1,10 +1,11 @@
 <#import "/template/bootstrap.ftl" as bootstrap>
+<#import "/template/usercard.ftl" as bootstrap_usercard>
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="粉丝"></@bootstrap.head>
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
 	<div class="row">
-    	<@bootstrap.user_card_lg user=user />
+    	<@bootstrap_usercard.user_card_lg user=user />
   	</div>
 	<div class="row">	
 		<div class="col-sm-1 col-md-1 col-lg-1">	
@@ -14,7 +15,7 @@
 				<@bootstrap.user_sidebar user=user.getUser() />
 			</div>
 			<div class="col-sm-9 col-md-9 col-lg-9">
-				<div>
+				<div class="list-group-item row" style="padding:0 0 0 15">
 					<h5>粉丝数：${fansAmount}</h5>
 				</div>
 			<div class="list-group">
@@ -91,6 +92,7 @@
 							                    $("#${user[0].getUsername()}followButton b").text("关注");
 							                    $("#${user[0].getUsername()}followButton span").css("color","white");
 							                    $("#${user[0].getUsername()}followButton b").css("color","white");
+							                    b1${user[0].getUsername()} = false;
 					 							alert(	"已取消关注");
 					 						},
 					 					});
@@ -138,7 +140,7 @@
 	    			</script>
 				</div>
 				<#else>
-					<h1>你还没有任何粉丝哦！</h1>
+					<h1>还没有任何粉丝哦！</h1>
 				</#list>
 			</div>
 		</div>
