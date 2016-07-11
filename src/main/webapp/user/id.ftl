@@ -1,7 +1,11 @@
-<#import "/template/bootstrap.ftl" as bootstrap>
+﻿<#import "/template/bootstrap.ftl" as bootstrap>
+<#import "../template/weibo.ftl" as bootstrap_weibo>
+
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="个人首页"></@bootstrap.head>
 <@bootstrap.body>
+
+<@bootstrap_weibo.weibo_comment/>
 
 <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
