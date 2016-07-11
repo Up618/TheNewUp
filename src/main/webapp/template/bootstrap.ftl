@@ -297,4 +297,16 @@ $(function() {
   </a>
   </div>
   </div>
+  
+  <div class="thumbnail">
+  <div class="caption">
+  <#nested>
+  <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
+  <li class="list-group-item">
+  <span class="badge">${user.getLikedWeiboAmount()}</span>
+	我赞过的微博
+  </li>
+  </a>
+  </div>
+  </div>
   </#macro>
