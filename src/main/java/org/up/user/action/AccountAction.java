@@ -18,7 +18,10 @@ public class AccountAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String oldPassword;
 	private String password;
+	private String passwordAgain;
+	private User user;
 	@Autowired
 	private IUserService userService;
 
@@ -32,6 +35,30 @@ public class AccountAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		if(password==null)return INPUT;
+		user.setPasswordHash(password);
+		userService.editUser(user);
+		return super.execute();
+	}
+
+	public String getPasswordAgain() {
+		return passwordAgain;
+	}
+
+	public void setPasswordAgain(String passwordAgain) {
+		this.passwordAgain = passwordAgain;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	@Override
+	public void validate() {
 		String currentUsername;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
@@ -39,10 +66,11 @@ public class AccountAction extends ActionSupport {
 		} else {
 			currentUsername = principal.toString();
 		}
-		User user = userService.loadUserByUsername(currentUsername);
-		user.setPasswordHash(password);
-		userService.editUser(user);
-		return super.execute();
+		user = userService.loadUserByUsername(currentUsername);
+		if(oldPassword!=null||password!=null||passwordAgain!=null){
+			if(oldPassword!=user.getPasswordHash())addFieldError("Old password","Wrong old password!");
+			if(password!=passwordAgain)addFieldError("Password Again","The two passwords are not the same!");
+		}
 	}
 	
 }

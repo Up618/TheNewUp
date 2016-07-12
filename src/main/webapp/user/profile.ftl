@@ -39,7 +39,7 @@
           </div>
           <div class="form-group">
             <label for="profileNickname">Nickname</label>
-            <input type="text" class="form-control" name="nickname" id="profileNickname" value="${user.getNickname()}">
+            <input type="text" class="form-control" name="nickname" id="profileNickname" value="${user.getNickname()}" required>
           </div>
           <div class="form-group">
             <label for="profileEmail">Email</label>
