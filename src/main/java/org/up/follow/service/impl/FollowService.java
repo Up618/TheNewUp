@@ -139,8 +139,8 @@ public class FollowService implements IFollowService{
 		params.add(username);
 		params.add(id);
 		return listDao.find("select new list(f.followed,"
-				+ "case when ? in (select c.followed.username from Follow c where c.following.username = f.followed.username) then 'true' else 'false' end,"
 				+ "case when ? in (select d.following.username from Follow d where d.followed.username = f.followed.username) then 'true' else 'false' end,"
+				+ "case when ? in (select c.followed.username from Follow c where c.following.username = f.followed.username) then 'true' else 'false' end,"
 				+ "case when ? = f.followed.username then 'true' else 'false' end)"
 				+ " from Follow f where f.following.id = ?", params);
 	}
