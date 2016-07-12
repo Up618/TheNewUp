@@ -1,4 +1,4 @@
-﻿<#macro head title>
+<#macro head title>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -199,8 +199,8 @@ function ViewModel(){
   };
 
 }
-  var app = new ViewModel();
-  ko.applyBindings(app,document.getElementById("nav"));
+var app = new ViewModel();
+ko.applyBindings(app,document.getElementById("nav"));
 $(function() {
   // Handler for .ready() called.
 
@@ -273,40 +273,40 @@ $(function() {
 </div><!-- /.modal -->
 </#macro>
 
-  <#macro user_sidebar user>
-  <div class="thumbnail">
-  <div class="caption upSidebar">
-  <#nested>
-  <a href="<@s.url namespace="/user" action="${user.getId()}" />">
-  <li class="list-group-item">
-  <span class="badge">${user.getWeiboAmount()}</span>
-  Weibos
-  </li>
-  </a>
-  <a href="<@s.url namespace="/" action="${user.getId()}-get-follow" />">
-  <li class="list-group-item">
-  <span class="badge">${user.getFollowAmount()}</span>
-  关注
-  </li>
-  </a>
-  <a href="<@s.url namespace="/" action="${user.getId()}-get-fans" />">
-  <li class="list-group-item">
-  <span class="badge">${user.getFansAmount()}</span>
-  粉丝
-  </li>
-  </a>
-  </div>
-  </div>
-  
-  <div class="thumbnail">
+<#macro user_sidebar user>
+<div class="thumbnail">
   <div class="caption">
-  <#nested>
-  <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
-  <li class="list-group-item">
-  <span class="badge">${user.getLikedWeiboAmount()}</span>
-	我赞过的微博
-  </li>
+    <#nested>
+    <a class="upSidebar" id="weibos-btn" href="<@s.url namespace="/user" action="${user.getId()}" />" style="">
+      <li class="list-group-item">
+        <span class="badge">${user.getWeiboAmount()}</span>
+        Weibos
+      </li>
+    </a>
+    <a class="upSidebar" id="follows-btn" href="<@s.url namespace="/" action="${user.getId()}-get-follow" />">
+      <li class="list-group-item">
+        <span class="badge">${user.getFollowAmount()}</span>
+        关注
+      </li>
+    </a>
+    <a class="upSidebar" id="fans-btn" href="<@s.url namespace="/" action="${user.getId()}-get-fans" />">
+      <li class="list-group-item">
+        <span class="badge">${user.getFansAmount()}</span>
+        粉丝
+      </li>
+    </a>
+  </div>
+</div>
+
+<div class="thumbnail">
+  <div class="caption">
+    <#nested>
+    <a class="upSidebar" id="liked-btn" href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
+    <li class="list-group-item">
+      <span class="badge">${user.getLikedWeiboAmount()}</span>
+      我赞过的微博
+    </li>
   </a>
-  </div>
-  </div>
-  </#macro>
+</div>
+</div>
+</#macro>
