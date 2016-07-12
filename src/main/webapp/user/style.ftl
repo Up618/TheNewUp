@@ -9,8 +9,8 @@
       <div class="panel-heading">Personal settings</div>
       <ul class="list-group">
         <a href="<@s.url action="profile"/>" class="list-group-item">Profile</a>
-        <a href="<@s.url action="account"/>" class="list-group-item active">Account</a>
-        <a href="<@s.url action="style"/>" class="list-group-item">Style</a>
+        <a href="<@s.url action="account"/>" class="list-group-item">Account</a>
+        <a href="<@s.url action="style"/>" class="list-group-item active">Style</a>
       </ul>
     </div>
   </div>

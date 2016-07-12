@@ -183,6 +183,9 @@ function ViewModel(){
   self.followAmount = ko.observable();
   self.weibos = ko.observable();
   self.homepageLink = ko.observable();
+  self.phoneNumber = ko.observable();
+  self.email = ko.observable();
+  self.bio = ko.observable();
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/api" action="user" />",
@@ -194,7 +197,10 @@ function ViewModel(){
     self.weiboAmount(data.user.user.weiboAmount);
     self.fansAmount(data.user.user.fansAmount);
     self.followAmount(data.user.user.followAmount);
+    self.phoneNumber(data.user.user.phoneNumber);
+    self.email(data.user.user.email);
     self.homepageLink("<@s.url namespace="/user" action="username"/>?username="+self.username());
+    self.bio(data.user.user.bio);
   });
   self.signOut = function(){
     $("#sign-out").submit();
@@ -211,10 +217,10 @@ $(function() {
   var header = $("meta[name='_csrf_header']").attr("content");
   var headers = {};
   headers[header] = token;
-  $("input[name='upload']").change(function(){
+  $("#pic-upload input[name='upload']").change(function(){
     $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
     var fd = new FormData();
-    fd.append("upload",$("input[name='upload']")[0].files[0]);
+    fd.append("upload",$("#pic-upload input[name='upload']")[0].files[0]);
     $.ajax({
       url: "<@s.url namespace="/api" action="pic-upload"/>",
       headers: headers,
@@ -243,7 +249,7 @@ $(function() {
       console.log(err);
     });
   });
-  $("input[name='upload']").click(function(e){
+  $("#pic-upload input[name='upload']").click(function(e){
     e.stopPropagation();
   });
   $("li.no-pic-li").click(function(e){
@@ -301,7 +307,7 @@ $(function() {
   </div>
 
   <div class="thumbnail">
-  <div class="caption">
+  <div class="caption upSidebar">
   <#nested>
   <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
   <li class="list-group-item">
