@@ -83,12 +83,6 @@
   <nav id="nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
         <a class="navbar-brand" href="<@s.url namespace="/" action="index" />">UP</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
@@ -260,7 +254,7 @@ $(function() {
   <#nested>
 });
 function makeAnnotationAvailable(weiboSelectList){
-  var re=new RegExp("@\(\\w\)+\\b","g");
+  var re=new RegExp("@\(\([a-zA-Z0-9\u4e00-\u9fa5_]\)+\)","g");
   $(weiboSelectList).each(function(){
     var origin = $(this).html();
     var output = origin.replace(re,function(word){
@@ -328,4 +322,16 @@ function makeAnnotationAvailable(weiboSelectList){
   </a>
   </div>
   </div>
+  </#macro>
+
+  <#macro errorInfo>
+  <#assign hasFieldErrors = fieldErrors??/>
+  <#if hasFieldErrors>
+  <#list fieldErrors?values as error>
+  <div class="alert alert-danger" role="alert" style="margin-top:60px">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error:</strong>${error}
+  </div>
+  </#list>
+  </#if>
   </#macro>
