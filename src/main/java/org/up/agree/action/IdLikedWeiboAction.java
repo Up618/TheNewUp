@@ -14,8 +14,9 @@ import org.up.user.service.IUserDtoService;
 import com.opensymphony.xwork2.ActionSupport;
 
 /*
- * 复用 ./user/action/IdAction.java
- * 我赞过的微博Action，列出当前登录用户的点赞微博，而非任意用户的点赞微博。
+ * 赞过的微博Action
+ * 高度复用 ./user/action/IdAction.java
+ * 除了执行的Action名及跳转不同，其余完全相同
  * 本Action作用在于获得用户，获得微博见LikedWeiboAction.java
  */
 
@@ -55,6 +56,11 @@ public class IdLikedWeiboAction extends ActionSupport {
 			currentUsername = principal.toString();
 		}
 		user = userDtoService.loadUserDtoById(id, currentUsername);
+		if(user.getUser().getUsername().equals(currentUsername)){
+			user.setIsMe(true);
+		}else{
+			user.setIsMe(false);
+		}
 		return SUCCESS;
 	}
 }
