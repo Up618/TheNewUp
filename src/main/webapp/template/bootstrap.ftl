@@ -107,13 +107,13 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img data-bind="attr: { src: avatar, height: '20', width: '20' }"><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li>
-            <a href="#">Signed in as
+            <div style="padding:3px 20px;">Signed in as
               <span id="myNicknameOnNavbar" data-bind="text: nickname" style="font-weight:bolder;"></span>
-            </a>
+            </div>
           </li>
           <li role="separator" class="divider"></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
+          <li><a data-bind="attr: {href: homepageLink}">Your homepage</a></li>
+          <li><a href="<@s.url namespace="/user" action="profile"/>">Your profile</a></li>
           <li role="separator" class="divider"></li>
           <li><a href="#" data-bind="click: signOut">Sign out</a></li>
         </ul>
@@ -182,6 +182,7 @@ function ViewModel(){
   self.fansAmount = ko.observable();
   self.followAmount = ko.observable();
   self.weibos = ko.observable();
+  self.homepageLink = ko.observable();
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/api" action="user" />",
@@ -193,6 +194,7 @@ function ViewModel(){
     self.weiboAmount(data.user.user.weiboAmount);
     self.fansAmount(data.user.user.fansAmount);
     self.followAmount(data.user.user.followAmount);
+    self.homepageLink("<@s.url namespace="/user" action="username"/>?username="+self.username());
   });
   self.signOut = function(){
     $("#sign-out").submit();
@@ -297,7 +299,7 @@ $(function() {
   </a>
   </div>
   </div>
-  
+
   <div class="thumbnail">
   <div class="caption upSidebar">
   <#nested>
