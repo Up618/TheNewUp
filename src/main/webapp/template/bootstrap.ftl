@@ -306,7 +306,7 @@ $(function() {
   <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
   <li class="list-group-item">
   <span class="badge">${user.getLikedWeiboAmount()}</span>
-	我赞过的微博
+	${user.getNickname()}赞过的微博
   </li>
   </a>
   </div>
