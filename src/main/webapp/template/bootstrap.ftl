@@ -299,7 +299,7 @@ $(function() {
   </div>
   
   <div class="thumbnail">
-  <div class="caption">
+  <div class="caption upSidebar">
   <#nested>
   <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
   <li class="list-group-item">
