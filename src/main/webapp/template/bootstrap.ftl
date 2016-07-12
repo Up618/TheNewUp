@@ -256,8 +256,19 @@ $(function() {
     $("input[name='upload']").click();
     e.stopPropagation();
   });
+  makeAnnotationAvailable();
   <#nested>
 });
+function makeAnnotationAvailable(){
+  var re=new RegExp("@\(\\w\)+\\b","g");
+  $(".up-body").each(function(){
+    var origin = $(this).html();
+    var output = origin.replace(re,function(word){
+      return "<a href=\"<@s.url action="nickname"/>?nickname="+word.substring(1)+"\">"+word+"</a>";
+    });
+    $(this).html(output);
+  });
+}
 </script>
 </#macro>
 
