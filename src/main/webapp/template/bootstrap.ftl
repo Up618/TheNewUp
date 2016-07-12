@@ -256,12 +256,12 @@ $(function() {
     $("input[name='upload']").click();
     e.stopPropagation();
   });
-  makeAnnotationAvailable();
+  makeAnnotationAvailable(".up-body");
   <#nested>
 });
-function makeAnnotationAvailable(){
+function makeAnnotationAvailable(weiboSelectList){
   var re=new RegExp("@\(\\w\)+\\b","g");
-  $(".up-body").each(function(){
+  $(weiboSelectList).each(function(){
     var origin = $(this).html();
     var output = origin.replace(re,function(word){
       return "<a href=\"<@s.url action="nickname"/>?nickname="+word.substring(1)+"\">"+word+"</a>";

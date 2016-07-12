@@ -37,7 +37,7 @@ function weiboColumn(){
   }).done(function(data){
     self.weibos(data);
     applyNew();
-    makeAnnotationAvailable();
+    makeAnnotationAvailable(".up-body");
   });
   function applyNew(){
     $(".nextable").click(function(){
@@ -48,7 +48,7 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
-        makeAnnotationAvailable();
+        makeAnnotationAvailableu(".up-body");
       });
     });
     $(".previousable").click(function(){
@@ -59,7 +59,7 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
-        makeAnnotationAvailable();
+        makeAnnotationAvailable(".up-body");
       });
     });
   }
