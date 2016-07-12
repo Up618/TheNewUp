@@ -24,6 +24,10 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/register*"
 			access="permitAll" />
+		<security:intercept-url pattern="/api/nickname-valid*"
+			access="permitAll" />
+		<security:intercept-url pattern="/api/username-valid*"
+			access="permitAll" />
 		<security:intercept-url pattern="/**"
 			access="hasRole('USER')" />
 		<security:form-login login-page='/login' />

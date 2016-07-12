@@ -27,11 +27,13 @@ public class User {
 	private String email;
 	@Column(unique = true, length = 20)
 	private String phoneNumber;
-	private String signature;
+	private String bio;
 	@Column(unique = true, nullable = false, length = 20)
 	private String nickname;
 	@Column(columnDefinition = "VARCHAR(255) NOT NULL DEFAULT \'http://o8m79d0cw.bkt.clouddn.com/my-java.jpg\'")
 	private String avatar = "http://o8m79d0cw.bkt.clouddn.com/my-java.jpg";
+	private String profileBackground;
+	private String pageBackground;
 	private Boolean gender; // Female if true
 	private Boolean phoneNumberConfirm = false;
 	private Boolean emailConfirm = false;
@@ -130,12 +132,12 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getSignature() {
-		return signature;
+	public String getBio() {
+		return bio;
 	}
 
-	public void setSignature(String signature) {
-		this.signature = signature;
+	public void setBio(String bio) {
+		this.bio = bio;
 	}
 
 	public String getNickname() {
@@ -264,5 +266,21 @@ public class User {
 
 	public void setWeiboAmount(Long weiboAmount) {
 		this.weiboAmount = weiboAmount;
+	}
+
+	public String getProfileBackground() {
+		return profileBackground;
+	}
+
+	public void setProfileBackground(String profileBackground) {
+		this.profileBackground = profileBackground;
+	}
+
+	public String getPageBackground() {
+		return pageBackground;
+	}
+
+	public void setPageBackground(String pageBackground) {
+		this.pageBackground = pageBackground;
 	}
 }

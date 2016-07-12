@@ -107,13 +107,13 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img data-bind="attr: { src: avatar, height: '20', width: '20' }"><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li>
-            <a href="#">Signed in as
+            <div style="padding:3px 20px;">Signed in as
               <span id="myNicknameOnNavbar" data-bind="text: nickname" style="font-weight:bolder;"></span>
-            </a>
+            </div>
           </li>
           <li role="separator" class="divider"></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
+          <li><a data-bind="attr: {href: homepageLink}">Your homepage</a></li>
+          <li><a href="<@s.url namespace="/user" action="profile"/>">Your profile</a></li>
           <li role="separator" class="divider"></li>
           <li><a href="#" data-bind="click: signOut">Sign out</a></li>
         </ul>
@@ -182,6 +182,10 @@ function ViewModel(){
   self.fansAmount = ko.observable();
   self.followAmount = ko.observable();
   self.weibos = ko.observable();
+  self.homepageLink = ko.observable();
+  self.phoneNumber = ko.observable();
+  self.email = ko.observable();
+  self.bio = ko.observable();
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/api" action="user" />",
@@ -193,6 +197,10 @@ function ViewModel(){
     self.weiboAmount(data.user.user.weiboAmount);
     self.fansAmount(data.user.user.fansAmount);
     self.followAmount(data.user.user.followAmount);
+    self.phoneNumber(data.user.user.phoneNumber);
+    self.email(data.user.user.email);
+    self.homepageLink("<@s.url namespace="/user" action="username"/>?username="+self.username());
+    self.bio(data.user.user.bio);
   });
   self.signOut = function(){
     $("#sign-out").submit();
@@ -209,10 +217,10 @@ $(function() {
   var header = $("meta[name='_csrf_header']").attr("content");
   var headers = {};
   headers[header] = token;
-  $("input[name='upload']").change(function(){
+  $("#pic-upload input[name='upload']").change(function(){
     $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
     var fd = new FormData();
-    fd.append("upload",$("input[name='upload']")[0].files[0]);
+    fd.append("upload",$("#pic-upload input[name='upload']")[0].files[0]);
     $.ajax({
       url: "<@s.url namespace="/api" action="pic-upload"/>",
       headers: headers,
@@ -241,7 +249,7 @@ $(function() {
       console.log(err);
     });
   });
-  $("input[name='upload']").click(function(e){
+  $("#pic-upload input[name='upload']").click(function(e){
     e.stopPropagation();
   });
   $("li.no-pic-li").click(function(e){
@@ -277,7 +285,7 @@ $(function() {
 <div class="thumbnail">
   <div class="caption">
     <#nested>
-    <a class="upSidebar" id="weibos-btn" href="<@s.url namespace="/user" action="${user.getId()}" />" style="">
+    <a class="upSidebar" id="weibos-btn" href="<@s.url namespace="/user" action="${user.getId()}" />">
       <li class="list-group-item">
         <span class="badge">${user.getWeiboAmount()}</span>
         Weibos
@@ -295,6 +303,7 @@ $(function() {
         粉丝
       </li>
     </a>
+
   </div>
 </div>
 
@@ -304,7 +313,7 @@ $(function() {
     <a class="upSidebar" id="liked-btn" href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
     <li class="list-group-item">
       <span class="badge">${user.getLikedWeiboAmount()}</span>
-      我赞过的微博
+      ${user.getNickname()}赞过的微博
     </li>
   </a>
 </div>

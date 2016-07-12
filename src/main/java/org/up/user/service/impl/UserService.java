@@ -50,4 +50,32 @@ public class UserService implements IUserService {
 		return userDao.find("from User where nickname like \'%" + nickname + "%\'");
 	}
 
+	@Override
+	public Boolean ifNicknameValid(String nickname) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(nickname);
+		return userDao.count("select count(u) from User u where nickname = ?", param) == 0;
+	}
+
+	@Override
+	public Boolean ifUsernameValid(String username) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(username);
+		return userDao.count("select count(u) from User u where username = ?", param) == 0;
+	}
+
+	@Override
+	public Boolean ifPhoneNumberValid(String phoneNumber) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(phoneNumber);
+		return userDao.count("select count(u) from User u where phoneNumber = ?", param) == 0;
+	}
+
+	@Override
+	public Boolean ifEmailValid(String email) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(email);
+		return userDao.count("select count(u) from User u where email = ?", param) == 0;
+	}
+
 }
