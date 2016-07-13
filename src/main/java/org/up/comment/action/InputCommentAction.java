@@ -22,7 +22,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Actions({ @Action(value = "inputComment")})
-@Results({@Result(name="success",type="redirectAction",params={"namespace","/user","actionName","1"})})
+//@Results({@Result(name="success",type="redirectAction",params={"namespace","/comment","actionName","comment", "weibo_id", "%{weibo_id}"})})
+@Results({@Result(name="success",type="json")})
 public class InputCommentAction extends ActionSupport {
 	/**
 	 * @author yuhui
@@ -87,6 +88,7 @@ public class InputCommentAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		comment = new Comment();
+		System.out.println("填写评论！！");
     	System.out.println("weibo_id: "+weibo_id);
     	
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -103,7 +105,6 @@ public class InputCommentAction extends ActionSupport {
 
 		Weibo weibo = weiboService.loadWeiboById(weibo_id);
 		if(content!=null){
-			System.out.println("填写评论！！");
 		    comment.setUser(user);
 		    comment.setContent(content);
 		    comment.setWeibo(weibo);
