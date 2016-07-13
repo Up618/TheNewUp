@@ -117,7 +117,7 @@
   
 <#macro fans_follow_card user>
 
-				<div class="list-group-item row">
+				<div class="list-group-item row" style="margin-bottom:10px">
 	    		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
 	        		<a href="<@s.url namespace="/user" action="${user[0].getId()}" />" class="thumbnail">
 	            					<img class="img-responsive" src="${user[0].getAvatar()}" alt="头像">

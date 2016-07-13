@@ -29,7 +29,6 @@
   	<#else>
     		<button id="previousBtn" class="btn-link">上一页</button>
     		<button id="nextBtn" class="btn-link">下一页</button>
-    
 	</#if>
   </ul>
 </nav>
