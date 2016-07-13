@@ -3,15 +3,7 @@
 <@bootstrap.head title="账户设置"></@bootstrap.head>
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
-  <#assign hasFieldErrors = fieldErrors??/>
-  <#if hasFieldErrors>
-  <#list fieldErrors?values as error>
-  <div class="alert alert-danger" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Error:</strong>${error}
-  </div>
-  </#list>
-  </#if>
+  <@bootstrap.errorInfo/>
   <div class="col-lg-3 col-md-3 col-sm-3" style="padding-left:0px">
     <div class="panel panel-default">
       <!-- Default panel contents -->
