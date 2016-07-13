@@ -41,6 +41,8 @@ public class IdGetFollowAction extends ActionSupport{
 	private List<User> userinfo;
 	private Long id;
 	private UserDto user;
+	private Integer page = 1;
+	private Integer pageNum;
 	@Autowired
 	private IFollowService followService;
 	
@@ -62,11 +64,24 @@ public class IdGetFollowAction extends ActionSupport{
 		user = userService.loadUserById(id);
 		followAmount = user.getFollowAmount();
 		fansAmount = user.getFansAmount();
-		users = followService.getFollowById(id,myname);
+		users = followService.getFollowById(id,myname,page,10);
 		this.user = userDtoService.loadUserDtoById(id, myname);
+		pageNum = (int) (user.getFollowAmount()/10 + 1);
 		return SUCCESS;
 	}
 	
+	public void setPageNum(Integer pageNum){
+		this.pageNum = pageNum;
+	}
+	public Integer getPageNum(){
+		return this.pageNum;
+	}
+	public void setPage(Integer page){
+		this.page = page;
+	}
+	public Integer getPage(){
+		return this.page;
+	}
 	public void setUser(UserDto user){
 		this.user = user;
 	}

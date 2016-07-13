@@ -6,6 +6,10 @@
 		${weibo.getWeibo().getContent()}
 </@bootstrap_weibo.weibo_card>
 </#list>
+<@bootstrap_weibo.weibo_comment_card_js>
+</@bootstrap_weibo.weibo_comment_card_js>
+
+
 <nav>
   <ul id="weibo-pager" class="pager">
   	<#if page == 1>

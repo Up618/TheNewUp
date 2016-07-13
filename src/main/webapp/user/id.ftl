@@ -4,8 +4,10 @@
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="个人首页"></@bootstrap.head>
 <@bootstrap.body>
-
 <@bootstrap_weibo.weibo_comment/>
+<@bootstrap_weibo.comment_card>
+</@bootstrap_weibo.comment_card>
+<@bootstrap_weibo.weibo_comment_submit_js/>
 
 <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

@@ -34,7 +34,9 @@ public class IdGetFansAction extends ActionSupport{
 	private Long fansAmount;
 	private Long followAmount;
 	private Long id;
+	private Integer page = 1;
 	private UserDto user;
+	private Integer pageNum;
 	@Autowired
 	private IFollowService followService;
 	@Autowired
@@ -57,9 +59,24 @@ public class IdGetFansAction extends ActionSupport{
 		followAmount = user.getFollowAmount();
 		fans = followService.getFansById(id,myname);
 		this.user = userDtoService.loadUserDtoById(id, myname);
+		pageNum = fans.size()/10;
+		if(pageNum == 0 )
+			pageNum = 1;
 		return SUCCESS;
 	}
 	
+	public void setPage(Integer page){
+		this.page = page;
+	}
+	public Integer getPage(){
+		return this.page;
+	}
+	public void setPageNum(Integer pageNum){
+		this.pageNum = pageNum;
+	}
+	public Integer getPageNum(){
+		return this.pageNum;
+	}
 	public void setUser(UserDto user){
 		this.user = user;
 	}
