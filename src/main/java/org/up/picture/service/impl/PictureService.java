@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.up.dao.IBaseDao;
 import org.up.model.Picture;
+import org.up.model.Weibo;
 import org.up.picture.service.IPictureService;
 
 @Service("pictureService")
@@ -19,27 +20,6 @@ public class PictureService implements IPictureService {
 	@Override
 	public Picture loadPictureById(Long id) {
 		return pictureDao.get(Picture.class, id);
-	}
-
-	@Override
-	public List<Picture> getPictureByUsername(String username) {
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		return pictureDao.find("select p from Picture p where p.user.username = ?");
-	}
-
-	@Override
-	public List<Picture> getPictureByUserId(Long userId) {
-		List<Object> params = new ArrayList<Object>();
-		params.add(userId);
-		return pictureDao.find("select p from Picture p where p.user.userId = ?");
-	}
-
-	@Override
-	public List<Picture> getPictureByNickname(String nickname) {
-		List<Object> params = new ArrayList<Object>();
-		params.add(nickname);
-		return pictureDao.find("select p from Picture p where p.user.nickname = ?");
 	}
 
 	@Override
@@ -55,6 +35,20 @@ public class PictureService implements IPictureService {
 	@Override
 	public void editPicture(Picture picture) {
 		pictureDao.update(picture);
+	}
+
+	@Override
+	public List<Picture> getPicturesByWeiboId(Long weiboId) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(weiboId);
+		return pictureDao.find("select p from Picture p where p.weibo.id = ?",param);
+	}
+
+	@Override
+	public List<Picture> getPicturesByWeibo(Weibo weibo) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(weibo);
+		return pictureDao.find("select p from Picture p where p.weibo = ?",param);
 	}
 
 }
