@@ -12,8 +12,9 @@ import org.up.weibo.service.IWeiboDtoService;
 import com.opensymphony.xwork2.ActionSupport;
 
 /*
- * 复用 ./user/action/WeiboAction.java
- * 我赞过的微博Action，列出当前登录用户的点赞微博，而非任意用户的点赞微博。
+ * 赞过的微博Action
+ * 高度复用 ./user/action/WeiboAction.java
+ * 除Action名不同，获取的微博内容不同，其余完全相同。
  * 本Action作用在于获得用户点赞过的微博列表，获得用户见IdLikedWeiboAction.java
  */
 

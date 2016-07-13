@@ -14,4 +14,6 @@ public interface IUserService {
 	public void editUser(User user);
 	public Boolean ifNicknameValid(String nickname);
 	public Boolean ifUsernameValid(String username);
+	public Boolean ifPhoneNumberValid(String phoneNumber);
+	public Boolean ifEmailValid(String email);
 }

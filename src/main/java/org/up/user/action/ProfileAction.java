@@ -10,8 +10,8 @@ import org.up.user.service.IUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Results({ @Result(name = "success", type = "redirectAction", params = { "namespace", "/user", "actionName", "*", "id",
-		"${user.getId()}" }), @Result(name = "input", location = "/user/profile.ftl") })
+@Results({ @Result(name = "success", type = "redirectAction", params = { "namespace", "/user", "actionName", "username",
+		"username", "${user.getUsername()}" }), @Result(name = "input", location = "/user/profile.ftl") })
 public class ProfileAction extends ActionSupport {
 
 	/**
@@ -23,8 +23,6 @@ public class ProfileAction extends ActionSupport {
 	private String bio;
 	private String nickname;
 	private String avatar;
-	private String profileBackground;
-	private String pageBackground;
 	private User user;
 	@Autowired
 	private IUserService userService;
@@ -69,22 +67,6 @@ public class ProfileAction extends ActionSupport {
 		this.avatar = avatar;
 	}
 
-	public String getProfileBackground() {
-		return profileBackground;
-	}
-
-	public void setProfileBackground(String profileBackground) {
-		this.profileBackground = profileBackground;
-	}
-
-	public String getPageBackground() {
-		return pageBackground;
-	}
-
-	public void setPageBackground(String pageBackground) {
-		this.pageBackground = pageBackground;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -95,6 +77,19 @@ public class ProfileAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		if (avatar == null)
+			return INPUT;
+		user.setAvatar(avatar);
+		user.setBio(bio);
+		user.setEmail(email);
+		user.setNickname(nickname);
+		user.setPhoneNumber(phoneNumber);
+		return SUCCESS;
+	}
+
+	@Override
+	public void validate() {
+		//addFieldError("test","test");
 		String currentUsername;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
@@ -103,16 +98,16 @@ public class ProfileAction extends ActionSupport {
 			currentUsername = principal.toString();
 		}
 		user = userService.loadUserByUsername(currentUsername);
-		if (avatar == null)
-			return INPUT;
-		user.setAvatar(avatar);
-		user.setBio(bio);
-		user.setEmail(email);
-		user.setNickname(nickname);
-		user.setPhoneNumber(phoneNumber);
-		user.setPageBackground(pageBackground);
-		user.setProfileBackground(profileBackground);
-		userService.editUser(user);
-		return SUCCESS;
+		if (avatar != null) {
+			if (!(userService.ifNicknameValid(nickname) || user.getNickname() == nickname || user.getNickname().equals(nickname))) {
+				addFieldError("Nickname", "The nickname has been used!");
+			}
+			if (!(email == null ||userService.ifEmailValid(email) || user.getEmail() == email || user.getEmail().equals(email))) {
+				addFieldError("Email", "The email has been used!");
+			}
+			if (!(phoneNumber == null || userService.ifPhoneNumberValid(phoneNumber) || user.getPhoneNumber() == phoneNumber || user.getPhoneNumber().equals(phoneNumber))) {
+				addFieldError("Phone number", "The phone number has been used!");
+			}
+		}
 	}
 }

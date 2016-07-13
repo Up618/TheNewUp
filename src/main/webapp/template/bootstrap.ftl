@@ -1,4 +1,4 @@
-﻿<#macro head title>
+<#macro head title>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -83,12 +83,6 @@
   <nav id="nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
         <a class="navbar-brand" href="<@s.url namespace="/" action="index" />">UP</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
@@ -183,6 +177,9 @@ function ViewModel(){
   self.followAmount = ko.observable();
   self.weibos = ko.observable();
   self.homepageLink = ko.observable();
+  self.phoneNumber = ko.observable();
+  self.email = ko.observable();
+  self.bio = ko.observable();
   $.ajax({
     type: 'GET',
     url: "<@s.url namespace="/api" action="user" />",
@@ -194,15 +191,18 @@ function ViewModel(){
     self.weiboAmount(data.user.user.weiboAmount);
     self.fansAmount(data.user.user.fansAmount);
     self.followAmount(data.user.user.followAmount);
+    self.phoneNumber(data.user.user.phoneNumber);
+    self.email(data.user.user.email);
     self.homepageLink("<@s.url namespace="/user" action="username"/>?username="+self.username());
+    self.bio(data.user.user.bio);
   });
   self.signOut = function(){
     $("#sign-out").submit();
   };
 
 }
-  var app = new ViewModel();
-  ko.applyBindings(app,document.getElementById("nav"));
+var app = new ViewModel();
+ko.applyBindings(app,document.getElementById("nav"));
 $(function() {
   // Handler for .ready() called.
 
@@ -211,10 +211,10 @@ $(function() {
   var header = $("meta[name='_csrf_header']").attr("content");
   var headers = {};
   headers[header] = token;
-  $("input[name='upload']").change(function(){
+  $("#pic-upload input[name='upload']").change(function(){
     $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
     var fd = new FormData();
-    fd.append("upload",$("input[name='upload']")[0].files[0]);
+    fd.append("upload",$("#pic-upload input[name='upload']")[0].files[0]);
     $.ajax({
       url: "<@s.url namespace="/api" action="pic-upload"/>",
       headers: headers,
@@ -243,15 +243,26 @@ $(function() {
       console.log(err);
     });
   });
-  $("input[name='upload']").click(function(e){
+  $("#pic-upload input[name='upload']").click(function(e){
     e.stopPropagation();
   });
   $("li.no-pic-li").click(function(e){
     $("input[name='upload']").click();
     e.stopPropagation();
   });
+  makeAnnotationAvailable(".up-body");
   <#nested>
 });
+function makeAnnotationAvailable(weiboSelectList){
+  var re=new RegExp("@\(\([a-zA-Z0-9\u4e00-\u9fa5_]\)+\)","g");
+  $(weiboSelectList).each(function(){
+    var origin = $(this).html();
+    var output = origin.replace(re,function(word){
+      return "<a href=\"<@s.url action="nickname"/>?nickname="+word.substring(1)+"\">"+word+"</a>";
+    });
+    $(this).html(output);
+  });
+}
 </script>
 </#macro>
 
@@ -275,40 +286,53 @@ $(function() {
 </div><!-- /.modal -->
 </#macro>
 
-  <#macro user_sidebar user>
-  <div class="thumbnail">
-  <div class="caption upSidebar">
-  <#nested>
-  <a href="<@s.url namespace="/user" action="${user.getId()}" />">
-  <li class="list-group-item">
-  <span class="badge">${user.getWeiboAmount()}</span>
-  Weibos
-  </li>
-  </a>
-  <a href="<@s.url namespace="/" action="${user.getId()}-get-follow" />">
-  <li class="list-group-item">
-  <span class="badge">${user.getFollowAmount()}</span>
-  关注
-  </li>
-  </a>
-  <a href="<@s.url namespace="/" action="${user.getId()}-get-fans" />">
-  <li class="list-group-item">
-  <span class="badge">${user.getFansAmount()}</span>
-  粉丝
-  </li>
-  </a>
-  </div>
-  </div>
+<#macro user_sidebar user>
+<div class="thumbnail">
+  <div class="caption">
+    <#nested>
+    <a class="upSidebar" id="weibos-btn" href="<@s.url namespace="/user" action="${user.getId()}" />">
+      <li class="list-group-item">
+        <span class="badge">${user.getWeiboAmount()}</span>
+        Weibos
+      </li>
+    </a>
+    <a class="upSidebar" id="follows-btn" href="<@s.url namespace="/" action="${user.getId()}-get-follow" />">
+      <li class="list-group-item">
+        <span class="badge">${user.getFollowAmount()}</span>
+        关注
+      </li>
+    </a>
+    <a class="upSidebar" id="fans-btn" href="<@s.url namespace="/" action="${user.getId()}-get-fans" />">
+      <li class="list-group-item">
+        <span class="badge">${user.getFansAmount()}</span>
+        粉丝
+      </li>
+    </a>
 
-  <div class="thumbnail">
-  <div class="caption upSidebar">
-  <#nested>
-  <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
-  <li class="list-group-item">
-  <span class="badge">${user.getLikedWeiboAmount()}</span>
-	我赞过的微博
-  </li>
+  </div>
+</div>
+
+<div class="thumbnail">
+  <div class="caption">
+    <#nested>
+    <a class="upSidebar" id="liked-btn" href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
+    <li class="list-group-item">
+      <span class="badge">${user.getLikedWeiboAmount()}</span>
+      ${user.getNickname()}赞过的微博
+    </li>
   </a>
   </div>
   </div>
+  </#macro>
+
+  <#macro errorInfo>
+  <#assign hasFieldErrors = fieldErrors??/>
+  <#if hasFieldErrors>
+  <#list fieldErrors?values as error>
+  <div class="alert alert-danger" role="alert" style="margin-top:60px">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error:</strong>${error}
+  </div>
+  </#list>
+  </#if>
   </#macro>

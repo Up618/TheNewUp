@@ -8,11 +8,11 @@
 		<@bootstrap_usercard.user_card_lg user=user />
 	</div>
 	 <div class="row">
-	 
-		<div class="col-sm-1 col-md-1 col-lg-1">	
+
+		<div class="col-sm-1 col-md-1 col-lg-1">
 		</div>
 		<div class="row col-lg-10">
-		<div class="col-sm-3 col-md-3 col-lg-3">	
+		<div class="col-sm-3 col-md-3 col-lg-3">
 			<@bootstrap.user_sidebar user=user.getUser() />
 		</div>
 		<div class="col-sm-9 col-md-9 col-lg-9">

@@ -1,4 +1,4 @@
-<#import "/template/bootstrap.ftl" as bootstrap>
+﻿<#import "/template/bootstrap.ftl" as bootstrap>
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="这是首页"></@bootstrap.head>
 <@bootstrap.body>
@@ -10,21 +10,21 @@
         <a href="<@s.url namespace="/user" action="${user.getId()}" />">
         <img src="${user.getAvatar()}" alt="头像">
       </a>
-      <a href="<@s.url namespace="/user" action="${user.getId()}" />">
+      <a class="upSidebar" href="<@s.url namespace="/user" action="${user.getId()}" />">
       <li class="list-group-item">
         <span class="badge">${user.getWeiboAmount()}</span>
         Weibos
       </li>
     </a>
 
-    <a href="<@s.url action="${user.getId()}-get-follow" />">
+    <a class="upSidebar" href="<@s.url action="${user.getId()}-get-follow" />">
     <li class="list-group-item">
       <span class="badge">${user.getFollowAmount()}</span>
       关注
     </li>
   </a>
 
-  <a href="<@s.url action="${user.getId()}-get-fans" />">
+  <a class="upSidebar" href="<@s.url action="${user.getId()}-get-fans" />">
   <li class="list-group-item">
     <span class="badge">${user.getFansAmount()}</span>
     粉丝
@@ -34,7 +34,7 @@
 </div>
   <div class="thumbnail">
   <div class="caption">
-  <a href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
+  <a class="upSidebar" href="<@s.url namespace="/agree" action="${user.getId()}-liked-weibo" />">
   <li class="list-group-item">
   <span class="badge">${user.getLikedWeiboAmount()}</span>
 	我赞过的微博

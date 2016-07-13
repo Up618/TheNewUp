@@ -1,4 +1,4 @@
-﻿<#import "/template/bootstrap.ftl" as bootstrap>
+<#import "/template/bootstrap.ftl" as bootstrap>
 <#import "../template/weibo.ftl" as bootstrap_weibo>
 <#import "../template/usercard.ftl" as bootstrap_usercard>
 <html style="position:relative;min-height:100%;">
@@ -17,22 +17,22 @@
 </div>
 
 <div class="container" style="padding-top:60px">
-  <div class="row">
-    <@bootstrap_usercard.user_card_lg user=user />
+  <@bootstrap_usercard.user_card_lg user=user />
+  <div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1" style="padding-left:0px">
+    <@bootstrap.user_sidebar user=user.getUser()/>
   </div>
+  <script>
+  	$(document).ready(function () {
+      $("#liked-btn").removeClass().addClass("upSidebar-active");
+    });
+  </script>
+  <div id="user-weibo-column" class="col-sm-8 col-md-7 col-lg-7" data-bind="html: weibos" style="padding-right: 0px">
 
-	<div class="row">
-		<div class="col-md-3 col-sm-3 col-lg-3">
-				<@bootstrap.user_sidebar user=user.getUser()/>
-		</div>
-		<div id="user-weibo-column" class="col-md-9 col-sm-9 col-lg-9" data-bind="html: weibos">
-			
-		</div>
-	</div>
+  </div>
 </div>
 </@bootstrap.body>
 <@bootstrap.javascript>
-	function weiboColumn(){
+function weiboColumn(){
   var self = this;
   var userWeiboPage = 1;
   self.weibos = ko.observable();

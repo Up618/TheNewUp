@@ -64,4 +64,18 @@ public class UserService implements IUserService {
 		return userDao.count("select count(u) from User u where username = ?", param) == 0;
 	}
 
+	@Override
+	public Boolean ifPhoneNumberValid(String phoneNumber) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(phoneNumber);
+		return userDao.count("select count(u) from User u where phoneNumber = ?", param) == 0;
+	}
+
+	@Override
+	public Boolean ifEmailValid(String email) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(email);
+		return userDao.count("select count(u) from User u where email = ?", param) == 0;
+	}
+
 }

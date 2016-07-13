@@ -16,15 +16,18 @@
 </div>
 
 <div class="container" style="padding-top:60px">
-  <div class="row">
-    <@bootstrap_usercard.user_card_lg user=user />
+  <@bootstrap_usercard.user_card_lg user=user />
+  <div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1" style="padding-left:0px">
+    <@bootstrap.user_sidebar user=user.getUser()/>
   </div>
-<div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1" style="padding-left:0px">
-  <@bootstrap.user_sidebar user=user.getUser()/>
-</div>
-<div id="user-weibo-column" class="col-sm-8 col-md-7 col-lg-7" data-bind="html: weibos" style="padding-right: 0px">
+  <script>
+  	$(document).ready(function () {
+      $("#weibos-btn").removeClass().addClass("upSidebar-active");
+    });
+  </script>
+  <div id="user-weibo-column" class="col-sm-8 col-md-7 col-lg-7" data-bind="html: weibos" style="padding-right: 0px">
 
-</div>
+  </div>
 </div>
 </@bootstrap.body>
 <@bootstrap.javascript>
@@ -37,6 +40,7 @@ function weiboColumn(){
   }).done(function(data){
     self.weibos(data);
     applyNew();
+    makeAnnotationAvailable(".up-body");
   });
   function applyNew(){
     $(".nextable").click(function(){
@@ -47,6 +51,7 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
+        makeAnnotationAvailableu(".up-body");
       });
     });
     $(".previousable").click(function(){
@@ -57,6 +62,7 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
+        makeAnnotationAvailable(".up-body");
       });
     });
   }
