@@ -42,8 +42,12 @@ public class WeiboDtoService implements IWeiboDtoService {
 
 	@Override
 	public List<WeiboDto> getWeiboDtoByCurrentUsername(String username, Integer page, Integer rows) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Object> param = new ArrayList<Object>();
+		param.add(username);
+		param.add(username);
+		param.add(username);
+		param.add(username);
+		return weiboDtoDao.find("select new org.up.dto.WeiboDto(w, case when ? in (select a.user.username from w.agrees a) then 'true' else 'false' end, case when ? = w.user.username then 'true' else 'false' end) from Weibo w where w.user.username = ? or w.user.username in (select f.followed.username from Follow f where f.following.username = ?) order by w.time desc",param,page,rows);
 	}
 
 	@Override
