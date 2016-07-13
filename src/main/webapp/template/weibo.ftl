@@ -25,8 +25,65 @@
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
         <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}" data-toggle="modal" data-target="#up-comment" class = "comment_show"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 评论</a></p></div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <p align="center" class="up-operate"><a id="agree" href="javascript:agreeit()"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>点赞<b>1</b></a></p>
+        <p align="center" class="up-operate">
+        	<a id="${weibo.getWeibo().getId()}agree" href="#${weibo.getWeibo().getId()}">
+        		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"/>
+        		点赞<b>${weibo.getWeibo().getAgreeAmount()}</b>
+        	</a>
+        </p>
       </div>
+<script>
+$(document).ready(function () {
+	//判断按钮样式
+	var iliked${weibo.getWeibo().getId()} = ${weibo.getiLike()?then('true','false')};
+	if(iliked${weibo.getWeibo().getId()}){
+        $("#${weibo.getWeibo().getId()}agree").css("color", "red");
+        $("#${weibo.getWeibo().getId()}agree").mouseover(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "black");});
+        $("#${weibo.getWeibo().getId()}agree").mouseout(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "red");});
+      }//if
+    else {
+        $("#${weibo.getWeibo().getId()}agree").css("color", "black");
+        $("#${weibo.getWeibo().getId()}agree").mouseover(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "red");});
+        $("#${weibo.getWeibo().getId()}agree").mouseout(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "black");});
+    }//else
+	
+	//点击触发点赞操作
+  $("#${weibo.getWeibo().getId()}agree").click(function(){
+  	//alert("clicked");
+    //function agreeit(){
+    //alert("agreeit");
+    var token = $("meta[name='_csrf']").attr("content"); //之前已经把对应的变量存入<head>的<meta>中
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var headers = {};
+    headers[header] = token;
+    $.ajax({
+      type: 'POST',
+      dataType:'json',
+      headers: headers,
+      url: "<@s.url namespace="/agree" action="agree"><@s.param name="weibo_id" value="${weibo.getWeibo().getId()}"/> </@s.url>",
+      //传一个微博id的param到后台
+    }).done(function (data) {
+      //alert(data.ifLiked);
+      //判断按钮样式
+      if (!data.ifLiked) {
+        $("#${weibo.getWeibo().getId()}agree b").text(parseInt($("#${weibo.getWeibo().getId()}agree b").text()) + 1);
+        iliked${weibo.getWeibo().getId()} = true;
+        $("#${weibo.getWeibo().getId()}agree").css("color", "red");
+        $("#${weibo.getWeibo().getId()}agree").mouseover(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "black"); });
+        $("#${weibo.getWeibo().getId()}agree").mouseout(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "red"); });
+      }//if
+      else {
+        $("#${weibo.getWeibo().getId()}agree b").text(parseInt($("#${weibo.getWeibo().getId()}agree b").text()) - 1);
+        iliked${weibo.getWeibo().getId()} = false;
+        $("#${weibo.getWeibo().getId()}agree").css("color", "black");
+        $("#${weibo.getWeibo().getId()}agree").mouseover(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "red"); });
+        $("#${weibo.getWeibo().getId()}agree").mouseout(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "black"); });
+      }//else
+    }) //done
+  //} //agreeit
+  }); //click
+}); //document.ready
+</script>
     </div>
   </div>
 </div>
@@ -190,53 +247,6 @@ $('#up-comment').on('show.bs.modal', function (event) {
   var modal = $(this)
   modal.find('.comment-title').text('这是' + recipient + "的评论")
 })
-</script>
-
-<script>
-
-//$(document).ready(function () {
-  //$("#agreeit").click(function(){
-    function agreeit(){
-    var token = $("meta[name='_csrf']").attr("content"); //之前已经把对应的变量存入<head>的<meta>中
-    var header = $("meta[name='_csrf_header']").attr("content");
-    var headers = {};
-    headers[header] = token;
-    $.ajax({
-      type: 'POST',
-      dataType:'json',
-      headers: headers,
-      <#--url: "<@s.url namespace="/agree" action="agree"><@s.param name="weibo_id" value="${weibo.getWeibo().getId()}"/> </@s.url>",-->
-      //传一个微博id的param到后台
-    }).done(function (data) {
-      //alert(data.ifLiked);
-      //判断按钮样式
-      if (!data.ifLiked) {
-        $("#agree b").text(parseInt($("#agree b").text()) + 1);
-        agree = true;
-        $("#agree").css("color", "red");
-        $("#agree").mouseover(function () {
-          $("#agree").css("color", "black");
-        });
-        $("#agree").mouseout(function () {
-          $("#agree").css("color", "red");
-        });
-      }//if
-      else {
-        $("#agree b").text(parseInt($("#agree b").text()) - 1);
-        agree = false;
-        $("#agree").css("color", "black");
-        $("#agree").mouseover(function () {
-          $("#agree").css("color", "red");
-        });
-        $("#agree").mouseout(function () {
-          $("#agree").css("color", "black");
-        });
-      }//else
-    }) //done
-  }
-  //}); //click
-//}); //document.ready
-
 </script>
 </#macro>
 
