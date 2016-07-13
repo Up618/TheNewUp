@@ -25,7 +25,7 @@ public class ResultAction extends ActionSupport {
 
 	@Override
 	public void validate() {
-		if(keyword==null||keyword=="")addFieldError("Keyword","Keyword can not be empty!"); 
+		if(keyword==null||keyword==""||keyword==" "||keyword.equals(""))addFieldError("Keyword","Keyword can not be empty!"); 
 	}
 	
 }

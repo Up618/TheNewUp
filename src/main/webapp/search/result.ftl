@@ -7,7 +7,7 @@
   <div class="form-group">
   	<label for="resultKeyword" class="col-sm-3 control-label">Search</label>
     <div class="col-sm-8">
-    	<input id="resultKeyword" type="text" class="form-control" placeholder="Search" name="keyword">
+    	<input id="resultKeyword" type="text" class="form-control" placeholder="Search" name="keyword" value="${keyword}">
     </div>
     <div class="sol-sm-1">
       <button type="submit" class="btn btn-default">Submit</button>
