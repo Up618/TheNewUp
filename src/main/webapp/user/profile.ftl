@@ -73,6 +73,10 @@ $("#profile-pic-upload input[name='upload']").change(function(){
     $("#profilePanelBody form div img").attr("src",result.url);
     $("#profilePanelBody form div a").removeClass("disabled");
     $("#profilePanelBody form div a").text("Upload avatar");
+  }).fail(function(){
+    $("#profilePanelBody form div a").removeClass("disabled");
+    $("#profilePanelBody form div a").text("Upload avatar");
+    alert("你的头像太大啦！");
   });
 });
 $("#profilePanelBody form div a").click(function(){
