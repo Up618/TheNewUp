@@ -43,13 +43,47 @@
   </div>
   </div>
 </div>
-
-<div id="user-weibo-column" class="col-lg-9 col-md-9 col-sm-9 col-xs-12" data-bind="html: weibos">
-
+<div id="index-weibo-column" class="col-lg-9 col-md-9 col-sm-9 col-xs-12" data-bind="html: weibos">
+	
 </div>
 </div>
 </@bootstrap.body>
 <@bootstrap.javascript>
-
+function weiboColumn(){
+  var self = this;
+  var userWeiboPage = 1;
+  self.weibos = ko.observable();
+  $.ajax({
+  	data: {page:userWeiboPage},
+    url: "<@s.url action="index" namespace="/weibo"/>",
+  }).done(function(data){
+    self.weibos(data);
+    applyNew();
+  });
+  function applyNew(){
+    makeAnnotationAvailable(".up-body");
+    $(".nextable").click(function(){
+      userWeiboPage++;
+      $.ajax({
+        data: {page:userWeiboPage},
+        url: "<@s.url action="index" namespace="/weibo"/>",
+      }).done(function(data){
+        self.weibos(data);
+        applyNew();
+      });
+    });
+    $(".previousable").click(function(){
+      userWeiboPage--;
+      $.ajax({
+        data: {page:userWeiboPage},
+        url: "<@s.url action="index" namespace="/weibo"/>",
+      }).done(function(data){
+        self.weibos(data);
+        applyNew();
+      });
+    });
+  }
+}
+ko.applyBindings(new weiboColumn(),document.getElementById("index-weibo-column"));
 </@bootstrap.javascript>
 </html>
