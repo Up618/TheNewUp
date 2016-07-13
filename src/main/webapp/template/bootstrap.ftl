@@ -86,7 +86,7 @@
         <a class="navbar-brand" href="<@s.url namespace="/" action="index" />">UP</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
-        <form id="search" class="navbar-form navbar-left" role="search" action="<@s.url namespace="/search" action="user" />">
+        <form id="search" class="navbar-form navbar-left" role="search" action="<@s.url namespace="/search" action="result" />">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" name="keyword">
         </div>
