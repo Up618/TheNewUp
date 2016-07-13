@@ -131,7 +131,7 @@ $(document).ready(function () {
 
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
         <a id="1comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           <b>1</b>
         </a>
       </div>   
@@ -158,7 +158,7 @@ $(document).ready(function () {
 
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
         <a id="2comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment2()">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           <b>1</b>
         </a>
       </div>   
@@ -184,65 +184,13 @@ $(document).ready(function () {
 
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
         <a id="3comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment3()">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           <b>1</b>
         </a>
       </div>   
     </div>
   </div>                 
-<!------------------------------上面是第三条评论--------------------------------------------->   
-
-<!------------------------------下面是第四条评论--------------------------------------------->
-  <div class="row">  
-  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-      <a href="<@s.url namespace="/user" action="1"/>">
-        <img id="4comment_img" width = "40" heighth = "40">
-      </a>
-    </div>
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-      <p>
-      
-        <h id="4comment_name"></h><!--评论人名称-->
-        
-        <h id="4comment_content"></h><!--评论内容-->
-      </p>
-      <p id="4comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
-
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
-        <a id="4comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment4()">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
-          <b>1</b>
-        </a>
-      </div>   
-    </div>
-  </div>                 
-<!------------------------------上面是第四条评论--------------------------------------------->
-
-<!------------------------------下面是第四条评论--------------------------------------------->
-  <div class="row">  
-  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-      <a href="<@s.url namespace="/user" action="1"/>">
-        <img id="5comment_img" width = "40" heighth = "40">
-      </a>
-    </div>
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-      <p>
-      
-        <h id="5comment_name"></h><!--评论人名称-->
-        
-        <h id="5comment_content"></h><!--评论内容-->
-      </p>
-      <p id="5comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
-
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
-        <a id="5comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment5()">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
-          <b>1</b>
-        </a>
-      </div>   
-    </div>
-  </div>                 
-<!------------------------------上面是第四条评论--------------------------------------------->       
+<!------------------------------上面是第三条评论--------------------------------------------->      
      
 
   
@@ -284,19 +232,19 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	$("#up.comment").modal();
                 	
                 	$("#input_content").text("");
-                	for(var j=0;j<5;j++){  
+                	for(var j=0;j<3;j++){  
                           var ind = j+1;
                           
                           var tag_name_null = "#"+ind+"comment_name";
                 	      var tag_content_null = "#"+ind+"comment_content";
                 	      var tag_time_null = "#"+ind+"comment_time";
                 	      var tag_avatar_null = ""+ind+"comment_img";
-                	      var tag_agree_null = ""+ind+"comment_agree";
+                	      var tag_agree_null = "#"+ind+"comment_agree";
                 	      
                 	      $(tag_name_null).text("");
                 	      $(tag_content_null).text("");
                 	      $(tag_time_null).text("");
-                	      //document.getElementById(tag_agree_null).style.visibility="hidden";
+                	      $(tag_agree_null).hide();
                 	      document.getElementById(tag_avatar_null).style.visibility="hidden";
                         }
                         
@@ -316,10 +264,10 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	      var tag_content = "#"+index+"comment_content";
                 	      var tag_time = "#"+index+"comment_time";
                 	      var tag_avatar = ""+index+"comment_img";
-                	      var tag_agree = ""+index+"comment_agree";
+                	      var tag_agree = "#"+index+"comment_agree";
                 	      
                 	      $(tag_name).text(obj[i]["nickname"]+"：");
-                	      document.getElementById(tag_agree).style.visibility="visible";
+                	      $(tag_agree).show();
                           
                           if(obj[i]["content"]!=null){
                 	        $(tag_content).text(obj[i]["content"]);
@@ -353,19 +301,19 @@ function comment_input_js(){
                             url: "<@s.url namespace="/comment" action="inputComment"/>",
                 	        data: {weibo_id: weibo_id, content: content},
                 	    }).done(function (data) {    
-                	    for(var j=0;j<5;j++){  
+                	    for(var j=0;j<3;j++){  
                           var ind = j+1;
                           
                           var tag_name_null = "#"+ind+"comment_name";
                 	      var tag_content_null = "#"+ind+"comment_content";
                 	      var tag_time_null = "#"+ind+"comment_time";
                 	      var tag_avatar_null = ""+ind+"comment_img";
-                	      var tag_agree_null = ""+ind+"comment_agree";
+                	      var tag_agree_null = "#"+ind+"comment_agree";
                 	      
                 	      $(tag_name_null).text("");
                 	      $(tag_content_null).text("");
                 	      $(tag_time_null).text("");
-                	      document.getElementById(tag_agree_null).style.visibility="hidden";
+                	      $(tag_agree_null).hide();
                 	      document.getElementById(tag_avatar_null).style.visibility="hidden";
                         }
                 	    var self = this;
@@ -383,10 +331,10 @@ function comment_input_js(){
                 	      var tag_content = "#"+index+"comment_content";
                 	      var tag_time = "#"+index+"comment_time";
                 	      var tag_avatar = ""+index+"comment_img";
-                	      var tag_agree = ""+index+"comment_agree";
+                	      var tag_agree = "#"+index+"comment_agree";
                 	      
                 	      $(tag_name).text(obj[i]["nickname"]+"：");
-                	      document.getElementById(tag_agree).style.visibility="visible";
+                	      $(tag_agree).show();
                           
                           if(obj[i]["content"]!=null){
                 	        $(tag_content).text(obj[i]["content"]);
