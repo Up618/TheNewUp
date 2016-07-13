@@ -17,9 +17,9 @@ import org.up.user.service.IUserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Action(value = "*-get-fans", params = { "id", "{1}" })
-@Results({ @Result(name = "success", location = "fans.ftl")})
-public class IdGetFansAction extends ActionSupport{
+@Action(value = "*-get-fans/get-fans", params = { "id", "{1}" })
+@Results({ @Result(name = "success", location = "getfans.ftl")})
+public class GetFansAction extends ActionSupport{
 
 
 	/**
@@ -59,9 +59,7 @@ public class IdGetFansAction extends ActionSupport{
 		followAmount = user.getFollowAmount();
 		fans = followService.getFansById(id,myname,page,10);
 		this.user = userDtoService.loadUserDtoById(id, myname);
-		pageNum = (int) (user.getFansAmount()/10+1);
-		if(pageNum == 0 )
-			pageNum = 1;
+		pageNum = (int) ((user.getFansAmount()-1)/10+1);
 		return SUCCESS;
 	}
 	
