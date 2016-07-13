@@ -18,7 +18,6 @@ import org.up.user.service.IUserService;
 import org.up.weibo.service.IWeiboService;
 
 //@Results({ @Result(name = "success", type = "redirectAction", params={"namespace","/user","actionName","1"})})
-//1处应该是user_id，暂且用1代替
 @Results({ @Result(name = "success", type = "json") })
 //返回一个json对象给前端，可以调取其中的属性参数
 
