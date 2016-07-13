@@ -19,12 +19,7 @@
 		<div class="list-group-item row" style="padding:0 0 0 15">
 			<h5>全部关注：${followAmount}</h5>
 			</div>
-			<div class="list-group">
-			<#list users as user>
-				<@bootstrap_usercard.fans_follow_card user=user/>
-					<#else>
-					<h1>还没有关注任何人哦！</h1>
-				</#list>
+			<div id="followpage" class="list-group" data-bind="html:follows">
 			</div>
 			
 <nav>
@@ -32,17 +27,9 @@
   	<#if pageNum == 1>
   	
   	<#else>
-  		<#if page == 1>
-    		<li class="previous disabled"><a href="#">上一页</a></li>
-    	<#else>
-    		<li class="previous"><a href="#" class="previousable"><span aria-hidden="true">&larr;</span> Previous</a></li>
-    	</#if>
-		<#if users.size() < 10>
-    		<li class="next disabled"><a href="#">下页<span aria-hidden="true">&rarr;</span></a></li>
-    	<#else>
-    		<li id="nextable" class="next"><a href="#" class="nextable">下一页</a></li>
+    		<button id="previousBtn" class="previous">上一页</button>
+    		<button id="nextBtn" class="next">下一页</button>
     
-		</#if>
 	</#if>
   </ul>
 </nav>
@@ -55,5 +42,35 @@
 
 
 <@bootstrap.javascript>
+function followJ(){
+	var self = this;
+	var followP = 1;
+	self.follows = ko.observable();
+	$.ajax({
+		url:"${user.getUser().getId()}-get-follow/get-follow",
+	}).done(function(data){
+		self.follows(data);
+	});
+	$("#previousBtn").click(function(){
+		followP--;
+		$.ajax({
+			data:{page:followP},
+			url:"${user.getUser().getId()}-get-follow/get-follow",
+		}).done(function(data){
+			self.follows(data);
+		});
+	});
+	$("#nextBtn").click(function(){
+		followP++;
+		$.ajax({
+			data:{page:followP},
+			url:"${user.getUser().getId()}-get-follow/get-follow",
+		}).done(function(data){
+			self.follows(data);
+		});
+	});
+}
+
+ko.applyBindings(new followJ(),document.getElementById("followpage"));
 </@bootstrap.javascript>
 </html>
