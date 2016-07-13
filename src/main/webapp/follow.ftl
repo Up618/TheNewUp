@@ -4,37 +4,35 @@
 <@bootstrap.head title="关注"></@bootstrap.head>
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
-	<div class="row">
-		<@bootstrap_usercard.user_card_lg user=user />
+	<@bootstrap_usercard.user_card_lg user=user />
+	<div class="col-sm-4 col-md-3 col-lg-3 vol-md-offset-1 col-lg-offset-1" style="padding-left:0px">
+		<@bootstrap.user_sidebar user=user.getUser() />
 	</div>
-	 <div class="row">
-
-		<div class="col-sm-1 col-md-1 col-lg-1">
-		</div>
-		<div class="row col-lg-10">
-		<div class="col-sm-3 col-md-3 col-lg-3">
-			<@bootstrap.user_sidebar user=user.getUser() />
-		</div>
-		<div class="col-sm-9 col-md-9 col-lg-9">
+		
+	<script>
+	$(document).ready(function () {
+		$("#follows-btn").removeClass().addClass("upSidebar-active");
+	});
+	</script>
+		
+	<div class="col-sm-8 col-md-7 col-lg-7">
 		<div class="list-group-item row" style="padding:0 0 0 15">
 			<h5>全部关注：${followAmount}</h5>
-			</div>
-			<div id="followpage" class="list-group" data-bind="html:follows">
-			</div>
+		</div>
+		<div id="followpage" class="list-group" data-bind="html:follows">
+		</div>
 			
 <nav>
   <ul id="follow-pager" class="pager">
   	<#if pageNum == 1>
   	
   	<#else>
-    		<button id="previousBtn" class="previous">上一页</button>
-    		<button id="nextBtn" class="next">下一页</button>
+    		<button id="previousBtn" class="btn-link">上一页</button>
+    		<button id="nextBtn" class="btn-link">下一页</button>
     
 	</#if>
   </ul>
 </nav>
-		</div>
-	</div>
 	</div>
 </div>
 </@bootstrap.body>
