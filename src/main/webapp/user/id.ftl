@@ -42,9 +42,9 @@ function weiboColumn(){
   }).done(function(data){
     self.weibos(data);
     applyNew();
-    makeAnnotationAvailable(".up-body");
   });
   function applyNew(){
+    makeAnnotationAvailable(".up-body");
     $(".nextable").click(function(){
       userWeiboPage++;
       $.ajax({
@@ -53,7 +53,6 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
-        makeAnnotationAvailableu(".up-body");
       });
     });
     $(".previousable").click(function(){
@@ -64,7 +63,6 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
-        makeAnnotationAvailable(".up-body");
       });
     });
   }

@@ -44,10 +44,12 @@
   </div>
 </div>
 
-<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+<div id="user-weibo-column" class="col-lg-9 col-md-9 col-sm-9 col-xs-12" data-bind="html: weibos">
 
 </div>
 </div>
 </@bootstrap.body>
-<@bootstrap.javascript/>
+<@bootstrap.javascript>
+
+</@bootstrap.javascript>
 </html>
