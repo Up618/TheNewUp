@@ -5,8 +5,6 @@
 <@bootstrap.head title="个人首页"></@bootstrap.head>
 <@bootstrap.body>
 <@bootstrap_weibo.weibo_comment/>
-<@bootstrap_weibo.comment_card>
-</@bootstrap_weibo.comment_card>
 <@bootstrap_weibo.weibo_comment_submit_js/>
 
 <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -42,6 +40,16 @@ function weiboColumn(){
   }).done(function(data){
     self.weibos(data);
     applyNew();
+    $(".comment_show").click(function(){
+    $("#up-comment").modal();
+    var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+    var wid_comment = $(this).attr("id");
+    $("#wc").text(wc);
+    document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
   });
   function applyNew(){
     makeAnnotationAvailable(".up-body");
@@ -53,6 +61,18 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
+        
+        $(".comment_show").click(function(){
+        $("#up-comment").modal();
+        var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+        var wid_comment = $(this).attr("id");
+        $("#wc").text(wc);
+        document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
+    
       });
     });
     $(".previousable").click(function(){
@@ -63,6 +83,17 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
+        
+        $(".comment_show").click(function(){
+        $("#up-comment").modal();
+        var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+        var wid_comment = $(this).attr("id");
+        $("#wc").text(wc);
+        document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
       });
     });
   }

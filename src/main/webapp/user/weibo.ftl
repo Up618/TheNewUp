@@ -5,9 +5,10 @@
 
 		${weibo.getWeibo().getContent()}
 </@bootstrap_weibo.weibo_card>
-</#list>
+
 <@bootstrap_weibo.weibo_comment_card_js>
 </@bootstrap_weibo.weibo_comment_card_js>
+</#list>
 
 
 <nav>
