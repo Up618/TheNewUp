@@ -212,7 +212,6 @@ $(function() {
   var headers = {};
   headers[header] = token;
   $("#pic-upload input[name='upload']").change(function(){
-    $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
     var fd = new FormData();
     fd.append("upload",$("#pic-upload input[name='upload']")[0].files[0]);
     $.ajax({
@@ -223,6 +222,7 @@ $(function() {
       contentType:false,
       processData:false
     }).done(function(result){
+      $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
       $("li.has-pic-li:last img").attr("src",result.url);
       $("li.has-pic-li").click(function(e){
         $("input[value=\""+$(this).children("img").attr("src")+"\"]").remove();
@@ -240,7 +240,7 @@ $(function() {
         "<input type=\"hidden\" name=\"urls\" value=\""+result.url+"\" />"
       )
     }).fail(function(err){
-      console.log(err);
+      alert("上传失败！")
     });
   });
   $("#pic-upload input[name='upload']").click(function(e){
