@@ -166,7 +166,7 @@ $(document).ready(function () {
   </div>                 
 <!------------------------------上面是第二条评论--------------------------------------------->   
 
-  <!------------------------------下面是第三条评论--------------------------------------------->
+<!------------------------------下面是第三条评论--------------------------------------------->
   <div class="row">  
   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
       <a href="<@s.url namespace="/user" action="1"/>">
@@ -190,7 +190,59 @@ $(document).ready(function () {
       </div>   
     </div>
   </div>                 
-<!------------------------------上面是第三条评论--------------------------------------------->      
+<!------------------------------上面是第三条评论--------------------------------------------->   
+
+<!------------------------------下面是第四条评论--------------------------------------------->
+  <div class="row">  
+  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
+      <a href="<@s.url namespace="/user" action="1"/>">
+        <img id="4comment_img" width = "40" heighth = "40">
+      </a>
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
+      <p>
+      
+        <h id="4comment_name"></h><!--评论人名称-->
+        
+        <h id="4comment_content"></h><!--评论内容-->
+      </p>
+      <p id="4comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
+        <a id="4comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment4()">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+          <b>1</b>
+        </a>
+      </div>   
+    </div>
+  </div>                 
+<!------------------------------上面是第四条评论--------------------------------------------->
+
+<!------------------------------下面是第四条评论--------------------------------------------->
+  <div class="row">  
+  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
+      <a href="<@s.url namespace="/user" action="1"/>">
+        <img id="5comment_img" width = "40" heighth = "40">
+      </a>
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
+      <p>
+      
+        <h id="5comment_name"></h><!--评论人名称-->
+        
+        <h id="5comment_content"></h><!--评论内容-->
+      </p>
+      <p id="5comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
+        <a id="5comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment5()">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+          <b>1</b>
+        </a>
+      </div>   
+    </div>
+  </div>                 
+<!------------------------------上面是第四条评论--------------------------------------------->       
      
 
   
@@ -232,7 +284,7 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	$("#up.comment").modal();
                 	
                 	$("#input_content").text("");
-                	for(var j=0;j<3;j++){  
+                	for(var j=0;j<5;j++){  
                           var ind = j+1;
                           
                           var tag_name_null = "#"+ind+"comment_name";
@@ -301,7 +353,7 @@ function comment_input_js(){
                             url: "<@s.url namespace="/comment" action="inputComment"/>",
                 	        data: {weibo_id: weibo_id, content: content},
                 	    }).done(function (data) {    
-                	    for(var j=0;j<3;j++){  
+                	    for(var j=0;j<5;j++){  
                           var ind = j+1;
                           
                           var tag_name_null = "#"+ind+"comment_name";
