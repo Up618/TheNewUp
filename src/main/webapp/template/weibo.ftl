@@ -131,7 +131,7 @@ $(document).ready(function () {
 
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
         <a id="1comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           <b>1</b>
         </a>
       </div>   
@@ -158,7 +158,7 @@ $(document).ready(function () {
 
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
         <a id="2comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment2()">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           <b>1</b>
         </a>
       </div>   
@@ -166,7 +166,7 @@ $(document).ready(function () {
   </div>                 
 <!------------------------------上面是第二条评论--------------------------------------------->   
 
-  <!------------------------------下面是第三条评论--------------------------------------------->
+<!------------------------------下面是第三条评论--------------------------------------------->
   <div class="row">  
   <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
       <a href="<@s.url namespace="/user" action="1"/>">
@@ -184,7 +184,7 @@ $(document).ready(function () {
 
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
         <a id="3comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment3()">
-          <span class="glyphicon glyphicon-thumbs-up"></span>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
           <b>1</b>
         </a>
       </div>   
@@ -239,12 +239,12 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	      var tag_content_null = "#"+ind+"comment_content";
                 	      var tag_time_null = "#"+ind+"comment_time";
                 	      var tag_avatar_null = ""+ind+"comment_img";
-                	      var tag_agree_null = ""+ind+"comment_agree";
+                	      var tag_agree_null = "#"+ind+"comment_agree";
                 	      
                 	      $(tag_name_null).text("");
                 	      $(tag_content_null).text("");
                 	      $(tag_time_null).text("");
-                	      //document.getElementById(tag_agree_null).style.visibility="hidden";
+                	      $(tag_agree_null).hide();
                 	      document.getElementById(tag_avatar_null).style.visibility="hidden";
                         }
                         
@@ -264,10 +264,10 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	      var tag_content = "#"+index+"comment_content";
                 	      var tag_time = "#"+index+"comment_time";
                 	      var tag_avatar = ""+index+"comment_img";
-                	      var tag_agree = ""+index+"comment_agree";
+                	      var tag_agree = "#"+index+"comment_agree";
                 	      
                 	      $(tag_name).text(obj[i]["nickname"]+"：");
-                	      document.getElementById(tag_agree).style.visibility="visible";
+                	      $(tag_agree).show();
                           
                           if(obj[i]["content"]!=null){
                 	        $(tag_content).text(obj[i]["content"]);
@@ -308,12 +308,12 @@ function comment_input_js(){
                 	      var tag_content_null = "#"+ind+"comment_content";
                 	      var tag_time_null = "#"+ind+"comment_time";
                 	      var tag_avatar_null = ""+ind+"comment_img";
-                	      var tag_agree_null = ""+ind+"comment_agree";
+                	      var tag_agree_null = "#"+ind+"comment_agree";
                 	      
                 	      $(tag_name_null).text("");
                 	      $(tag_content_null).text("");
                 	      $(tag_time_null).text("");
-                	      document.getElementById(tag_agree_null).style.visibility="hidden";
+                	      $(tag_agree_null).hide();
                 	      document.getElementById(tag_avatar_null).style.visibility="hidden";
                         }
                 	    var self = this;
@@ -331,10 +331,10 @@ function comment_input_js(){
                 	      var tag_content = "#"+index+"comment_content";
                 	      var tag_time = "#"+index+"comment_time";
                 	      var tag_avatar = ""+index+"comment_img";
-                	      var tag_agree = ""+index+"comment_agree";
+                	      var tag_agree = "#"+index+"comment_agree";
                 	      
                 	      $(tag_name).text(obj[i]["nickname"]+"：");
-                	      document.getElementById(tag_agree).style.visibility="visible";
+                	      $(tag_agree).show();
                           
                           if(obj[i]["content"]!=null){
                 	        $(tag_content).text(obj[i]["content"]);
