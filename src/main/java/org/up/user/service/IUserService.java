@@ -20,4 +20,9 @@ public interface IUserService {
 	public Boolean ifEmailValid(String email);
 	public void deleteUser(User user);
 	public void deleteUserById(Long id);
+	public void banUserByUsername(String username);
+	public void unbanUserByUsername(String username);
+	public void banUserById(Long id);
+	public void unbanUserById(Long id);
+	
 }

@@ -1,1 +1,7 @@
 /target/
+src/main/resources/import.sql
+*.properties
+src/main/webapp/WEB-INF/applicationContext.xml
+src/main/webapp/WEB-INF/applicationContext.xml
+.classpath
+src/main/java/org/up/api/action/DeleteWeiboAction.java

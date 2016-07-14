@@ -1,5 +1,7 @@
 package org.up.admin.action;
 
+import java.util.List;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Result;
@@ -8,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.up.model.User;
+import org.up.model.Weibo;
 import org.up.user.service.IUserService;
+import org.up.weibo.service.IWeiboService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,6 +25,8 @@ public class DeleteUserAction extends ActionSupport {
 	private User user;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IWeiboService weiboService;
 
 	public Long getId() {
 		return id;
@@ -47,8 +53,20 @@ public class DeleteUserAction extends ActionSupport {
 		} else {
 			currentUsername = principal.toString();
 		}
+		
+		
 		user = userService.loadUserByUsername(currentUsername);
-		userService.deleteUser(user);
+		
+		//删除所有关注信息
+		
+		List<Weibo> weibos = weiboService.getWeiboByUsername(currentUsername);
+		
+		//然后遍历weibos，删除所有点赞和评论
+		
+		weiboService.deleteAllWeiboByUsername(currentUsername);//删除所有微博
+		
+		
+		userService.deleteUser(user);//最后删除用户
 		return SUCCESS;
 	}
 }

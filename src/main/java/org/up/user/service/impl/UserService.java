@@ -52,8 +52,8 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
-	public List<User> listAllUsers() {
-		return userDao.find("select u from User u");
+	public List<User> listAllUsers() { //列出所有非管理员的用户
+		return userDao.find("select u from User u where role_id <> 2");
 	}
 
 	@Override
@@ -92,5 +92,35 @@ public class UserService implements IUserService {
 	@Override
 	public void deleteUserById(Long id) {
 		userDao.delete(userDao.get(User.class, id));
+	}
+
+	@Override
+	public void banUserByUsername(String username) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(username);
+		System.out.println("added");
+		userDao.executeHql("update User set role_id = 3 where username = ?", param);
+	}
+	
+	@Override
+	public void unbanUserByUsername(String username) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(username);
+		userDao.executeHql("update User set role_id = 1 where username = ?", param);
+	}
+
+	@Override
+	public void banUserById(Long id) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(id);
+		userDao.executeHql("update User set role_id = 3 where id = ?", param);
+	}
+
+	@Override
+	public void unbanUserById(Long id) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(id);
+		userDao.executeHql("update User set role_id = 1 where id = ?", param);
+		
 	}
 }
