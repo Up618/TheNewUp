@@ -64,7 +64,8 @@
             {
               var memberPass = /^(?=.*[0-9].*)(?=.*[a-zA-Z].*).{6,20}$/;
               var numPass = /^[0-9]+$/;
-
+              $("button[onclick='signupcheck()']").attr("disabled","disabled");
+              $("button[onclick='signupcheck()']").val("注册中……");
               $("#signup-warning").hide();
               $("#signup-text").hide();
 
@@ -117,6 +118,8 @@
                     $("#signup-text").text("用户名已被注册").show();
                     $("#signup-password").val("");
                     $("#signup-passwordagain").val("");
+                    $("button[onclick='signupcheck()']").removeAttr("disabled");
+                    $("button[onclick='signupcheck()']").val("注册");
                   }
                 }).fail(function(){
                   $("#signup-warning").show();
@@ -134,6 +137,8 @@
                     $("#signup-text").text("昵称已被注册").show();
                     $("#signup-password").val("");
                     $("#signup-passwordagain").val("");
+                    $("button[onclick='signupcheck()']").removeAttr("disabled");
+                    $("button[onclick='signupcheck()']").val("注册");
                   }
                 }).fail(function(){
                   $("#signup-warning").show();
