@@ -106,10 +106,8 @@ $(document).ready(function () {
             <div style="text-align: right">
               <button id = "comment_input" type="submit" class="btn btn-primary" style="margin-top: 10px">评论</button>
             </div>
-
           <hr style="margin-bottom: 10px"/>
-
-                <!--此处放入评论卡片   -->  
+          <!--此处放入评论卡片   -->  
          <div id="container"></div>
       </div>
     </div><!-- /.modal-body -->
@@ -172,7 +170,7 @@ $('#up-comment').on('show.bs.modal', function (event) {
                               ht = ht + '</p>';
                               ht = ht + '<p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">'+obj[i]["time"]+'</p>';
                               ht = ht + '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">';
-                              ht = ht + '<a id="1comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">';
+                              ht = ht + '<a id="1comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">';
                               ht = ht + '<span class="glyphicon glyphicon-thumbs-up"></span>';
                               ht = ht + '<b>1</b>';
                               ht = ht + '</a>';
@@ -242,7 +240,7 @@ function comment_input_js(){
                               ht = ht + '</p>';
                               ht = ht + '<p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">'+obj[i]["time"]+'</p>';
                               ht = ht + '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">';
-                              ht = ht + '<a id="1comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">';
+                              ht = ht + '<a id="1comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">';
                               ht = ht + '<span class="glyphicon glyphicon-thumbs-up"></span>';
                               ht = ht + '<b>1</b>';
                               ht = ht + '</a>';
