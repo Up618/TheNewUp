@@ -1,4 +1,4 @@
-<#macro head title>
+﻿<#macro head title>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,7 @@
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
   <!-- Latest compiled and minified CSS -->
-  <link href="http://o9x8azwl1.bkt.clouddn.com/upTest.css" rel="stylesheet">
+  <link href="http://o9x8azwl1.bkt.clouddn.com/upTest2.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
 
@@ -112,7 +112,7 @@
           <li><a href="#" data-bind="click: signOut">Sign out</a></li>
         </ul>
       </li>
-      <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
+      <li><a href="#" data-toggle="modal" data-target="#upAnUp"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
     </ul>
   </div>
 </div>
@@ -122,8 +122,8 @@
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <input type="submit" value="Sign out"/>
 </form>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg">
+<div class="modal fade bs-example-modal-lg" id="upAnUp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -131,7 +131,7 @@
       </div>
       <form action="<@s.url namespace="/weibo" action="new" />" method="POST">
       <div class="modal-body">
-        <textarea name="content" class="form-control" rows="20" style="resize:none;" required></textarea>
+        <textarea name="content" class="form-control" rows="4" style="resize:none;" maxlength="255" required></textarea>
       </div>
       <div class="row" style="padding-left:15;padding-right:15;">
         <div class="col-md-8 col-sm-8 col-xs-8">

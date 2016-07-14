@@ -9,6 +9,8 @@
 <@bootstrap_weibo.weibo_comment_card_js>
 </@bootstrap_weibo.weibo_comment_card_js>
 
+<@bootstrap_weibo.weibo_delete_js/>
+
 
 <nav>
   <ul id="weibo-pager" class="pager">

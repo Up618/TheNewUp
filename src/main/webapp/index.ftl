@@ -23,6 +23,16 @@
         <a href="<@s.url namespace="/user" action="${user.getId()}" />">
         <img src="${user.getAvatar()}" alt="头像">
       </a>
+      <a class="upSidebarname" href="<@s.url namespace="/user" action="${user.getId()}"/>">
+      <li>
+        ${user.getNickname()}
+      </li>
+    </a>
+    <#if user.getBio()??>
+    <li class="upSidebarBio">
+      ${user.getBio()}
+    </li>
+    </#if>
       <a class="upSidebar" href="<@s.url namespace="/user" action="${user.getId()}" />">
       <li class="list-group-item">
         <span class="badge">${user.getWeiboAmount()}</span>

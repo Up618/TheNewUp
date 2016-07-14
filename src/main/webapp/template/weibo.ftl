@@ -10,6 +10,49 @@
     </p>
     <p class="up-time">${weibo.getWeibo().getTime()}</p>
     <s><i></i></s>
+
+    <div class="delete-btn" id="delete-div${weibo.getWeibo().getId()}">
+      <span id="delete-up${weibo.getWeibo().getId()}" class="delete-btn-up glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+      <span id="delete-down${weibo.getWeibo().getId()}" class="delete-btn-down glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      <a class="delete-button" id="delete${weibo.getWeibo().getId()}">删除</a>
+    </div>
+    <script>
+    $(document).ready(function () {
+      $("#delete-up${weibo.getWeibo().getId()}").hide();
+      $("#delete${weibo.getWeibo().getId()}").hide();
+      $("#delete-div${weibo.getWeibo().getId()}").mouseover(function () {
+        $("#delete-down${weibo.getWeibo().getId()}").hide();
+        $("#delete-up${weibo.getWeibo().getId()}").show();
+        $("#delete${weibo.getWeibo().getId()}").show();
+      });
+      $("#delete-div${weibo.getWeibo().getId()}").mouseout(function () {
+        $("#delete-down${weibo.getWeibo().getId()}").show();
+        $("#delete-up${weibo.getWeibo().getId()}").hide();
+        $("#delete${weibo.getWeibo().getId()}").hide();
+      });
+
+      $("#delete${weibo.getWeibo().getId()}").click(function() {
+        deleteWeibo(${weibo.getWeibo().getId()});
+      });
+
+    });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <p class="up-body">
       <#nested>
     </p>
@@ -208,6 +251,45 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	    }) //done
                 	});//click
                 }); //document.ready
+</script>
+</#macro>
+
+<#macro weibo_delete_js>
+<script>
+
+  function deleteWeibo(weiboId){
+    alert(weiboId);
+    $.ajax({
+      url:"<@s.url action="/weibo/delete" namespace="/api"/>",
+      data:{id:8}
+    }).done(function(result){
+      var deletedId = result.id; //被删除的id
+      var isDeleted = result.delete; //是否成功被删除，布尔值
+
+      alert(deletedId + "已被删除");
+    }).fail(function(){
+      alert("删除失败");
+    });
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 </#macro>
 

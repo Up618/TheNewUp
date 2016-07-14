@@ -7,6 +7,7 @@
 <@bootstrap_weibo.weibo_comment/>
 <@bootstrap_weibo.weibo_comment_submit_js/>
 
+
 <div class="modal fade bs-example-modal-lg" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <img id="modelImg" src="" width="600px">
