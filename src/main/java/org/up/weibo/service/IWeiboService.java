@@ -30,4 +30,5 @@ public interface IWeiboService {
 	public void deleteWeibo(Weibo weibo);
 	public void deleteWeiboById(Long id);
 	public boolean deleteMyWeiboByWeiboId(Long id, String username);
+	public void deleteAllWeiboByUsername(String username);
 }

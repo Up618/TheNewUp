@@ -382,20 +382,52 @@ $(document).ready(function () {
     </div>
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
         <h3>${user.getNickname()}</h3>
-        <p><a href="<@s.url action="${user.getId()}-get-follow" />">关注${user.getFollowAmount()}</a>      <a href="<@s.url action="${user.getId()}-get-fans" />">粉丝${user.getFansAmount()}</a>   <a href="<@s.url namespace="/user" action="${user.getId()}" />">微博数${user.getWeiboAmount()}</a></p>
+        <p><a href="<@s.url action="${user.getId()}-get-follow" />">关注${user.getFollowAmount()}</a>
+           <a href="<@s.url action="${user.getId()}-get-fans" />">粉丝${user.getFansAmount()}</a>
+           <a href="<@s.url namespace="/user" action="${user.getId()}" />">微博数${user.getWeiboAmount()}</a></p>
          <p>${user.getBio()!" "}</p>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-        <button id="deleteButton${user.getId()}" style = "width:90px" class="btn btn-info"><b>删除用户</b></button>
+        <button id="banButton${user.getId()}" style = "width:90px" class="btn btn-info" style="color: red;"><b>封禁用户</b></button>
     </div>
 
 
 	<script type="text/javascript">
-		$(document).ready(
-		function () {
+	var ifBanned${user.getId()} = ${user.getRole().getId()};
+		$(document).ready(function () {
+		if (ifBanned${user.getId()} == 3) { //被禁用户
+            $("#banButton${user.getId()}").removeClass().addClass("btn btn-default");
+            $("#banButton${user.getId()} b").text("解禁用户");
+            $("#banButton${user.getId()} b").css("color","black");
+	  	}		
 		
-		//这里写删除操作
-		
+	$("#banButton${user.getId()}").click(function () {
+    var token = $("meta[name='_csrf']").attr("content"); //之前已经把对应的变量存入<head>的<meta>中
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var headers = {};
+    headers[header] = token;
+    $.ajax({
+      type: 'POST',
+      dataType:'json',
+      headers: headers,
+      url: "<@s.url namespace="/admin" action="ban-user"><@s.param name="user_id" value="${user.getId()}"/> </@s.url>",
+    }).done(function () {
+      //判断按钮样式
+      
+      if (ifBanned${user.getId()} == 3) { //被禁用户
+            $("#banButton${user.getId()}").removeClass().addClass("btn btn-info");
+            $("#banButton${user.getId()} b").text("封禁用户");
+            $("#banButton${user.getId()} b").css("color","white");
+            ifBanned${user.getId()} = 1;
+	}//if
+      else { //普通用户
+        	$("#banButton${user.getId()}").removeClass().addClass("btn btn-default");
+            $("#banButton${user.getId()} b").text("解禁用户");
+            $("#banButton${user.getId()} b").css("color","black");
+            ifBanned${user.getId()} = 3;
+      }//else
+    }) //done
+		});//click
   	});//document.ready
   	</script>
 

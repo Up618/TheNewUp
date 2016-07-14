@@ -198,5 +198,12 @@ public class WeiboService implements IWeiboService {
 		weiboDao.delete(weiboDao.get(Weibo.class, id));
 		return true;
 	}
+	
+	@Override
+	public void deleteAllWeiboByUsername(String username) {
+		List<Object> params = new ArrayList<Object>();
+		params.add(username);
+		weiboDao.executeHql("delete w from Weibo w where w.user.username = ?", params);
+	}
 
 }
