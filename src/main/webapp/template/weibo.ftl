@@ -13,6 +13,20 @@
     <p class="up-body">
       <#nested>
     </p>
+
+
+    <#if weibo.getWeibo().getPictures().size() gt 0>
+    <div class="up-img">
+        <img src="${weibo.getWeibo().getPictures().get(0)}"/>
+        <a id="zhaowei" data-toggle="modal" data-target="#imgModal" data-whatever="${weibo.getWeibo().getPictures()}" data-picSize="${weibo.getWeibo().getPictures().size()}">
+            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+        </a>
+    </div>
+    </#if>
+
+
+
+
     <hr style="margin-bottom: 10px"/>
 
     <div class="row up-operat">
@@ -151,5 +165,71 @@ $('#up-comment').on('show.bs.modal', function (event) {
   //}); //click
 //}); //document.ready
 
+</script>
+</#macro>
+
+<#macro weibo_pictures_js>
+<script>
+
+var sizeOfImg = 0;
+function geturl(list) {
+  var urlOfImg=new Array()
+  if (list.search(/,/) < 0) {
+    urlOfImg[0] = list.slice(1,list.search(/]/));
+  }
+  else {
+    urlOfImg[0] = list.slice(1,list.search(/,/));
+    list = list.slice(list.search(/,/) + 2);
+  }
+  for (var i=1; i > 0; i++) {
+    if (list.search(/,/) < 0) {
+      urlOfImg[i] = list.slice(0,list.search(/]/));
+      sizeOfImg = i;
+      i = -1;
+    }
+    else {
+      urlOfImg[i] = list.slice(0,list.search(/,/));
+      list = list.slice(list.search(/,/) + 2);
+    }
+  }
+  return urlOfImg;
+}
+
+var button;
+var pageOfImg = 0;
+var urls = new Array();
+
+$('#imgModal').on('show.bs.modal', function (event) {
+  button = $(event.relatedTarget);
+  var recipient = button.data('whatever');
+
+  urls = geturl(recipient);
+
+  $("#modelImg").attr("src", urls[0]);
+
+});
+
+function lastImg() {
+  if (pageOfImg > 0){
+    pageOfImg = pageOfImg - 1;
+    $("#modelImg").attr("src", urls[pageOfImg]);
+  }
+  else {
+    alert("此图为第一张，前翻至最后一张");
+    pageOfImg = sizeOfImg;
+    $("#modelImg").attr("src", urls[pageOfImg]);
+  }
+};
+function nextImg() {
+  if (pageOfImg < sizeOfImg){
+    pageOfImg = pageOfImg + 1;
+    $("#modelImg").attr("src", urls[pageOfImg]);
+  }
+  else {
+    alert("此图为最后一张，后翻至第一张");
+    pageOfImg = 0;
+    $("#modelImg").attr("src", urls[pageOfImg]);
+  }
+};
 </script>
 </#macro>

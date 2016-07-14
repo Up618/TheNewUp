@@ -16,7 +16,7 @@
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
   <!-- Latest compiled and minified CSS -->
-  <link href="http://139.129.48.155:8081/up.css" rel="stylesheet">
+  <link href="http://o9x8azwl1.bkt.clouddn.com/upTest.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
 
