@@ -17,13 +17,13 @@
 
     <div class="row up-operat">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <p align="center" class="up-operate"><a><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
+        <p align="center" class="up-operate"><a style="color:gray;"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}" class = "comment_show"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>评论</a></p></div>
+        <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}" class = "comment_show" style="color:gray;"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="color:gray;"></span>评论</a></p></div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
         <p align="center" class="up-operate">
-        	<a id="${weibo.getWeibo().getId()}agree" href="#${weibo.getWeibo().getId()}">
+        	<a id="${weibo.getWeibo().getId()}agree" href="#${weibo.getWeibo().getId()}" style="color:gray;">
         		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"/>
         		点赞<b>${weibo.getWeibo().getAgreeAmount()}</b>
         	</a>
@@ -35,13 +35,13 @@ $(document).ready(function () {
 	var iliked${weibo.getWeibo().getId()} = ${weibo.getiLike()?then('true','false')};
 	if(iliked${weibo.getWeibo().getId()}){
         $("#${weibo.getWeibo().getId()}agree").css("color", "red");
-        $("#${weibo.getWeibo().getId()}agree").mouseover(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "black");});
+        $("#${weibo.getWeibo().getId()}agree").mouseover(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "gray");});
         $("#${weibo.getWeibo().getId()}agree").mouseout(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "red");});
       }//if
     else {
-        $("#${weibo.getWeibo().getId()}agree").css("color", "black");
+        $("#${weibo.getWeibo().getId()}agree").css("color", "gray");
         $("#${weibo.getWeibo().getId()}agree").mouseover(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "red");});
-        $("#${weibo.getWeibo().getId()}agree").mouseout(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "black");});
+        $("#${weibo.getWeibo().getId()}agree").mouseout(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "gray");});
     }//else
 	
 	//点击触发点赞操作
@@ -66,15 +66,15 @@ $(document).ready(function () {
         $("#${weibo.getWeibo().getId()}agree b").text(parseInt($("#${weibo.getWeibo().getId()}agree b").text()) + 1);
         iliked${weibo.getWeibo().getId()} = true;
         $("#${weibo.getWeibo().getId()}agree").css("color", "red");
-        $("#${weibo.getWeibo().getId()}agree").mouseover(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "black"); });
+        $("#${weibo.getWeibo().getId()}agree").mouseover(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "gray"); });
         $("#${weibo.getWeibo().getId()}agree").mouseout(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "red"); });
       }//if
       else {
         $("#${weibo.getWeibo().getId()}agree b").text(parseInt($("#${weibo.getWeibo().getId()}agree b").text()) - 1);
         iliked${weibo.getWeibo().getId()} = false;
-        $("#${weibo.getWeibo().getId()}agree").css("color", "black");
+        $("#${weibo.getWeibo().getId()}agree").css("color", "gray");
         $("#${weibo.getWeibo().getId()}agree").mouseover(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "red"); });
-        $("#${weibo.getWeibo().getId()}agree").mouseout(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "black"); });
+        $("#${weibo.getWeibo().getId()}agree").mouseout(function () { $("#${weibo.getWeibo().getId()}agree").css("color", "gray"); });
       }//else
     }) //done
   //} //agreeit
