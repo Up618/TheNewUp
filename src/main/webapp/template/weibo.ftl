@@ -11,6 +11,7 @@
     <p class="up-time">${weibo.getWeibo().getTime()}</p>
     <s><i></i></s>
 
+<#if weibo.getIsMine()>
     <div class="delete-btn" id="delete-div${weibo.getWeibo().getId()}">
       <span id="delete-up${weibo.getWeibo().getId()}" class="delete-btn-up glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
       <span id="delete-down${weibo.getWeibo().getId()}" class="delete-btn-down glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
@@ -38,6 +39,7 @@
     });
 
     </script>
+    </#if>
 
 
 

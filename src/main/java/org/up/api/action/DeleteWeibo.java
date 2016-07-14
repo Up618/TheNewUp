@@ -7,7 +7,7 @@ import org.up.weibo.service.IWeiboService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Action(value = "/weibo/delete", results = {
+@Action(value = "weibo/delete", results = {
 		@Result(name = "success", type = "json", params = { "encoding", "UTF-8" }) })
 public class DeleteWeibo extends ActionSupport {
 
