@@ -3,13 +3,15 @@ package org.up.api.action;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.up.weibo.service.IWeiboService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 @Action(value = "weibo/delete", results = {
 		@Result(name = "success", type = "json", params = { "encoding", "UTF-8" }) })
-public class DeleteWeibo extends ActionSupport {
+public class DeleteWeiboAction extends ActionSupport {
 
 	/**
 	 * 
@@ -38,12 +40,18 @@ public class DeleteWeibo extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		String currentUsername;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			currentUsername = ((UserDetails) principal).getUsername();
+		} else {
+			currentUsername = principal.toString();
+		}
 		try {
-			weiboService.deleteWeiboById(id);
+			delete = weiboService.deleteMyWeiboByWeiboId(id, currentUsername);
 		} catch (Exception e) {
 			delete = false;
 		}
-		delete = true;
 		return SUCCESS;
 	}
 

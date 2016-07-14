@@ -190,4 +190,14 @@ public class WeiboService implements IWeiboService {
 		return weiboDao.find("select w from Weibo w where w.user = ? order by w.time desc", params, page, rows);
 	}
 
+	@Override
+	public boolean deleteMyWeiboByWeiboId(Long id, String username) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(id);
+		param.add(username);
+		if(weiboDao.count("select count(w) from Weibo w where w.id = ? and w.user.username = ?", param)==0)return false;
+		weiboDao.delete(weiboDao.get(Weibo.class, id));
+		return true;
+	}
+
 }
