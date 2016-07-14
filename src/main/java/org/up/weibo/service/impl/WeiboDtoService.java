@@ -121,4 +121,14 @@ public class WeiboDtoService implements IWeiboDtoService {
 		return weiboDtoDao.find("select new org.up.dto.WeiboDto(w, 'true', case when ? = w.user.id then 'true' else 'false' end) from Weibo w join w.agrees as a where a.user.id = ?", param, page, rows);
 	}
 
+	@Override
+	public List<WeiboDto> getWeiboDtoByKeyword(String keyword, String myUsername, Integer page, Integer rows) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(myUsername);
+		param.add(myUsername);
+		param.add("%"+keyword+"%");
+		return weiboDtoDao.find("select new org.up.dto.WeiboDto(w, case when ? in (select a.user.username from w.agrees a) then 'true' else 'false' end, case when ? = w.user.username then 'true' else 'false' end) from Weibo w where w.content like ?", param, page, rows);
+		
+	}
+
 }

@@ -123,7 +123,7 @@
 	            					<img class="img-responsive" src="${user[0].getAvatar()}" alt="头像">
 	        					</a>
 	    					</div>
-	    					<div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
+	    					<div class="col-lg-7 col-md-7 col-sm-6 col-xs-8">
 	        					<h3>${user[0].getNickname()}</h3>
 	        					<p>
 	        						<a href="<@s.url action="${user[0].getId()}-get-follow" />">关注${user[0].getFollowAmount()}</a>
@@ -132,8 +132,8 @@
 	        					</p>
 	        					<p>${user[0].getBio()!" "}</p>
 	    					</div>
-	    					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-	        					<button id="${user[0].getUsername()}followButton" style = "width:90px" class="btn btn-info">
+	    					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+	        					<button id="${user[0].getUsername()}followButton" style = "width:100px;right:10px;position:absolute" class="btn btn-info">
 	        						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 	        						<b>关注</b>
 	        					</button>
