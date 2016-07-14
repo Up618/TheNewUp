@@ -51,12 +51,11 @@
 		<property name="hibernateProperties">
 			<value>
 				hibernate.dialect=org.hibernate.dialect.MySQLDialect
-				hibernate.hbm2ddl.auto=update
 				hibernate.show_sql=true
 				hibernate.hbm2ddl.import_files=import.sql
 				hibernate.hbm2ddl.auto=create-drop
 				hibernate.connection.useUnicode=true
-				hibernate.connection.useUnicode=UTF-8
+				hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
 			</value>
 		</property>
 	</bean>
