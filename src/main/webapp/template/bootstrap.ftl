@@ -13,6 +13,7 @@
   </#if>
 
   <title>${title}</title>
+  <link rel="shortcut icon" href="http://o9x8azwl1.bkt.clouddn.com/up.ico" >
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
   <!-- Latest compiled and minified CSS -->
@@ -88,9 +89,9 @@
       <div id="navbar" class="collapse navbar-collapse">
         <form id="search" class="navbar-form navbar-left" role="search" action="<@s.url namespace="/search" action="result" />">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search" name="keyword">
+          <input type="text" class="form-control" placeholder="搜点啥？" name="keyword">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default" style="color:black; font-family: 微软雅黑">搜索</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -101,15 +102,15 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img data-bind="attr: { src: avatar, height: '20', width: '20' }"><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li>
-            <div style="padding:3px 20px;">Signed in as
+            <div style="padding:3px 20px;">
               <span id="myNicknameOnNavbar" data-bind="text: nickname" style="font-weight:bolder;"></span>
             </div>
           </li>
           <li role="separator" class="divider"></li>
-          <li><a data-bind="attr: {href: homepageLink}">Your homepage</a></li>
-          <li><a href="<@s.url namespace="/user" action="profile"/>">Your profile</a></li>
+          <li><a data-bind="attr: {href: homepageLink}">个人主页</a></li>
+          <li><a href="<@s.url namespace="/user" action="profile"/>">个人信息</a></li>
           <li role="separator" class="divider"></li>
-          <li><a href="#" data-bind="click: signOut">Sign out</a></li>
+          <li><a href="#" data-bind="click: signOut">登出</a></li>
         </ul>
       </li>
       <li><a href="#" data-toggle="modal" data-target="#upAnUp"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
@@ -293,7 +294,7 @@ function makeAnnotationAvailable(weiboSelectList){
     <a class="upSidebar" id="weibos-btn" href="<@s.url namespace="/user" action="${user.getId()}" />">
       <li class="list-group-item">
         <span class="badge">${user.getWeiboAmount()}</span>
-        Weibos
+        微博
       </li>
     </a>
     <a class="upSidebar" id="follows-btn" href="<@s.url namespace="/" action="${user.getId()}-get-follow" />">

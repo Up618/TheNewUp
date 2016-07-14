@@ -1,6 +1,6 @@
-<#import "/template/bootstrap.ftl" as bootstrap>
+﻿<#import "/template/bootstrap.ftl" as bootstrap>
 <html style="position:relative;min-height:100%;">
-<@bootstrap.head title="账户设置"></@bootstrap.head>
+<@bootstrap.head title="搜索"></@bootstrap.head>
 <@bootstrap.body>
 
 <div class="modal fade bs-example-modal-lg" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -15,19 +15,19 @@
 <div class="container" style="padding-top:60px">
   <form class="form-horizontal" action="<@s.url action="result"/>">
   <div class="form-group">
-  	<label for="resultKeyword" class="col-sm-3 control-label">Search</label>
+  	<label for="resultKeyword" class="col-sm-3 control-label">搜索</label>
     <div class="col-sm-8">
-    	<input id="resultKeyword" type="text" class="form-control" placeholder="Search" name="keyword" value="${keyword}">
+    	<input id="resultKeyword" type="text" class="form-control" placeholder="搜索" name="keyword" value="${keyword}">
     </div>
     <div class="sol-sm-1">
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-default">搜索</button>
     </div>
   </div>
 </form>
 <div class="col-lg-3 col-md-3 col-sm-3" style="padding-left:0px">
   <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">Options</div>
+    <div class="panel-heading">分类</div>
     <ul class="list-group">
       <a id="weiboSearch" href="#" class="list-group-item active">微博</a>
       <a id="userSearch" href="#" class="list-group-item">人</a>

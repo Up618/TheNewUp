@@ -15,14 +15,14 @@
 <nav>
   <ul id="weibo-pager" class="pager">
   	<#if page == 1>
-    	<li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
+    	<li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
     <#else>
-    	<li class="previous"><a href="#" class="previousable"><span aria-hidden="true">&larr;</span> Previous</a></li>
+    	<li class="previous"><a href="#" class="previousable"><span aria-hidden="true">&larr;</span> 上一页</a></li>
     </#if>
 	<#if weibos.size() < 10>
-    	<li class="next disabled"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
+    	<li class="next disabled"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
     <#else>
-    	<li class="next"><a href="#" class="nextable">Next <span aria-hidden="true">&rarr;</span></a></li>
+    	<li class="next"><a href="#" class="nextable">下一页 <span aria-hidden="true">&rarr;</span></a></li>
 	</#if>
   </ul>
 </nav>

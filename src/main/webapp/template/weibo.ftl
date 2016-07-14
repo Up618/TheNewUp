@@ -1,5 +1,5 @@
 <#macro weibo_card weibo>
-<div class="row" style = "margin-bottom:20px">
+<div class="row" style = "margin-bottom:20px" id="weiboCard${weibo.getWeibo().getId()}">
 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-3">
   <a class="weiboCardAvatar" href="<@s.url namespace="/user" action="${weibo.getWeibo().getUser().getId()}" />" style="top: 0px; left: -70px; display: block; position: absolute;">
     <img class="" src="${weibo.getWeibo().getUser().getAvatar()}" alt="头像" width="60">
@@ -260,38 +260,20 @@ $('#up-comment').on('show.bs.modal', function (event) {
 <script>
 
   function deleteWeibo(weiboId){
-    alert(weiboId);
     $.ajax({
       url:"<@s.url action="/weibo/delete" namespace="/api"/>",
-      data:{id:8}
+      data:{id:weiboId}
     }).done(function(result){
       var deletedId = result.id; //被删除的id
       var isDeleted = result.delete; //是否成功被删除，布尔值
 
       alert(deletedId + "已被删除");
+      alert("#delete-div" + deletedId);
+      $("#weiboCard" + deletedId).hide();
     }).fail(function(){
       alert("删除失败");
     });
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 </#macro>
 

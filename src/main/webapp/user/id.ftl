@@ -2,7 +2,7 @@
 <#import "../template/weibo.ftl" as bootstrap_weibo>
 <#import "../template/usercard.ftl" as bootstrap_usercard>
 <html style="position:relative;min-height:100%;">
-<@bootstrap.head title="个人首页"></@bootstrap.head>
+<@bootstrap.head title="个人主页"></@bootstrap.head>
 <@bootstrap.body>
 <@bootstrap_weibo.weibo_comment/>
 <@bootstrap_weibo.weibo_comment_submit_js/>

@@ -36,7 +36,7 @@
       <a class="upSidebar" href="<@s.url namespace="/user" action="${user.getId()}" />">
       <li class="list-group-item">
         <span class="badge">${user.getWeiboAmount()}</span>
-        Weibos
+        微博
       </li>
     </a>
 
