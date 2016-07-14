@@ -15,7 +15,7 @@
         	${user.getUsername()}
       </li>
     </h>
-    <a class="upSidebar" href="<@s.url action="view-weibo" />">
+    <a class="upSidebar" href="<@s.url action="viewWeibo" />">
       <li class="list-group-item">查看所有微博</li>
     </a>
 

@@ -386,7 +386,7 @@ $(document).ready(function () {
          <p>${user.getBio()!" "}</p>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-        <button id="deleteButton${user.getId()}" style = "width:90px" class="btn btn-info"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span><b>删除用户</b></button>
+        <button id="deleteButton${user.getId()}" style = "width:90px" class="btn btn-info"><b>删除用户</b></button>
     </div>
 
 

@@ -19,8 +19,7 @@ public class WeiboService implements IWeiboService {
 	
 	@Override
 	public List<Weibo> getAllWeibo(Integer page, Integer rows) {
-		List<Object> params = new ArrayList<Object>();
-		params.add("*");
+		List<Object> params = null;
 		return weiboDao.find("select w from Weibo w order by w.time desc", params, page, rows);
 	}
 

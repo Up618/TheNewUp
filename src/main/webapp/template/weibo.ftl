@@ -387,7 +387,7 @@ function comment_input_js(){
                               ht = ht + '<h aria-hidden="true" id = '+tag_cid_agree+'>'+'</h>';
                               ht = ht + '</p>';
                               ht = ht + '<p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">'+obj[i]["time"]+'</p>';
-                              ht = ht + '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">';
+                              ht = ht + '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree" style="text-align: right">';
                               ht = ht + '<a id="1comment_agree" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">';
                               ht = ht + '<span class="glyphicon glyphicon-thumbs-up"></span>';
                               ht = ht + '<b>1</b>';

@@ -13,29 +13,15 @@ import com.opensymphony.xwork2.ActionSupport;
  * 管理员查看微博的Action。管理员端因为不需要判断是否点赞，用的微博实体是Weibo。
  */
 
-//@Action(value = "*/weibo", params = { "id", "{1}" })
-//@Result(name = "success", location = "/admin/weibo.ftl")
+@Action(value = "viewWeibo")
+@Result(name = "success", location = "/admin/viewWeibo.ftl")
 public class ViewWeiboAction extends ActionSupport {
 	
-	/**
-	 * 
-	 */
-	
 	private static final long serialVersionUID = 1L;
-	private Long id;
 	private Integer page = 1;
 	private List<Weibo> weibos;
 	@Autowired
 	private IWeiboService weiboService;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Integer getPage() {
 		return page;
 	}
@@ -53,7 +39,8 @@ public class ViewWeiboAction extends ActionSupport {
 	}
 
 	public String execute() throws Exception {
-		weibos = weiboService.getAllWeibo(page, 10);
+		//weibos = weiboService.getAllWeibo(page, 10);
+		weibos = weiboService.getAllWeibo(1, 10);
 		return SUCCESS;
 	}
 
