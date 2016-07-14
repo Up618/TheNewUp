@@ -1,6 +1,6 @@
 ﻿<#import "/template/bootstrap.ftl" as bootstrap>
 <html style="position:relative;min-height:100%;">
-<@bootstrap.head title="管理员端"></@bootstrap.head>
+<@bootstrap.head title="管理员首页"></@bootstrap.head>
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
 
