@@ -101,7 +101,7 @@ public class CommentAction extends ActionSupport {
 		
 		for(int i = 0; i < comments.size(); i++){
 			  json += "{\"nickname\":\""+comments.get(i).getUser().getNickname()+"\",";
-			  json += "\"id\":\""+comments.get(i).getUser().getId()+"\",";
+			  json += "\"id\":\""+comments.get(i).getId()+"\",";
 			  json += "\"content\":\""+comments.get(i).getContent()+"\",";
 			  json += "\"time\":\""+comments.get(i).getTime()+"\",";
 			  json += "\"avatar\":\""+comments.get(i).getUser().getAvatar()+"\"}";

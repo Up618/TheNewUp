@@ -109,165 +109,9 @@ $(document).ready(function () {
 
           <hr style="margin-bottom: 10px"/>
 
-                <!--此处放入评论卡片   -->
-                
-                
-                
-                <div id="container"></div>
-                
-        
-        
-  <div>
-
-<div class="row">  
-     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-      <a href="<@s.url namespace="/user" action="1"/>">
-        <img id="1comment_img" width = "40" heighth = "40">
-      </a>
-    </div>
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-      <p>
-      
-        <h id="1comment_name"></h><!--评论人名称-->
-        
-        <h id="1comment_content"></h><!--评论内容-->
-        
-        <h id = "1cid_agree" aria-hidden="true"></h>  <!--评论的id-->
-        
-      </p>
-      <p id="1comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
-
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
-        <a id="1comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">
-          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-          <b>1</b>
-        </a>
-      </div>   
-    </div>
-  </div>
-  
-  
-  
-  <!------------------------------下面是第二条评论--------------------------------------------->
-  <div class="row">  
-  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-      <a href="<@s.url namespace="/user" action="1"/>">
-        <img id="2comment_img" width = "40" heighth = "40">
-      </a>
-    </div>
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-      <p>
-      
-        <h id="2comment_name"></h><!--评论人名称-->
-        
-        <h id="2comment_content"></h><!--评论内容-->
-        
-        <h id = "2cid_agree" aria-hidden="true"></h>  <!--评论的id-->
-      </p>
-      <p id="2comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
-
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
-        <a id="2comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment2()">
-          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-          <b>1</b>
-        </a>
-      </div>   
-    </div>
-  </div>                 
-<!------------------------------上面是第二条评论--------------------------------------------->   
-
-<!------------------------------下面是第三条评论--------------------------------------------->
-  <div class="row">  
-  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-      <a href="<@s.url namespace="/user" action="1"/>">
-        <img id="3comment_img" width = "40" heighth = "40">
-      </a>
-    </div>
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-      <p>
-      
-        <h id="3comment_name"></h><!--评论人名称-->
-        
-        <h id="3comment_content"></h><!--评论内容-->
-        
-        <h id = "3cid_agree" aria-hidden="true"></h>  <!--评论的id-->
-      </p>
-      <p id="3comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
-
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
-        <a id="3comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment3()">
-          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-          <b>1</b>
-        </a>
-      </div>   
-    </div>
-  </div>                 
-<!------------------------------上面是第三条评论--------------------------------------------->
-
-<!------------------------------下面是第四条评论--------------------------------------------->
-  <div class="row">  
-  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-      <a href="<@s.url namespace="/user" action="1"/>">
-        <img id="4comment_img" width = "40" heighth = "40">
-      </a>
-    </div>
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-      <p>
-      
-        <h id="4comment_name"></h><!--评论人名称-->
-        
-        <h id="4comment_content"></h><!--评论内容-->
-        
-        <h id = "4cid_agree" aria-hidden="true"></h>  <!--评论的id-->
-      </p>
-      <p id="4comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
-
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
-        <a id="4comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment4()">
-          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-          <b>1</b>
-        </a>
-      </div>   
-    </div>
-  </div>                 
-<!------------------------------上面是第四条评论---------------------------------------------> 
-
-<!------------------------------下面是第五条评论--------------------------------------------->
-  <div class="row">  
-  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
-      <a href="<@s.url namespace="/user" action="1"/>">
-        <img id="5comment_img" width = "40" heighth = "40">
-      </a>
-    </div>
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
-      <p>
-      
-        <h id="5comment_name"></h><!--评论人名称-->
-        
-        <h id="5comment_content"></h><!--评论内容-->
-        
-        <h id = "5cid_agree" aria-hidden="true"></h>  <!--评论的id-->
-      </p>
-      <p id="5comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
-
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
-        <a id="5comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment5()">
-          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-          <b>1</b>
-        </a>
-      </div>   
-    </div>
-  </div>                 
-<!------------------------------上面是第五条评论--------------------------------------------->     
-     
-
-  
-</div>
-
-
-
+                <!--此处放入评论卡片   -->  
+         <div id="container"></div>
       </div>
-
     </div><!-- /.modal-body -->
   </div><!-- /.modal-content -->
 </div><!-- /.modal -->
@@ -295,27 +139,9 @@ $('#up-comment').on('show.bs.modal', function (event) {
       <script type="text/javascript">
       $(document).ready(function () {
       $(".comment_show").click(function(){
-                	var par = $(this).attr("id");
-                	
-                	$("#up.comment").modal();
-                	
-                	$("#input_content").text("");
-                	for(var j=0;j<5;j++){  
-                          var ind = j+1;
-                          
-                          var tag_name_null = "#"+ind+"comment_name";
-                	      var tag_content_null = "#"+ind+"comment_content";
-                	      var tag_time_null = "#"+ind+"comment_time";
-                	      var tag_avatar_null = ""+ind+"comment_img";
-                	      var tag_agree_null = "#"+ind+"comment_agree";
-                	      
-                	      $(tag_name_null).text("");
-                	      $(tag_content_null).text("");
-                	      $(tag_time_null).text("");
-                	      $(tag_agree_null).hide();
-                	      document.getElementById(tag_avatar_null).style.visibility="hidden";
-                        }
-                        
+            	        var par = $(this).attr("id");
+                	    $("#up.comment").modal();
+                	    $("#input_content").text("");
                 	    var self = this;
                         self.json = ko.observable();
                         self.par = ko.observableArray();
@@ -325,35 +151,48 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	        data: {weibo_id: par},
                 	    }).done(function (data) {
                         var obj = eval('(' + data.json + ')');
-                        
-                        
-                        for(var i=0,l=obj.length;i<l;i++){  
-                          var index = i+1;
-                          var tag_name = "#"+index+"comment_name";
-                	      var tag_content = "#"+index+"comment_content";
-                	      var tag_time = "#"+index+"comment_time";
-                	      var tag_avatar = ""+index+"comment_img";
-                	      var tag_agree = "#"+index+"comment_agree";
-                	      var tag_cid_agree = ""+index+"cid_agree";
-                	      
-                	      document.getElementById(tag_cid_agree).value = obj[i]["id"];
-                	      var a = document.getElementById(tag_cid_agree).value;//评论的id
-                	      
-                	      $(tag_name).text(obj[i]["nickname"]+"：");
-                	      $(tag_agree).show();
-                          
-                          if(obj[i]["content"]!=null){
-                	        $(tag_content).text(obj[i]["content"]);
-                	      }
-                	      if(obj[i]["time"]){
-                	        $(tag_time).text(obj[i]["time"]);
-                	      }
-                	      if(obj[i]["avatar"]!=null){
-                	        document.getElementById(tag_avatar).style.visibility="visible";
-                	        document.getElementById(tag_avatar).src=obj[i]["avatar"];
-                	      } 
-                	    }
-                	    self.json(data.json);
+
+                              var ht = '<div>';
+                              for(var i=0,l=obj.length;i<l;i++){
+                              //点赞所需id
+                              var index = i+1;
+                	          var tag_cid_agree = ""+index+"cid_agree";
+                	          
+                              ht = ht + '<div class="row">';
+                              ht = ht + '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">';
+                              ht = ht + '<a href="<@s.url namespace="/user" action="1"/>">';
+                              ht = ht + '<img src= '+obj[i]["avatar"]+'  width = "40" heighth = "40">';
+                              ht = ht + '</a>';
+                              ht = ht + '</div>';
+                              ht = ht + '<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">';
+                              ht = ht + '<p>';
+                              ht = ht + '<h>'+obj[i]["nickname"]+"："+'</h>';
+                              ht = ht + '<h>'+obj[i]["content"]+'</h>';
+                              ht = ht + '<h aria-hidden="true" id = '+tag_cid_agree+'>'+'</h>';
+                              ht = ht + '</p>';
+                              ht = ht + '<p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">'+obj[i]["time"]+'</p>';
+                              ht = ht + '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">';
+                              ht = ht + '<a id="1comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">';
+                              ht = ht + '<span class="glyphicon glyphicon-thumbs-up"></span>';
+                              ht = ht + '<b>1</b>';
+                              ht = ht + '</a>';
+                              ht = ht + '</div>';
+                              ht = ht + '</div>';
+                              ht = ht + '</div>';
+                              }
+                              ht = ht + '</div>';
+                              document.getElementById("container").innerHTML = ht;
+                              
+                              for(var i=0,l=obj.length;i<l;i++){
+                              //点赞
+                              var index = i+1;
+                	          var tag_cid_agree = ""+index+"cid_agree";
+                              
+                              document.getElementById(tag_cid_agree).value = obj[i]["id"];
+                	          var a = document.getElementById(tag_cid_agree).value;//得到评论的id
+                	          }
+                	          
+                	          self.json(data.json);
                 	    }) //done
                 	});//click  
                 }); //document.ready
@@ -373,22 +212,7 @@ function comment_input_js(){
                 		    type: 'GET',
                             url: "<@s.url namespace="/comment" action="inputComment"/>",
                 	        data: {weibo_id: weibo_id, content: content},
-                	    }).done(function (data) {    
-                	    for(var j=0;j<5;j++){  
-                          var ind = j+1;
-                          
-                          var tag_name_null = "#"+ind+"comment_name";
-                	      var tag_content_null = "#"+ind+"comment_content";
-                	      var tag_time_null = "#"+ind+"comment_time";
-                	      var tag_avatar_null = ""+ind+"comment_img";
-                	      var tag_agree_null = "#"+ind+"comment_agree";
-                	      
-                	      $(tag_name_null).text("");
-                	      $(tag_content_null).text("");
-                	      $(tag_time_null).text("");
-                	      $(tag_agree_null).hide();
-                	      document.getElementById(tag_avatar_null).style.visibility="hidden";
-                        }
+                	    }).done(function (data) {   
                 	    var self = this;
                         self.json = ko.observable();
                         self.par = ko.observableArray();
@@ -398,32 +222,45 @@ function comment_input_js(){
                 	        data: {weibo_id: weibo_id},
                 	    }).done(function (data) {
                         var obj = eval('(' + data.json + ')');
-                        for(var i=0,l=obj.length;i<l;i++){ 
-                        var index = i+1;
-                          var tag_name = "#"+index+"comment_name";
-                	      var tag_content = "#"+index+"comment_content";
-                	      var tag_time = "#"+index+"comment_time";
-                	      var tag_avatar = ""+index+"comment_img";
-                	      var tag_agree = "#"+index+"comment_agree";
-                	      
-                	      var tag_cid_agree = ""+index+"cid_agree";
-                	      document.getElementById(tag_cid_agree).value = obj[i]["id"];
-                	      var a = document.getElementById(tag_cid_agree).value;//评论的id
-                	      
-                	      $(tag_name).text(obj[i]["nickname"]+"：");
-                	      $(tag_agree).show();
-                          
-                          if(obj[i]["content"]!=null){
-                	        $(tag_content).text(obj[i]["content"]);
-                	      }
-                	      if(obj[i]["time"]){
-                	        $(tag_time).text(obj[i]["time"]);
-                	      }
-                	      if(obj[i]["avatar"]!=null){
-                	        document.getElementById(tag_avatar).style.visibility="visible";
-                	        document.getElementById(tag_avatar).src=obj[i]["avatar"];
-                	      } 
-                	    }
+                                    var ht = '<div>';
+                              for(var i=0,l=obj.length;i<l;i++){
+                              //点赞所需id
+                              var index = i+1;
+                	          var tag_cid_agree = ""+index+"cid_agree";
+                	          
+                              ht = ht + '<div class="row">';
+                              ht = ht + '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">';
+                              ht = ht + '<a href="<@s.url namespace="/user" action="1"/>">';
+                              ht = ht + '<img src= '+obj[i]["avatar"]+'  width = "40" heighth = "40">';
+                              ht = ht + '</a>';
+                              ht = ht + '</div>';
+                              ht = ht + '<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">';
+                              ht = ht + '<p>';
+                              ht = ht + '<h>'+obj[i]["nickname"]+"："+'</h>';
+                              ht = ht + '<h>'+obj[i]["content"]+'</h>';
+                              ht = ht + '<h aria-hidden="true" id = '+tag_cid_agree+'>'+'</h>';
+                              ht = ht + '</p>';
+                              ht = ht + '<p class="col-xs-6 col-sm-6 col-md-6 col-lg-6">'+obj[i]["time"]+'</p>';
+                              ht = ht + '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">';
+                              ht = ht + '<a id="1comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment1()">';
+                              ht = ht + '<span class="glyphicon glyphicon-thumbs-up"></span>';
+                              ht = ht + '<b>1</b>';
+                              ht = ht + '</a>';
+                              ht = ht + '</div>';
+                              ht = ht + '</div>';
+                              ht = ht + '</div>';
+                              }
+                              ht = ht + '</div>';
+                              document.getElementById("container").innerHTML = ht;
+                              
+                              for(var i=0,l=obj.length;i<l;i++){
+                              //点赞
+                              var index = i+1;
+                	          var tag_cid_agree = ""+index+"cid_agree";
+                              
+                              document.getElementById(tag_cid_agree).value = obj[i]["id"];
+                	          var a = document.getElementById(tag_cid_agree).value;//得到评论的id
+                	          }
                 	    self.json(data.json);
                 	    }) //done
                 	    }) //done
