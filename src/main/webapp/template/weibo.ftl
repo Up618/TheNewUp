@@ -110,6 +110,11 @@ $(document).ready(function () {
           <hr style="margin-bottom: 10px"/>
 
                 <!--此处放入评论卡片   -->
+                
+                
+                
+                <div id="container"></div>
+                
         
         
   <div>
@@ -126,6 +131,9 @@ $(document).ready(function () {
         <h id="1comment_name"></h><!--评论人名称-->
         
         <h id="1comment_content"></h><!--评论内容-->
+        
+        <h id = "1cid_agree" aria-hidden="true"></h>  <!--评论的id-->
+        
       </p>
       <p id="1comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
 
@@ -153,6 +161,8 @@ $(document).ready(function () {
         <h id="2comment_name"></h><!--评论人名称-->
         
         <h id="2comment_content"></h><!--评论内容-->
+        
+        <h id = "2cid_agree" aria-hidden="true"></h>  <!--评论的id-->
       </p>
       <p id="2comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
 
@@ -179,6 +189,8 @@ $(document).ready(function () {
         <h id="3comment_name"></h><!--评论人名称-->
         
         <h id="3comment_content"></h><!--评论内容-->
+        
+        <h id = "3cid_agree" aria-hidden="true"></h>  <!--评论的id-->
       </p>
       <p id="3comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
 
@@ -190,7 +202,63 @@ $(document).ready(function () {
       </div>   
     </div>
   </div>                 
-<!------------------------------上面是第三条评论--------------------------------------------->      
+<!------------------------------上面是第三条评论--------------------------------------------->
+
+<!------------------------------下面是第四条评论--------------------------------------------->
+  <div class="row">  
+  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
+      <a href="<@s.url namespace="/user" action="1"/>">
+        <img id="4comment_img" width = "40" heighth = "40">
+      </a>
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
+      <p>
+      
+        <h id="4comment_name"></h><!--评论人名称-->
+        
+        <h id="4comment_content"></h><!--评论内容-->
+        
+        <h id = "4cid_agree" aria-hidden="true"></h>  <!--评论的id-->
+      </p>
+      <p id="4comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
+        <a id="4comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment4()">
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+          <b>1</b>
+        </a>
+      </div>   
+    </div>
+  </div>                 
+<!------------------------------上面是第四条评论---------------------------------------------> 
+
+<!------------------------------下面是第五条评论--------------------------------------------->
+  <div class="row">  
+  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">
+      <a href="<@s.url namespace="/user" action="1"/>">
+        <img id="5comment_img" width = "40" heighth = "40">
+      </a>
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 row">
+      <p>
+      
+        <h id="5comment_name"></h><!--评论人名称-->
+        
+        <h id="5comment_content"></h><!--评论内容-->
+        
+        <h id = "5cid_agree" aria-hidden="true"></h>  <!--评论的id-->
+      </p>
+      <p id="5comment_time" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></p>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 comment-agree"style="text-align: right">
+        <a id="5comment_agree" style="display:none" class="btn btn-default btn-xs" href="javascript:agreethecomment5()">
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+          <b>1</b>
+        </a>
+      </div>   
+    </div>
+  </div>                 
+<!------------------------------上面是第五条评论--------------------------------------------->     
      
 
   
@@ -232,7 +300,7 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	$("#up.comment").modal();
                 	
                 	$("#input_content").text("");
-                	for(var j=0;j<3;j++){  
+                	for(var j=0;j<5;j++){  
                           var ind = j+1;
                           
                           var tag_name_null = "#"+ind+"comment_name";
@@ -258,6 +326,7 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	    }).done(function (data) {
                         var obj = eval('(' + data.json + ')');
                         
+                        
                         for(var i=0,l=obj.length;i<l;i++){  
                           var index = i+1;
                           var tag_name = "#"+index+"comment_name";
@@ -265,6 +334,10 @@ $('#up-comment').on('show.bs.modal', function (event) {
                 	      var tag_time = "#"+index+"comment_time";
                 	      var tag_avatar = ""+index+"comment_img";
                 	      var tag_agree = "#"+index+"comment_agree";
+                	      var tag_cid_agree = ""+index+"cid_agree";
+                	      
+                	      document.getElementById(tag_cid_agree).value = obj[i]["id"];
+                	      var a = document.getElementById(tag_cid_agree).value;//评论的id
                 	      
                 	      $(tag_name).text(obj[i]["nickname"]+"：");
                 	      $(tag_agree).show();
@@ -301,7 +374,7 @@ function comment_input_js(){
                             url: "<@s.url namespace="/comment" action="inputComment"/>",
                 	        data: {weibo_id: weibo_id, content: content},
                 	    }).done(function (data) {    
-                	    for(var j=0;j<3;j++){  
+                	    for(var j=0;j<5;j++){  
                           var ind = j+1;
                           
                           var tag_name_null = "#"+ind+"comment_name";
@@ -332,6 +405,10 @@ function comment_input_js(){
                 	      var tag_time = "#"+index+"comment_time";
                 	      var tag_avatar = ""+index+"comment_img";
                 	      var tag_agree = "#"+index+"comment_agree";
+                	      
+                	      var tag_cid_agree = ""+index+"cid_agree";
+                	      document.getElementById(tag_cid_agree).value = obj[i]["id"];
+                	      var a = document.getElementById(tag_cid_agree).value;//评论的id
                 	      
                 	      $(tag_name).text(obj[i]["nickname"]+"：");
                 	      $(tag_agree).show();

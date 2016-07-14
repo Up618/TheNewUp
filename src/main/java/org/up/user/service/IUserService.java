@@ -10,6 +10,7 @@ public interface IUserService {
 	public User loadUserByNickname(String nickname);
 	public User loadUserById(Long id);
 	public List<User> searchUserByNickname(String nickname);
+	List<User> ListAllUsers(Integer page, Integer rows);
 	public Long addUser(User user);
 	public void editUser(User user);
 	public Boolean ifNicknameValid(String nickname);

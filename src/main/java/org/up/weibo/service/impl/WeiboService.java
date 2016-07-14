@@ -16,6 +16,13 @@ import org.up.weibo.service.IWeiboService;
 public class WeiboService implements IWeiboService {
 	@Autowired
 	private IBaseDao<Weibo> weiboDao;
+	
+	@Override
+	public List<Weibo> getAllWeibo(Integer page, Integer rows) {
+		List<Object> params = new ArrayList<Object>();
+		params.add("*");
+		return weiboDao.find("select w from Weibo w order by w.time desc", params, page, rows);
+	}
 
 	@Override
 	public List<Weibo> getWeiboByUsername(String username) {
