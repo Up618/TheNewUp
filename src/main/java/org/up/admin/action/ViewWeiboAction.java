@@ -13,8 +13,8 @@ import com.opensymphony.xwork2.ActionSupport;
  * 管理员查看微博的Action。管理员端因为不需要判断是否点赞，用的微博实体是Weibo。
  */
 
-@Action(value = "*/weibo", params = { "id", "{1}" })
-@Result(name = "success", location = "/user/weibo.ftl")
+//@Action(value = "*/weibo", params = { "id", "{1}" })
+//@Result(name = "success", location = "/admin/weibo.ftl")
 public class ViewWeiboAction extends ActionSupport {
 	
 	/**
