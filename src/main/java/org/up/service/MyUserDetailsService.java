@@ -28,6 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		User user = userDao.get("from User where username=?", param);
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+		if(user.getRole().getName()=="ROLE_ADMIN"||user.getRole().getName().equals("ROLE_ADMIN"))authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPasswordHash(),
 				authorities);
 	}
