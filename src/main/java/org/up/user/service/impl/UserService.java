@@ -20,7 +20,7 @@ public class UserService implements IUserService {
 	public User loadUserByUsername(String username) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(username);
-		return userDao.get("from User where username = ?", params);
+		return userDao.get("select u from User u where username = ?", params);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class UserService implements IUserService {
 	public User loadUserByNickname(String nickname) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(nickname);
-		return userDao.get("from User where nickname = ?", params);
+		return userDao.get("select u from User u where nickname = ?", params);
 	}
 
 	@Override
@@ -47,7 +47,14 @@ public class UserService implements IUserService {
 
 	@Override
 	public List<User> searchUserByNickname(String nickname) {
-		return userDao.find("from User where nickname like \'%" + nickname + "%\'");
+		return userDao.find("select u from User u where nickname like \'%" + nickname + "%\'");
+	}
+	
+	@Override
+	public List<User> ListAllUsers(Integer page, Integer rows) {
+		List<Object> params = new ArrayList<Object>();
+		params.add('*');//并没用到这个变量
+		return userDao.find("select u from User", params, page, rows);
 	}
 
 	@Override
