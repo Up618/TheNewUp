@@ -77,7 +77,7 @@
         <p align="center" class="up-operate"><a><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}" class = "comment_show"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>评论</a></p></div>
+        <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}" class = "comment_show"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>评论<b>${weibo.getWeibo().getCommentAmount()}</b></a></p></div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
         <p align="center" class="up-operate">
         	<a id="${weibo.getWeibo().getId()}agree" href="#${weibo.getWeibo().getId()}">

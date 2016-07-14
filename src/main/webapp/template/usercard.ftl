@@ -370,3 +370,35 @@ $(document).ready(function () {
 </div>
 
 </#macro>
+
+
+<#macro user_card_admin user>
+
+<div class="list-group-item row" style="margin-bottom:10px">
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+        <a href="<@s.url namespace="/user" action="${user.getId()}" />" class="thumbnail">
+            <img class="img-responsive" src="${user.getAvatar()}" alt="头像">
+        </a>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
+        <h3>${user.getNickname()}</h3>
+        <p><a href="<@s.url action="${user.getId()}-get-follow" />">关注${user.getFollowAmount()}</a>      <a href="<@s.url action="${user.getId()}-get-fans" />">粉丝${user.getFansAmount()}</a>   <a href="<@s.url namespace="/user" action="${user.getId()}" />">微博数${user.getWeiboAmount()}</a></p>
+         <p>${user.getBio()!" "}</p>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+        <button id="deleteButton${user.getId()}" style = "width:90px" class="btn btn-info"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span><b>删除用户</b></button>
+    </div>
+
+
+	<script type="text/javascript">
+		$(document).ready(
+		function () {
+		
+		//这里写删除操作
+		
+  	});//document.ready
+  	</script>
+
+</div>
+
+</#macro>

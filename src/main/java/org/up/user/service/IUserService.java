@@ -11,7 +11,7 @@ public interface IUserService {
 	public User loadUserByNickname(String nickname);
 	public User loadUserById(Long id);
 	public List<User> searchUserByNickname(String nickname);
-	public List<User> listAllUsers(Integer page, Integer rows);
+	public List<User> listAllUsers();
 	public Long addUser(User user);
 	public void editUser(User user);
 	public Boolean ifNicknameValid(String nickname);

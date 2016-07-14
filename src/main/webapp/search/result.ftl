@@ -76,7 +76,7 @@ function result(){
 	$("#previousBtn").click(function(){
 		startpage--;
 		$.ajax({
-			data:{page:startpage},
+			data:{page:startpage,keyword:word},
 			url:userweibo+"-search",
 		}).done(function(data){
 			self.results(data);
@@ -85,7 +85,7 @@ function result(){
 	$("#nextBtn").click(function(){
 		startpage++;
 		$.ajax({
-			data:{page:startpage},
+			data:{page:startpage,keyword:word},
 			url:userweibo+"-search",
 		}).done(function(data){
 			self.results(data);

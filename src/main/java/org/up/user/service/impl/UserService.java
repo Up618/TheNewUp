@@ -52,10 +52,8 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
-	public List<User> listAllUsers(Integer page, Integer rows) {
-		List<Object> params = new ArrayList<Object>();
-		params.add('*');//并没用到这个变量
-		return userDao.find("select u from User", params, page, rows);
+	public List<User> listAllUsers() {
+		return userDao.find("select u from User u");
 	}
 
 	@Override
