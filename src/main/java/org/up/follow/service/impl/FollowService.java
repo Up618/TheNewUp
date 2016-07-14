@@ -35,49 +35,8 @@ public class FollowService implements IFollowService{
 		followDao.delete(follow);
 	}
 
-	@Override
-	public List<Follow> findByUsername(String username) {
-		// TODO Auto-generated method stub
 
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		return followDao.find("select p from Follow p where p.following.username = ?",params);
-	}
 
-	@Override
-	public List<Follow> findByFollowUsername(String username) {
-		// TODO Auto-generated method stub
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		return followDao.find("select p from Follow p where p.followed.username = ?",params);
-
-	}
-
-	@Override
-	public long findFollowNumByUsername(String username) {
-		// TODO Auto-generated method stub
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		return followDao.count("select count(*) p from Follow p where p.followed.username = ?",params);
-	}
-
-	@Override
-	public long findFansNumByUsername(String username) {
-		// TODO Auto-generated method stub
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		return followDao.count("select count(*) p from Follow p where p.followed.username=?", params);
-	}
-
-	@Override
-	public boolean findIfFollowByUsername(String username, String followusername) {
-		// TODO Auto-generated method stub
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		params.add(followusername);
-		followDao.get("select p from Follow p where p.following.username = ? and p.followed.username = ?", params);
-		return false;
-	}
 
 	@Override
 	public Follow getFollow(String username, String followusername) {
@@ -88,47 +47,6 @@ public class FollowService implements IFollowService{
 		return followDao.get("select p from Follow p where p.following.username = ? and p.followed.username = ?", params);
 	}
 
-	@Override
-	public List<User> findFollowUserByUserName(String username) {
-		// TODO Auto-generated method stub
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		return userDao.find("select p.followed from Follow p where p.following.username = ?",params);
-
-	}
-
-	@Override
-	public List<User> findFansByUsername(String username) {
-		// TODO Auto-generated method stub
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		return userDao.find("select p.following from Follow p where p.followed.username = ?",params);
-
-	}
-
-	@Override
-	public List<List> getFollowByUsername(String username) {
-		// TODO Auto-generated method stub
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		params.add(username);
-		return listDao.find("select new list(f.followed,"
-				+ "case when ? in (select c.followed.username from Follow c where c.following.username = f.followed.username) then 'true' else 'false' end)"
-				
-				+ " from Follow f where f.following.username = ?", params);
-	}
-
-	@Override
-	public List<List> getFansByUsername(String username) {
-		// TODO Auto-generated method stub
-
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		params.add(username);
-		return listDao.find("select new list(f.following,"
-				+ "case when ? in (select c.following.username from Follow c where c.followed.username = f.following.username) then 'true' else 'false' end)"
-				+ " from Follow f where f.followed.username = ?", params);
-	}
 
 	@Override
 	public List<List> getFollowById(Long id,String username) {
@@ -158,6 +76,36 @@ public class FollowService implements IFollowService{
 				+ "case when ? in (select d.followed.username from Follow d where d.following.username = f.following.username) then 'true' else 'false' end,"
 				+ "case when ? = f.following.username then 'true' else 'false' end)"
 				+ " from Follow f where f.followed.id = ?", params);
+	}
+
+	@Override
+	public List<List> getFollowById(Long id, String username, Integer page, Integer rows) {
+		// TODO Auto-generated method stub
+		List<Object> params = new ArrayList<Object>();
+		params.add(username);
+		params.add(username);
+		params.add(username);
+		params.add(id);
+		return listDao.find("select new list(f.followed,"
+				+ "case when ? in (select d.following.username from Follow d where d.followed.username = f.followed.username) then 'true' else 'false' end,"
+				+ "case when ? in (select c.followed.username from Follow c where c.following.username = f.followed.username) then 'true' else 'false' end,"
+				+ "case when ? = f.followed.username then 'true' else 'false' end)"
+				+ " from Follow f where f.following.id = ? order by f.time DESC", params, page, rows);
+	}
+
+	@Override
+	public List<List> getFansById(Long id, String username, Integer page, Integer rows) {
+		// TODO Auto-generated method stub
+		List<Object> params = new ArrayList<Object>();
+		params.add(username);
+		params.add(username);
+		params.add(username);
+		params.add(id);
+		return listDao.find("select new list(f.following,"
+				+ "case when ? in (select c.following.username from Follow c where c.followed.username = f.following.username) then 'true' else 'false' end,"
+				+ "case when ? in (select d.followed.username from Follow d where d.following.username = f.following.username) then 'true' else 'false' end,"
+				+ "case when ? = f.following.username then 'true' else 'false' end)"
+				+ " from Follow f where f.followed.id = ? order by f.time DESC", params, page, rows);
 	}
 
 }

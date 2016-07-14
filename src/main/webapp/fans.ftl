@@ -17,13 +17,19 @@
 		<div class="list-group-item row" style="padding:0 0 0 15">
 			<h5>粉丝数：${fansAmount}</h5>
 		</div>
-		<div class="list-group">
-			<#list fans as user>
-			<@bootstrap_usercard.fans_follow_card user=user/>
-			<#else>
-			<h1>还没有任何粉丝哦！</h1>
-			</#list>
-		</div>
+		<div id="fanspage" class="list-group" data-bind="html:fanss">
+		</div>		
+<nav>
+  <ul id="follow-pager" class="pager">
+  	<#if pageNum == 1>
+  	
+  	<#else>
+    		<button id="previousBtn" class="btn-link">上一页</button>
+    		<button id="nextBtn" class="btn-link">下一页</button>
+    
+	</#if>
+  </ul>
+</nav>
 	</div>
 </div>
 
@@ -31,5 +37,35 @@
 
 <@bootstrap.javascript>
 
+function fansJ(){
+	var self = this;
+	var	fansP = 1;
+	self.fanss = ko.observable();
+	$.ajax({
+		url:"${user.getUser().getId()}-get-fans/get-fans",
+	}).done(function(data){
+		self.fanss(data);
+	});
+	$("#previousBtn").click(function(){
+		fansP--;
+		$.ajax({
+			data:{page:fansP},
+			url:"${user.getUser().getId()}-get-fans/get-fans",
+		}).done(function(data){
+			self.fanss(data);
+		});
+	});
+	$("#nextBtn").click(function(){
+		fansP++;	
+		$.ajax({
+			data:{page:fansP},
+			url:"${user.getUser().getId()}-get-fans/get-fans",
+		}).done(function(data){
+			self.fanss(data);
+		});
+	});
+}
+
+ko.applyBindings(new fansJ(),document.getElementById("fanspage"));
 </@bootstrap.javascript>
 </html>

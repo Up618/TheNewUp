@@ -1,34 +1,27 @@
-package org.up.weibo.action;
+package org.up.admin.action;
 
-import java.util.List;
-
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.up.dto.WeiboDto;
-import org.up.weibo.service.IWeiboDtoService;
-
+import org.up.model.User;
+import org.up.user.service.IUserService;
 import com.opensymphony.xwork2.ActionSupport;
-
-@Results({@Result(name="success",location="/user/weibo.ftl")})
-public class IndexAction extends ActionSupport {
+@Action("admin")
+@Results({ @Result(name = "success", location = "admin.ftl")})
+public class AdminAction extends ActionSupport {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private User user;
+	
 	@Autowired
-	private IWeiboDtoService weiboDtoService;
-	private List<WeiboDto> weibos;
-	private Integer page;
-	public List<WeiboDto> getWeibos() {
-		return weibos;
-	}
-	public void setWeibos(List<WeiboDto> weibos) {
-		this.weibos = weibos;
-	}
+	private IUserService userService;
+
 	@Override
 	public String execute() throws Exception {
 		String currentUsername;
@@ -38,14 +31,15 @@ public class IndexAction extends ActionSupport {
 		} else {
 			currentUsername = principal.toString();
 		}
-		weibos = weiboDtoService.getWeiboDtoByCurrentUsername(currentUsername, page, 10);
+		user = userService.loadUserByUsername(currentUsername);
 		return SUCCESS;
 	}
-	public Integer getPage() {
-		return page;
+
+	public User getUser() {
+		return user;
 	}
-	public void setPage(Integer page) {
-		this.page = page;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
 }

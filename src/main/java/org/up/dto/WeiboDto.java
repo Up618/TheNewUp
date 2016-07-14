@@ -6,6 +6,7 @@ public class WeiboDto {
 
 	private Weibo weibo;
 	private Boolean iLike;
+	private Boolean isMine;
 
 	public WeiboDto(Weibo weibo, Boolean iLike) {
 		super();
@@ -17,6 +18,13 @@ public class WeiboDto {
 		super();
 		this.weibo = weibo;
 		this.iLike = new Boolean(iLike);
+	}
+	
+	public WeiboDto(Weibo weibo, String iLike, String isMine) {
+		super();
+		this.weibo = weibo;
+		this.iLike = new Boolean(iLike);
+		this.isMine = new Boolean(isMine);
 	}
 
 	public Weibo getWeibo() {
@@ -33,5 +41,13 @@ public class WeiboDto {
 
 	public void setiLike(Boolean iLike) {
 		this.iLike = iLike;
+	}
+
+	public Boolean getIsMine() {
+		return isMine;
+	}
+
+	public void setIsMine(Boolean isMine) {
+		this.isMine = isMine;
 	}
 }

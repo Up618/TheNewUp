@@ -3,15 +3,7 @@
 <@bootstrap.head title="个人资料"></@bootstrap.head>
 <@bootstrap.body>
 <div class="container" style="padding-top:60px">
-  <#assign hasFieldErrors = fieldErrors??/>
-  <#if hasFieldErrors>
-  <#list fieldErrors?values as error>
-  <div class="alert alert-danger" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Error:</strong>${error}
-  </div>
-  </#list>
-  </#if>
+  <@bootstrap.errorInfo/>
   <div class="col-lg-3 col-md-3 col-sm-3" style="padding-left:0px">
     <div class="panel panel-default">
       <!-- Default panel contents -->
@@ -81,6 +73,10 @@ $("#profile-pic-upload input[name='upload']").change(function(){
     $("#profilePanelBody form div img").attr("src",result.url);
     $("#profilePanelBody form div a").removeClass("disabled");
     $("#profilePanelBody form div a").text("Upload avatar");
+  }).fail(function(){
+    $("#profilePanelBody form div a").removeClass("disabled");
+    $("#profilePanelBody form div a").text("Upload avatar");
+    alert("你的头像太大啦！");
   });
 });
 $("#profilePanelBody form div a").click(function(){

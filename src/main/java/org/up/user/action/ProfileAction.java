@@ -84,6 +84,7 @@ public class ProfileAction extends ActionSupport {
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setPhoneNumber(phoneNumber);
+		userService.editUser(user);
 		return SUCCESS;
 	}
 

@@ -1,23 +1,139 @@
 ﻿<#import "/template/bootstrap.ftl" as bootstrap>
 
+
+
+<#macro user_card_lg user>
+<div style="text-align:center; padding-left: 0; padding-right: 0" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12">
+	<div class="thumbnail userCard-lg">
+		<img class="img-thumbnail" src="${user.getUser().getAvatar()}" alt="头像" alt="头像" height="120" width="120">
+		<h2>${user.getUser().getNickname()}</h2>
+		<p>${user.getUser().getBio()!" "}</p>
+		<button id="followButton${user.getUser().getId()}" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
+	</div>
+	<script type="text/javascript">
+		var following${user.getUser().getId()} = ${user.getFollowing()?then('true','false')};
+		var followed${user.getUser().getId()} = ${user.getFollower()?then('true','false')};
+		$(document).ready(function () {
+		if(${user.getIsMe()?then('true','false')}){
+			$("#followButton${user.getUser().getId()}").hide();
+		}
+		if (following${user.getUser().getId()}&&followed${user.getUser().getId()}) {
+            $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
+            $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-retweet");
+            $("#followButton${user.getUser().getId()} b").text("互相关注");
+            $("#followButton${user.getUser().getId()} span").css("color","black");
+            $("#followButton${user.getUser().getId()} b").css("color","black");
+	  	}
+		else if(following${user.getUser().getId()}){
+            $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
+            $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-ok");
+            $("#followButton${user.getUser().getId()} b").text("已关注");
+            $("#followButton${user.getUser().getId()} span").css("color","black");
+            $("#followButton${user.getUser().getId()} b").css("color","black");
+		}
+		else{
+    		$("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-info");
+    		$("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-plus");
+    		$("#followButton${user.getUser().getId()} b").text("关注");
+    		$("#followButton${user.getUser().getId()} span").css("color","white");
+    		$("#followButton${user.getUser().getId()} b").css("color","white");
+  		}
+
+  		$("#followButton${user.getUser().getId()}").click(function () {
+            	if(following${user.getUser().getId()}){
+				 			var oMyForm = new FormData();
+				 			oMyForm.append("followusername", "${user.getUser().getUsername()}");
+				 			var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							var headers = {};
+							headers[header] = token;
+				 			$.ajax({
+				 				type:'POST',
+				 				url:"<@s.url namespace="/" action="delete-follow"/>",
+				 				data:oMyForm,
+ 								headers: headers,
+				 				dataType:'html',
+  								contentType:false,
+ 								processData:false,
+				 				error:function(){
+										alert("发生了一些错误，请稍后再试！");
+								},
+				 				success:function(){
+
+
+                    $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-info");
+                    $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-plus");
+                    $("#followButton${user.getUser().getId()} b").text("关注");
+                    $("#followButton${user.getUser().getId()} span").css("color","white");
+                    $("#followButton${user.getUser().getId()} b").css("color","white");
+                    following${user.getUser().getId()} = false;
+
+				 				},
+				 			});
+				 	}
+				 	else{
+				 			var oMyForm = new FormData();
+				 			oMyForm.append("followusername", "${user.getUser().getUsername()}");
+				 			var token = $("meta[name='_csrf']").attr("content");
+							var header = $("meta[name='_csrf_header']").attr("content");
+							var headers = {};
+							headers[header] = token;
+				 			$.ajax({
+				 				type:'POST',
+				 				url:"<@s.url namespace="/" action="follow"/>",
+				 				data:oMyForm,
+ 								headers: headers,
+				 				dataType:'html',
+  								contentType:false,
+ 								processData:false,
+				 				error:function(){
+										alert("发生了一些错误，请稍后再试！");
+								},
+				 				success:function(){
+				 				if(followed${user.getUser().getId()}){
+                $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
+                $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-retweet");
+                $("#followButton${user.getUser().getId()} b").text("互相关注");
+                $("#followButton${user.getUser().getId()} span").css("color","black");
+                $("#followButton${user.getUser().getId()} b").css("color","black");
+                 				}
+                 				else{
+
+                    				$("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
+                   					 $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-ok");
+                  					 $("#followButton${user.getUser().getId()} b").text("已关注");
+                				    $("#followButton${user.getUser().getId()} span").css("color","black");
+                 					$("#followButton${user.getUser().getId()} b").css("color","black");
+                 				}	following${user.getUser().getId()} = true;
+				 				},
+				 			});
+
+				 	}
+  		});
+  	});
+  	</script>
+  </div>
+  </#macro>
+
 <#macro fans_follow_card user>
 
-				<div class="list-group-item row">
+				<div class="list-group-item row" style="margin-bottom:10px">
 	    		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
 	        		<a href="<@s.url namespace="/user" action="${user[0].getId()}" />" class="thumbnail">
 	            					<img class="img-responsive" src="${user[0].getAvatar()}" alt="头像">
 	        					</a>
 	    					</div>
-	    					<div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
+	    					<div class="col-lg-7 col-md-7 col-sm-6 col-xs-8">
 	        					<h3>${user[0].getNickname()}</h3>
 	        					<p>
 	        						<a href="<@s.url action="${user[0].getId()}-get-follow" />">关注${user[0].getFollowAmount()}</a>
 	        						<a href="<@s.url action="${user[0].getId()}-get-fans" />">粉丝${user[0].getFansAmount()}</a>
 	        						<a href="<@s.url namespace="/user" action="${user[0].getId()}" />">微博数${user[0].getWeiboAmount()}</a>
 	        					</p>
+	        					<p>${user[0].getBio()!" "}</p>
 	    					</div>
-	    					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-	        					<button id="${user[0].getUsername()}followButton" style = "width:90px" class="btn btn-info">
+	    					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+	        					<button id="${user[0].getUsername()}followButton" style = "width:100px;right:10px;position:absolute" class="btn btn-info">
 	        						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 	        						<b>关注</b>
 	        					</button>
@@ -61,7 +177,7 @@
 										headers[header] = token;
 					 					$.ajax({
 					 						type:'POST',
-					 						url:"<@s.url action="delete-follow"/>",
+					 						url:"<@s.url namespace="/" action="delete-follow"/>",
 					 						data:oMyForm,
 	 										headers: headers,
 					 						dataType:'html',
@@ -90,7 +206,7 @@
 									headers[header] = token;
 					 				$.ajax({
 					 					type:'POST',
-					 					url:"<@s.url action="follow"/>",
+					 					url:"<@s.url namespace="/" action="follow"/>",
 					 					data:oMyForm,
 	 									headers: headers,
 					 					dataType:'html',
@@ -188,7 +304,7 @@
 							headers[header] = token;
 				 			$.ajax({
 				 				type:'POST',
-				 				url:"<@s.url action="delete-follow"/>",
+				 				url:"<@s.url namespce="/" action="delete-follow"/>",
 				 				data:oMyForm,
  								headers: headers,
 				 				dataType:'html',
@@ -218,7 +334,7 @@
 							headers[header] = token;
 				 			$.ajax({
 				 				type:'POST',
-				 				url:"<@s.url action="follow"/>",
+				 				url:"<@s.url namespace="/" action="follow"/>",
 				 				data:oMyForm,
  								headers: headers,
 				 				dataType:'html',
@@ -254,122 +370,3 @@
 </div>
 
 </#macro>
-
-
-
-
-<#macro user_card_lg user>
-<div class="col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1" style="text-align:center; padding:0 0 0 0">
-	<div class="thumbnail userCard-lg">
-		<img class="img-thumbnail" src="${user.getUser().getAvatar()}" alt="头像" alt="头像" height="120" width="120">
-		<h2>${user.getUser().getNickname()}</h2>
-		<p>${user.getUser().getBio()!" "}</p>
-		<button id="followButton${user.getUser().getId()}" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
-	</div>
-	<script type="text/javascript">
-		var following${user.getUser().getId()} = ${user.getFollowing()?then('true','false')};
-		var followed${user.getUser().getId()} = ${user.getFollower()?then('true','false')};
-		$(document).ready(function () {
-		if(${user.getIsMe()?then('true','false')}){
-			$("#followButton${user.getUser().getId()}").hide();
-		}
-		if (following${user.getUser().getId()}&&followed${user.getUser().getId()}) {
-            $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
-            $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-retweet");
-            $("#followButton${user.getUser().getId()} b").text("互相关注");
-            $("#followButton${user.getUser().getId()} span").css("color","black");
-            $("#followButton${user.getUser().getId()} b").css("color","black");
-	  	}
-		else if(following${user.getUser().getId()}){
-            $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
-            $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-ok");
-            $("#followButton${user.getUser().getId()} b").text("已关注");
-            $("#followButton${user.getUser().getId()} span").css("color","black");
-            $("#followButton${user.getUser().getId()} b").css("color","black");
-		}
-		else{
-    		$("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-info");
-    		$("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-plus");
-    		$("#followButton${user.getUser().getId()} b").text("关注");
-    		$("#followButton${user.getUser().getId()} span").css("color","white");
-    		$("#followButton${user.getUser().getId()} b").css("color","white");
-  		}
-
-  		$("#followButton${user.getUser().getId()}").click(function () {
-            	if(following${user.getUser().getId()}){
-				 			var oMyForm = new FormData();
-				 			oMyForm.append("followusername", "${user.getUser().getUsername()}");
-				 			var token = $("meta[name='_csrf']").attr("content");
-							var header = $("meta[name='_csrf_header']").attr("content");
-							var headers = {};
-							headers[header] = token;
-				 			$.ajax({
-				 				type:'POST',
-				 				url:"<@s.url action="delete-follow"/>",
-				 				data:oMyForm,
- 								headers: headers,
-				 				dataType:'html',
-  								contentType:false,
- 								processData:false,
-				 				error:function(){
-										alert("发生了一些错误，请稍后再试！");
-								},
-				 				success:function(){
-
-
-                    $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-info");
-                    $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-plus");
-                    $("#followButton${user.getUser().getId()} b").text("关注");
-                    $("#followButton${user.getUser().getId()} span").css("color","white");
-                    $("#followButton${user.getUser().getId()} b").css("color","white");
-                    following${user.getUser().getId()} = false;
-				 					alert(	"已取消关注");
-
-				 				},
-				 			});
-				 	}
-				 	else{
-				 			var oMyForm = new FormData();
-				 			oMyForm.append("followusername", "${user.getUser().getUsername()}");
-				 			var token = $("meta[name='_csrf']").attr("content");
-							var header = $("meta[name='_csrf_header']").attr("content");
-							var headers = {};
-							headers[header] = token;
-				 			$.ajax({
-				 				type:'POST',
-				 				url:"<@s.url action="follow"/>",
-				 				data:oMyForm,
- 								headers: headers,
-				 				dataType:'html',
-  								contentType:false,
- 								processData:false,
-				 				error:function(){
-										alert("发生了一些错误，请稍后再试！");
-								},
-				 				success:function(){
-				 				if(followed${user.getUser().getId()}){
-                $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
-                $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-retweet");
-                $("#followButton${user.getUser().getId()} b").text("互相关注");
-                $("#followButton${user.getUser().getId()} span").css("color","black");
-                $("#followButton${user.getUser().getId()} b").css("color","black");
-                 				}
-                 				else{
-
-                    				$("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
-                   					 $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-ok");
-                  					 $("#followButton${user.getUser().getId()} b").text("已关注");
-                				    $("#followButton${user.getUser().getId()} span").css("color","black");
-                 					$("#followButton${user.getUser().getId()} b").css("color","black");
-                 				}	following${user.getUser().getId()} = true;
-				 					alert(	"已成功关注");
-				 				},
-				 			});
-
-				 	}
-  		});
-  	});
-  	</script>
-  </div>
-
-  </#macro>

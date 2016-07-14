@@ -6,6 +6,7 @@ import org.up.model.Weibo;
 import org.up.model.User;
 
 public interface IWeiboService {
+	public List<Weibo> getAllWeibo(Integer page, Integer rows);
 	public List<Weibo> getWeiboByUsername(String username);
 	public List<Weibo> getWeiboByNickname(String nickname);
 	public List<Weibo> getWeiboByUserId(Long userId);

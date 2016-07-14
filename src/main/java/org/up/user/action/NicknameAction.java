@@ -10,7 +10,8 @@ import org.up.user.service.IUserDtoService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Results({ @Result(name = "success", location = "/user/id.ftl") })
+@Results({ @Result(name = "success", location = "/user/id.ftl"),
+		@Result(name = "input", type = "httpheader", params = { "status", "404" }) })
 public class NicknameAction extends ActionSupport {
 
 	/**
@@ -40,6 +41,12 @@ public class NicknameAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+
+		return SUCCESS;
+	}
+
+	@Override
+	public void validate() {
 		String currentUsername;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
@@ -47,7 +54,11 @@ public class NicknameAction extends ActionSupport {
 		} else {
 			currentUsername = principal.toString();
 		}
-		user = userDtoService.loadUserDtoByNickname(nickname, currentUsername);
-		return super.execute();
+		try {
+			user = userDtoService.loadUserDtoByNickname(nickname, currentUsername);
+		} catch (Exception e) {
+			addFieldError("User", "An error occured!");
+		}
+		if(user == null)addFieldError("User","We can not find the user with the specific nickname!");
 	}
 }

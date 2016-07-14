@@ -4,8 +4,8 @@
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="个人首页"></@bootstrap.head>
 <@bootstrap.body>
-
 <@bootstrap_weibo.weibo_comment/>
+<@bootstrap_weibo.weibo_comment_submit_js/>
 
 <div class="modal fade bs-example-modal-lg" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -42,9 +42,19 @@ function weiboColumn(){
   }).done(function(data){
     self.weibos(data);
     applyNew();
-    makeAnnotationAvailable(".up-body");
+    $(".comment_show").click(function(){
+    $("#up-comment").modal();
+    var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+    var wid_comment = $(this).attr("id");
+    $("#wc").text(wc);
+    document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
   });
   function applyNew(){
+    makeAnnotationAvailable(".up-body");
     $(".nextable").click(function(){
       userWeiboPage++;
       $.ajax({
@@ -53,7 +63,18 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
-        makeAnnotationAvailableu(".up-body");
+        
+        $(".comment_show").click(function(){
+        $("#up-comment").modal();
+        var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+        var wid_comment = $(this).attr("id");
+        $("#wc").text(wc);
+        document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
+    
       });
     });
     $(".previousable").click(function(){
@@ -64,7 +85,17 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
-        makeAnnotationAvailable(".up-body");
+        
+        $(".comment_show").click(function(){
+        $("#up-comment").modal();
+        var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+        var wid_comment = $(this).attr("id");
+        $("#wc").text(wc);
+        document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
       });
     });
   }

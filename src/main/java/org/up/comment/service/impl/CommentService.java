@@ -54,35 +54,35 @@ public class CommentService implements ICommentService {
 	public List<Comment> getCommentBycurrentNickname(String nickname) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(nickname);
-		return commentDao.find("select c from Comment c where c.user.nickname = ?",params);
+		return commentDao.find("select c from Comment c where c.user.nickname = ? order by c.time desc",params);
 	}
 
 	@Override
 	public List<Comment> getCommentBycurrentUserId(Long userId) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(userId);
-		return commentDao.find("select c from Comment c where c.user.id = ?",params);
+		return commentDao.find("select c from Comment c where c.user.id = ? order by c.time desc",params);
 	}
 
 	@Override
 	public List<Comment> getCommentBycurrentUser(User user) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(user);
-		return commentDao.find("select c from Comment c where c.user = ?", params);
+		return commentDao.find("select c from Comment c where c.user = ? order by c.time desc", params);
 	}
 	
 	@Override
 	public List<Comment> getCommentByWeibo(Weibo weibo) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(weibo);
-		return commentDao.find("select c from Comment c where c.weibo = ?", params);
+		return commentDao.find("select c from Comment c where c.weibo = ? order by c.time desc", params);
 	}
 	
 	@Override
 	public List<Comment> getCommentByWeiboId(Long weiboId){
 		List<Object> params = new ArrayList<Object>();
 		params.add(weiboId);
-		return commentDao.find("select c from Comment c where c.weibo.id = ?", params);
+		return commentDao.find("select c from Comment c where c.weibo.id = ? order by c.time desc", params);
 	}
 
 	@Override

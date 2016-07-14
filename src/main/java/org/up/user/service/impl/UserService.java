@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.up.dao.IBaseDao;
 import org.up.model.User;
+import org.up.model.Weibo;
 import org.up.user.service.IUserService;
 
 @Service
@@ -20,7 +21,7 @@ public class UserService implements IUserService {
 	public User loadUserByUsername(String username) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(username);
-		return userDao.get("from User where username = ?", params);
+		return userDao.get("select u from User u where username = ?", params);
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class UserService implements IUserService {
 	public User loadUserByNickname(String nickname) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(nickname);
-		return userDao.get("from User where nickname = ?", params);
+		return userDao.get("select u from User u where nickname = ?", params);
 	}
 
 	@Override
@@ -47,7 +48,14 @@ public class UserService implements IUserService {
 
 	@Override
 	public List<User> searchUserByNickname(String nickname) {
-		return userDao.find("from User where nickname like \'%" + nickname + "%\'");
+		return userDao.find("select u from User u where nickname like \'%" + nickname + "%\'");
+	}
+	
+	@Override
+	public List<User> listAllUsers(Integer page, Integer rows) {
+		List<Object> params = new ArrayList<Object>();
+		params.add('*');//并没用到这个变量
+		return userDao.find("select u from User", params, page, rows);
 	}
 
 	@Override
@@ -78,4 +86,13 @@ public class UserService implements IUserService {
 		return userDao.count("select count(u) from User u where email = ?", param) == 0;
 	}
 
+	@Override
+	public void deleteUser(User user) {
+		userDao.delete(user);
+	}
+
+	@Override
+	public void deleteUserById(Long id) {
+		userDao.delete(userDao.get(User.class, id));
+	}
 }

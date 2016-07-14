@@ -83,16 +83,10 @@
   <nav id="nav" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
         <a class="navbar-brand" href="<@s.url namespace="/" action="index" />">UP</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
-        <form id="search" class="navbar-form navbar-left" role="search" action="<@s.url namespace="/search" action="user" />">
+        <form id="search" class="navbar-form navbar-left" role="search" action="<@s.url namespace="/search" action="result" />">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" name="keyword">
         </div>
@@ -218,7 +212,6 @@ $(function() {
   var headers = {};
   headers[header] = token;
   $("#pic-upload input[name='upload']").change(function(){
-    $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
     var fd = new FormData();
     fd.append("upload",$("#pic-upload input[name='upload']")[0].files[0]);
     $.ajax({
@@ -229,6 +222,7 @@ $(function() {
       contentType:false,
       processData:false
     }).done(function(result){
+      $("<li class=\"has-pic-li\"><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a><img src=\"\" alt=\"加载中\" /></li>").insertBefore($("li.no-pic-li"));
       $("li.has-pic-li:last img").attr("src",result.url);
       $("li.has-pic-li").click(function(e){
         $("input[value=\""+$(this).children("img").attr("src")+"\"]").remove();
@@ -246,7 +240,7 @@ $(function() {
         "<input type=\"hidden\" name=\"urls\" value=\""+result.url+"\" />"
       )
     }).fail(function(err){
-      console.log(err);
+      alert("上传失败！")
     });
   });
   $("#pic-upload input[name='upload']").click(function(e){
@@ -260,7 +254,7 @@ $(function() {
   <#nested>
 });
 function makeAnnotationAvailable(weiboSelectList){
-  var re=new RegExp("@\(\\w\)+\\b","g");
+  var re=new RegExp("@\(\([a-zA-Z0-9\u4e00-\u9fa5_-]\)+\)","g");
   $(weiboSelectList).each(function(){
     var origin = $(this).html();
     var output = origin.replace(re,function(word){
@@ -327,6 +321,18 @@ function makeAnnotationAvailable(weiboSelectList){
       ${user.getNickname()}赞过的微博
     </li>
   </a>
-</div>
-</div>
-</#macro>
+  </div>
+  </div>
+  </#macro>
+
+  <#macro errorInfo>
+  <#assign hasFieldErrors = fieldErrors??/>
+  <#if hasFieldErrors>
+  <#list fieldErrors?values as error>
+  <div class="alert alert-danger" role="alert" style="margin-top:60px">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error:</strong>${error}
+  </div>
+  </#list>
+  </#if>
+  </#macro>

@@ -6,6 +6,8 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.up.dto.WeiboDto;
 import org.up.weibo.service.IWeiboDtoService;
 
@@ -55,7 +57,14 @@ public class LikedWeiboAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		weibos = weiboDtoService.getWeiboDtoByUserLiked(id, page, 10);
+		String currentUsername;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			currentUsername = ((UserDetails) principal).getUsername();
+		} else {
+			currentUsername = principal.toString();
+		}
+		weibos = weiboDtoService.getWeiboDtoByUserLiked(id,currentUsername, page, 10);
 		return SUCCESS;
 	}
 }

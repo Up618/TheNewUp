@@ -14,4 +14,11 @@ public interface IWeiboDtoService {
 	public List<WeiboDto> getWeiboDtoByCurrentUserId(Long userId, Integer page, Integer rows);
 	public List<WeiboDto> getWeiboDtoByUser(User user, Integer page, Integer rows);
 	public List<WeiboDto> getWeiboDtoByUserLiked(Long userId, Integer page, Integer rows);
+	public List<WeiboDto> getWeiboDtoByUsername(String username, String myUsername, Integer page, Integer rows);
+	public List<WeiboDto> getWeiboDtoByNickname(String nickname, String myUsername, Integer page, Integer rows);
+	public List<WeiboDto> getWeiboDtoByUserId(Long userId, String myUsername, Integer page, Integer rows);
+	public List<WeiboDto> getWeiboDtoByUser(User user, String myUsername, Integer page, Integer rows);
+	public List<WeiboDto> getWeiboDtoByUserLiked(Long userId, String myUsername, Integer page, Integer rows);
+	public List<WeiboDto> getWeiboDtoByUserLiked(Long userId, Long myId, Integer page, Integer rows);
+	public List<WeiboDto> getWeiboDtoByKeyword(String keyword, String myUsername, Integer page, Integer rows);
 }

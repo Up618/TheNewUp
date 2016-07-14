@@ -7,49 +7,42 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.up.dto.UserDto;
-import org.up.user.service.IUserDtoService;
+import org.up.dto.WeiboDto;
+import org.up.weibo.service.IWeiboDtoService;
+
 import com.opensymphony.xwork2.ActionSupport;
 
-@Results({ @Result(name = "success", location = "/search/user.ftl"),
-	@Result(name="input", location = "/search/index.ftl")})
-public class UserAction extends ActionSupport {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String keyword;
+@Results({ @Result(name = "success", location = "/search/weiboresult.ftl")})
+public class WeiboSearchAction extends ActionSupport{
 	private Integer page = 1;
-	private List<UserDto> users;
+	private String keyword;
+	private List<WeiboDto> weibos;
 	@Autowired
-	IUserDtoService userDtoService;
-
-	public String getKeyword() {
-		return keyword;
-	}
-
+	private IWeiboDtoService weiboDtoService;
+	
 	public void setPage(Integer page){
 		this.page = page;
 	}
-	
 	public Integer getPage(){
 		return this.page;
 	}
-	public void setKeyword(String keyword) {
+	public void setKeyword(String keyword){
 		this.keyword = keyword;
 	}
-
-	public List<UserDto> getUsers() {
-		return users;
+	public String getKeyword(){
+		return this.keyword;
 	}
-
-	public void setUsers(List<UserDto> users) {
-		this.users = users;
+	public void setWeibos(List<WeiboDto> weibos){
+		this.weibos = weibos;
 	}
+	public List<WeiboDto> getWeibos(){
+		return this.weibos;
+	}
+	
 
 	@Override
 	public String execute() throws Exception {
+
 		String currentUsername;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
@@ -57,7 +50,7 @@ public class UserAction extends ActionSupport {
 		} else {
 			currentUsername = principal.toString();
 		}
-		users = userDtoService.searchUserDtoByNickname(keyword, currentUsername);
+		weibos = weiboDtoService.getWeiboDtoByKeyword(keyword, currentUsername, page, 10);
 		return SUCCESS;
 	}
 }
