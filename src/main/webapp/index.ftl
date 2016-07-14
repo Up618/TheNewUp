@@ -1,7 +1,10 @@
 ﻿<#import "/template/bootstrap.ftl" as bootstrap>
+<#import "/template/weibo.ftl" as bootstrap_weibo>
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="这是首页"></@bootstrap.head>
 <@bootstrap.body>
+<@bootstrap_weibo.weibo_comment/>
+<@bootstrap_weibo.weibo_comment_submit_js/>
 <div class="container" style="padding-top:60px">
 
   <div class="col-lg-3 col-md-3 col-sm-3" style="padding-left:0px">
@@ -59,6 +62,19 @@ function weiboColumn(){
   }).done(function(data){
     self.weibos(data);
     applyNew();
+    
+    $(".comment_show").click(function(){
+    $("#up-comment").modal();
+    var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+    var wid_comment = $(this).attr("id");
+    $("#wc").text(wc);
+    document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
+    
+    
   });
   function applyNew(){
     makeAnnotationAvailable(".up-body");
@@ -70,6 +86,21 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
+        
+        
+        $(".comment_show").click(function(){
+        alert("hehe");
+    	$("#up-comment").modal();
+    	var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+    	var wid_comment = $(this).attr("id");
+    	$("#wc").text(wc);
+    	document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
+    
+    
       });
     });
     $(".previousable").click(function(){
@@ -80,6 +111,21 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
+        
+        
+        $(".comment_show").click(function(){
+        alert("hehe");
+        $("#up-comment").modal();
+        var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
+        var wid_comment = $(this).attr("id");
+        $("#wc").text(wc);
+  	    document.getElementById("wid_comment").value = wid_comment;
+    
+    });
+
+    comment_input_js();
+        
+        
       });
     });
   }
