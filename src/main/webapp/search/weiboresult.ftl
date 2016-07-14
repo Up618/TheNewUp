@@ -9,6 +9,8 @@
 <@bootstrap_weibo.weibo_comment_card_js>
 </@bootstrap_weibo.weibo_comment_card_js>
 
+<@bootstrap_weibo.weibo_pictures_js/>
+
 <script type="text/javascript">
 	$(document).ready(function () {
 		var prebt =	document.getElementById("previousBtn");
@@ -28,5 +30,5 @@
 			}
 		}
 	});
-	
+
 </script>

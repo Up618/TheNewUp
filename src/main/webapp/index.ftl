@@ -5,6 +5,16 @@
 <@bootstrap.body>
 <@bootstrap_weibo.weibo_comment/>
 <@bootstrap_weibo.weibo_comment_submit_js/>
+
+<div class="modal fade bs-example-modal-lg" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <img id="modelImg" src="" width="600px">
+    </div>
+
+    <a class="left" href="javascript:lastImg()"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+    <a class="right" href="javascript:nextImg()"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+</div>
+
 <div class="container" style="padding-top:60px">
 
   <div class="col-lg-3 col-md-3 col-sm-3" style="padding-left:0px">
@@ -46,9 +56,11 @@
   </div>
   </div>
 </div>
-<div id="index-weibo-column" class="col-lg-9 col-md-9 col-sm-9 col-xs-12" data-bind="html: weibos">
-	
+<div id="index-weibo-column" class="col-lg-9 col-md-9 col-sm-9 col-xs-12" data-bind="html: weibos" style="padding-right: 0">
+
 </div>
+
+<@bootstrap_weibo.weibo_pictures_js/>
 </div>
 </@bootstrap.body>
 <@bootstrap.javascript>
@@ -62,19 +74,19 @@ function weiboColumn(){
   }).done(function(data){
     self.weibos(data);
     applyNew();
-    
+
     $(".comment_show").click(function(){
     $("#up-comment").modal();
     var wc = $(this).first().parent().parent().parent().parent().children(".up-body").html();
     var wid_comment = $(this).attr("id");
     $("#wc").text(wc);
     document.getElementById("wid_comment").value = wid_comment;
-    
+
     });
 
     comment_input_js();
-    
-    
+
+
   });
   function applyNew(){
     makeAnnotationAvailable(".up-body");
@@ -86,8 +98,8 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
-        
-        
+
+
         $(".comment_show").click(function(){
         alert("hehe");
     	$("#up-comment").modal();
@@ -95,12 +107,12 @@ function weiboColumn(){
     	var wid_comment = $(this).attr("id");
     	$("#wc").text(wc);
     	document.getElementById("wid_comment").value = wid_comment;
-    
+
     });
 
     comment_input_js();
-    
-    
+
+
       });
     });
     $(".previousable").click(function(){
@@ -111,8 +123,8 @@ function weiboColumn(){
       }).done(function(data){
         self.weibos(data);
         applyNew();
-        
-        
+
+
         $(".comment_show").click(function(){
         alert("hehe");
         $("#up-comment").modal();
@@ -120,12 +132,12 @@ function weiboColumn(){
         var wid_comment = $(this).attr("id");
         $("#wc").text(wc);
   	    document.getElementById("wid_comment").value = wid_comment;
-    
+
     });
 
     comment_input_js();
-        
-        
+
+
       });
     });
   }

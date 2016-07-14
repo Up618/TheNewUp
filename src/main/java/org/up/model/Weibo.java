@@ -40,6 +40,19 @@ public class Weibo {
 	@Formula("(select count(*) from agree as a where a.weibo_id = id)")
 	private Long agreeAmount;
 	
+	
+	//微博评论数计数。和Service中的操作本质是一样的，加在实体中，供前端页面调用。
+	@Formula("(select count(*) from comment as c where c.weibo_id = id)")
+	private Long commentAmount;
+	
+	public Long getCommentAmount() {
+		return commentAmount;
+	}
+
+	public void setCommentAmount(Long commentAmount) {
+		this.commentAmount = commentAmount;
+	}
+	
 	public Long getAgreeAmount() {
 		return agreeAmount;
 	}

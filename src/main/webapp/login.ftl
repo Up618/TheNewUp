@@ -1,8 +1,8 @@
-<#import "/template/bootstrap.ftl" as bootstrap>
+﻿<#import "/template/bootstrap.ftl" as bootstrap>
 <html style="position:relative;min-height:100%;">
 
 <@bootstrap.head title="登录">
-<link href="http://139.129.48.155:8081/signin&up.css" rel="stylesheet">
+<link href="http://o9x8azwl1.bkt.clouddn.com/signin&up.css" rel="stylesheet">
 </@bootstrap.head>
 
 <body>

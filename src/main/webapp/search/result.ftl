@@ -2,6 +2,16 @@
 <html style="position:relative;min-height:100%;">
 <@bootstrap.head title="账户设置"></@bootstrap.head>
 <@bootstrap.body>
+
+<div class="modal fade bs-example-modal-lg" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <img id="modelImg" src="" width="600px">
+    </div>
+
+    <a class="left" href="javascript:lastImg()"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+    <a class="right" href="javascript:nextImg()"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+</div>
+
 <div class="container" style="padding-top:60px">
   <form class="form-horizontal" action="<@s.url action="result"/>">
   <div class="form-group">
@@ -29,11 +39,11 @@
 <div id = "resultList" data-bind="html:results" class="col-lg-9 col-md-9 col-sm-9">
 
 </div>
-		
+
 <nav>
   <ul class="pager">
     		<button id="previousBtn" class="btn-link">上一页</button>
-    		<button id="nextBtn" class="btn-link">下一页</button>	
+    		<button id="nextBtn" class="btn-link">下一页</button>
   </ul>
 </nav>
 </div>
@@ -66,7 +76,7 @@ function result(){
 	$("#previousBtn").click(function(){
 		startpage--;
 		$.ajax({
-			data:{page:startpage},
+			data:{page:startpage,keyword:word},
 			url:userweibo+"-search",
 		}).done(function(data){
 			self.results(data);
@@ -75,7 +85,7 @@ function result(){
 	$("#nextBtn").click(function(){
 		startpage++;
 		$.ajax({
-			data:{page:startpage},
+			data:{page:startpage,keyword:word},
 			url:userweibo+"-search",
 		}).done(function(data){
 			self.results(data);

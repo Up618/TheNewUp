@@ -3,8 +3,8 @@
 
 
 <#macro user_card_lg user>
-<div style="text-align:center;">
-	<div class="thumbnail userCard">
+<div style="text-align:center; padding-left: 0; padding-right: 0" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12">
+	<div class="thumbnail userCard-lg">
 		<img class="img-thumbnail" src="${user.getUser().getAvatar()}" alt="头像" alt="头像" height="120" width="120">
 		<h2>${user.getUser().getNickname()}</h2>
 		<p>${user.getUser().getBio()!" "}</p>
@@ -24,7 +24,7 @@
             $("#followButton${user.getUser().getId()} span").css("color","black");
             $("#followButton${user.getUser().getId()} b").css("color","black");
 	  	}
-		else if(following${user.getUser().getId()}){		
+		else if(following${user.getUser().getId()}){
             $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
             $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-ok");
             $("#followButton${user.getUser().getId()} b").text("已关注");
@@ -55,19 +55,19 @@
 				 				dataType:'html',
   								contentType:false,
  								processData:false,
-				 				error:function(){	
+				 				error:function(){
 										alert("发生了一些错误，请稍后再试！");
 								},
 				 				success:function(){
-                    
-                    
+
+
                     $("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-info");
                     $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-plus");
                     $("#followButton${user.getUser().getId()} b").text("关注");
                     $("#followButton${user.getUser().getId()} span").css("color","white");
                     $("#followButton${user.getUser().getId()} b").css("color","white");
                     following${user.getUser().getId()} = false;
-				 					
+
 				 				},
 				 			});
 				 	}
@@ -86,7 +86,7 @@
 				 				dataType:'html',
   								contentType:false,
  								processData:false,
-				 				error:function(){	
+				 				error:function(){
 										alert("发生了一些错误，请稍后再试！");
 								},
 				 				success:function(){
@@ -98,7 +98,7 @@
                 $("#followButton${user.getUser().getId()} b").css("color","black");
                  				}
                  				else{
-                 				
+
                     				$("#followButton${user.getUser().getId()}").removeClass().addClass("btn btn-default");
                    					 $("#followButton${user.getUser().getId()} span").removeClass().addClass("glyphicon glyphicon-ok");
                   					 $("#followButton${user.getUser().getId()} b").text("已关注");
@@ -107,14 +107,14 @@
                  				}	following${user.getUser().getId()} = true;
 				 				},
 				 			});
-                    
+
 				 	}
   		});
   	});
   	</script>
   </div>
   </#macro>
-  
+
 <#macro fans_follow_card user>
 
 				<div class="list-group-item row" style="margin-bottom:10px">

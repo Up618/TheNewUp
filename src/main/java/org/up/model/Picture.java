@@ -60,4 +60,9 @@ public class Picture {
 	public void setWeibo(Weibo weibo) {
 		this.weibo = weibo;
 	}
+
+	@Override
+	public String toString() {
+		return getPath();
+	}
 }

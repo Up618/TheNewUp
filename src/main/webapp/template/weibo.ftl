@@ -13,17 +13,31 @@
     <p class="up-body">
       <#nested>
     </p>
+
+
+    <#if weibo.getWeibo().getPictures().size() gt 0>
+    <div class="up-img">
+        <img src="${weibo.getWeibo().getPictures().get(0)}"/>
+        <a id="zhaowei" data-toggle="modal" data-target="#imgModal" data-whatever="${weibo.getWeibo().getPictures()}" data-picSize="${weibo.getWeibo().getPictures().size()}">
+            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+        </a>
+    </div>
+    </#if>
+
+
+
+
     <hr style="margin-bottom: 10px"/>
 
     <div class="row up-operat">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <p align="center" class="up-operate"><a style="color:gray;"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
+        <p align="center" class="up-operate"><a><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 转发</a></p>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}" class = "comment_show" style="color:gray;"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="color:gray;"></span>评论</a></p></div>
+        <p align="center" class="up-operate"><a id="${weibo.getWeibo().getId()}" class = "comment_show"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>评论<b>${weibo.getWeibo().getCommentAmount()}</b></a></p></div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
         <p align="center" class="up-operate">
-        	<a id="${weibo.getWeibo().getId()}agree" href="#${weibo.getWeibo().getId()}" style="color:gray;">
+        	<a id="${weibo.getWeibo().getId()}agree" href="#${weibo.getWeibo().getId()}">
         		<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"/>
         		点赞<b>${weibo.getWeibo().getAgreeAmount()}</b>
         	</a>
@@ -43,7 +57,7 @@ $(document).ready(function () {
         $("#${weibo.getWeibo().getId()}agree").mouseover(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "red");});
         $("#${weibo.getWeibo().getId()}agree").mouseout(function(){$("#${weibo.getWeibo().getId()}agree").css("color", "gray");});
     }//else
-	
+
 	//点击触发点赞操作
   $("#${weibo.getWeibo().getId()}agree").click(function(){
   	//alert("clicked");
@@ -107,7 +121,7 @@ $(document).ready(function () {
               <button id = "comment_input" type="submit" class="btn btn-primary" style="margin-top: 10px">评论</button>
             </div>
           <hr style="margin-bottom: 10px"/>
-          <!--此处放入评论卡片   -->  
+          <!--此处放入评论卡片   -->
          <div id="container"></div>
       </div>
     </div><!-- /.modal-body -->
@@ -155,7 +169,7 @@ $('#up-comment').on('show.bs.modal', function (event) {
                               //点赞所需id
                               var index = i+1;
                 	          var tag_cid_agree = ""+index+"cid_agree";
-                	          
+
                               ht = ht + '<div class="row">';
                               ht = ht + '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">';
                               ht = ht + '<a href="<@s.url namespace="/user" action="1"/>">';
@@ -180,20 +194,88 @@ $('#up-comment').on('show.bs.modal', function (event) {
                               }
                               ht = ht + '</div>';
                               document.getElementById("container").innerHTML = ht;
-                              
+
                               for(var i=0,l=obj.length;i<l;i++){
                               //点赞
                               var index = i+1;
                 	          var tag_cid_agree = ""+index+"cid_agree";
-                              
+
                               document.getElementById(tag_cid_agree).value = obj[i]["id"];
                 	          var a = document.getElementById(tag_cid_agree).value;//得到评论的id
                 	          }
-                	          
+
                 	          self.json(data.json);
                 	    }) //done
-                	});//click  
+                	});//click
                 }); //document.ready
+</script>
+</#macro>
+
+<#macro weibo_pictures_js>
+<script>
+
+var sizeOfImg = 0;
+function geturl(list) {
+  var urlOfImg=new Array()
+  if (list.search(/,/) < 0) {
+    urlOfImg[0] = list.slice(1,list.search(/]/));
+    sizeOfImg = 0;
+  }
+  else {
+    urlOfImg[0] = list.slice(1,list.search(/,/));
+    list = list.slice(list.search(/,/) + 2);
+
+    for (var i=1; i > 0; i++) {
+      if (list.search(/,/) < 0) {
+        urlOfImg[i] = list.slice(0,list.search(/]/));
+        sizeOfImg = i;
+        i = -1;
+      }
+      else {
+        urlOfImg[i] = list.slice(0,list.search(/,/));
+        list = list.slice(list.search(/,/) + 2);
+      }
+    }
+  }
+  return urlOfImg;
+}
+
+var button;
+var pageOfImg = 0;
+var urls = new Array();
+
+$('#imgModal').on('show.bs.modal', function (event) {
+  button = $(event.relatedTarget);
+  var recipient = button.data('whatever');
+
+  urls = geturl(recipient);
+
+  $("#modelImg").attr("src", urls[0]);
+
+});
+
+function lastImg() {
+  if (pageOfImg > 0){
+    pageOfImg = pageOfImg - 1;
+    $("#modelImg").attr("src", urls[pageOfImg]);
+  }
+  else {
+    alert("此图为第一张，前翻至最后一张");
+    pageOfImg = sizeOfImg;
+    $("#modelImg").attr("src", urls[pageOfImg]);
+  }
+};
+function nextImg() {
+  if (pageOfImg < sizeOfImg){
+    pageOfImg = pageOfImg + 1;
+    $("#modelImg").attr("src", urls[pageOfImg]);
+  }
+  else {
+    alert("此图为最后一张，后翻至第一张");
+    pageOfImg = 0;
+    $("#modelImg").attr("src", urls[pageOfImg]);
+  }
+};
 </script>
 </#macro>
 
@@ -204,13 +286,13 @@ function comment_input_js(){
                 	$("#comment_input").click(function(){
                 	 var weibo_id = document.getElementById("wid_comment").value;
                 	 var content = document.getElementById("input_content").value;
-                	 
+
                 	 document.getElementById("input_content").value ="";
                 	    $.ajax({
                 		    type: 'GET',
                             url: "<@s.url namespace="/comment" action="inputComment"/>",
                 	        data: {weibo_id: weibo_id, content: content},
-                	    }).done(function (data) {   
+                	    }).done(function (data) {
                 	    var self = this;
                         self.json = ko.observable();
                         self.par = ko.observableArray();
@@ -225,7 +307,7 @@ function comment_input_js(){
                               //点赞所需id
                               var index = i+1;
                 	          var tag_cid_agree = ""+index+"cid_agree";
-                	          
+
                               ht = ht + '<div class="row">';
                               ht = ht + '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center">';
                               ht = ht + '<a href="<@s.url namespace="/user" action="1"/>">';
@@ -250,12 +332,12 @@ function comment_input_js(){
                               }
                               ht = ht + '</div>';
                               document.getElementById("container").innerHTML = ht;
-                              
+
                               for(var i=0,l=obj.length;i<l;i++){
                               //点赞
                               var index = i+1;
                 	          var tag_cid_agree = ""+index+"cid_agree";
-                              
+
                               document.getElementById(tag_cid_agree).value = obj[i]["id"];
                 	          var a = document.getElementById(tag_cid_agree).value;//得到评论的id
                 	          }
