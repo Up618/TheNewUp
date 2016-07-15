@@ -103,10 +103,10 @@ public class ProfileAction extends ActionSupport {
 			if (!(userService.ifNicknameValid(nickname) || user.getNickname() == nickname || user.getNickname().equals(nickname))) {
 				addFieldError("Nickname", "The nickname has been used!");
 			}
-			if (!(email == null ||userService.ifEmailValid(email) || user.getEmail() == email || user.getEmail().equals(email))) {
+			if (!(email == null || email.equals(null) || email.equals("") || email == "" ||userService.ifEmailValid(email) || user.getEmail() == email || user.getEmail().equals(email))) {
 				addFieldError("Email", "The email has been used!");
 			}
-			if (!(phoneNumber == null || userService.ifPhoneNumberValid(phoneNumber) || user.getPhoneNumber() == phoneNumber || user.getPhoneNumber().equals(phoneNumber))) {
+			if (!(phoneNumber == null || phoneNumber.equals(null) || phoneNumber.equals("") || phoneNumber == "" || userService.ifPhoneNumberValid(phoneNumber) || user.getPhoneNumber() == phoneNumber || user.getPhoneNumber().equals(phoneNumber))) {
 				addFieldError("Phone number", "The phone number has been used!");
 			}
 		}
