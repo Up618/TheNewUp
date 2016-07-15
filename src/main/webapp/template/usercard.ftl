@@ -255,13 +255,13 @@ $(document).ready(function () {
             <img class="img-responsive" src="${user.getUser().getAvatar()}" alt="头像">
         </a>
     </div>
-    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8">
-        <h3>${user.getUser().getNickname()}</h3>
+    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-8">
+        	<h4 style="margin-top: 0">${user.getUser().getNickname()}</h4>
         <p><a href="<@s.url action="${user.getUser().getId()}-get-follow" />">关注${user.getUser().getFollowAmount()}</a>      <a href="<@s.url action="${user.getUser().getId()}-get-fans" />">粉丝${user.getUser().getFansAmount()}</a>   <a href="<@s.url namespace="/user" action="${user.getUser().getId()}" />">微博数${user.getUser().getWeiboAmount()}</a></p>
          <p>${user.getUser().getBio()!" "}</p>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-        <button id="followButton${user.getUser().getId()}" style = "width:90px" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+        <button id="followButton${user.getUser().getId()}" style = "width:100px; right:10px; position:absolute" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>关注</b></button>
     </div>
 
 
